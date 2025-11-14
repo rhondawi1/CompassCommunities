@@ -224,15 +224,15 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
 </main>
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
   <div style="text-align:right">
-  <a href="projects.html">Projects</a> ·
-  <a href="apply.html">Apply</a> ·
-  <a href="bids.html">Bids & RFPs</a> ·
-  <a href="partner.html">Municipal Partnerships</a> ·
-  <a href="privacy.html">Privacy</a> ·
-  <a href="terms.html">Terms</a> ·
-  <a href="accessibility.html">Accessibility</a> ·
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
   <a href="contact.html">Contact</a>
   </div>
   </div>
@@ -273,7 +273,7 @@ function renderRFPs(){
   if(arch'archived' && !archived) return;
   const tr = document.createElement('tr');
   tr.innerHTML = '<td>'+(b.id||'')+'</td><td>'+(b.title||'')+'</td><td>'+(b.due||'')+'</td><td>'+(b.city||'')+'</td><td>'+(b.development||'')+'</td><td>'+(b.status||'')+'</td><td>'+(archived?'Yes':'No')+'</td>'+
-  '<td><a href="#" data-edit="'+i+'">Edit</a> · <a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-rem="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-edit="'+i+'">Edit</a> &middot; <a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-rem="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a[data-arch]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const i=+a.dataset.arch;const arr=getStore('bidsExtra');arr[i].archived=!arr[i].archived;setStore('bidsExtra',arr);renderRFPs();renderStats();}));
@@ -316,7 +316,7 @@ function renderSubs(){
   list.forEach((s,idx)=>{
   const tr = document.createElement('tr');
   tr.innerHTML = '<td>'+(s.firm||'')+'</td><td>'+(s.contact||'')+'</td><td>'+(s.email||'')+'</td><td>'+(s.trade||'')+'</td><td>'+(s.region||'')+'</td><td>'+(s.standing||'')+'</td><td>'+(s.subscribeRFP?'Yes':'No')+'</td>'+
-  '<td>'+(s.archived?'Yes':'No')+'</td><td><a href="#" data-edit="'+idx+'">Edit</a> · <a href="#" data-arch="'+idx+'">'+(s.archived?'Unarchive':'Archive')+'</a> · <a href="#" data-rem="'+idx+'">Remove</a></td>';
+  '<td>'+(s.archived?'Yes':'No')+'</td><td><a href="#" data-edit="'+idx+'">Edit</a> &middot; <a href="#" data-arch="'+idx+'">'+(s.archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-rem="'+idx+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a[data-arch]').forEach(a=> a.addEventListener('click', e=>{e.preventDefault(); const i=+a.dataset.arch; const arr=subsAll(); arr[i].archived=!arr[i].archived; setStore('subcontractors', arr); renderSubs();}));
@@ -336,10 +336,10 @@ function renderIntake(){
   const when = x.createdAt? new Date(x.createdAt) : null;
   const tr = document.createElement('tr');
   tr.innerHTML = '<td>'+(when?(when.toLocaleDateString()+' '+when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})):'')+'</td>'+
-  '<td>'+((x.contact_name||'') + (x.organization? ' · '+x.organization : ''))+'</td>'+
+  '<td>'+((x.contact_name||'') + (x.organization? ' &middot; '+x.organization : ''))+'</td>'+
   '<td>'+(x.email||'')+'</td><td>'+(x.property_address||'')+'</td><td>'+(x.county||'')+'</td><td>'+(x.status||'Unread')+'</td>'+
   '<td><input type="checkbox" data-arch="'+idx+'"' + (archived?' checked':'') + '></td>'+
-  '<td><a href="#" data-edit="'+idx+'">Edit</a> · <a href="#" data-rem="'+idx+'">Remove</a></td>';
+  '<td><a href="#" data-edit="'+idx+'">Edit</a> &middot; <a href="#" data-rem="'+idx+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('input[data-arch]').forEach(box=> box.addEventListener('change', ()=>{const i=+box.dataset.arch; const arr=intakeAll(); arr[i].archived=!!box.checked; setStore('propertyIntakeRequests', arr); renderIntake();}));

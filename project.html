@@ -213,15 +213,15 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
   <div style="text-align:right">
-  <a href="projects.html">Projects</a> ·
-  <a href="apply.html">Apply</a> ·
-  <a href="bids.html">Bids & RFPs</a> ·
-  <a href="partner.html">Municipal Partnerships</a> ·
-  <a href="privacy.html">Privacy</a> ·
-  <a href="terms.html">Terms</a> ·
-  <a href="accessibility.html">Accessibility</a> ·
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
   <a href="contact.html">Contact</a>
   </div>
   </div>
@@ -312,7 +312,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   document.title = p.name + ' – Compass Communities';
   document.getElementById('p_name').textContent = p.name;
   document.getElementById('p_summary').textContent = p.summary || '';
-  document.getElementById('p_status').textContent = (p.status||'') + (p.type? ' · '+p.type : '');
+  document.getElementById('p_status').textContent = (p.status||'') + (p.type? ' &middot; '+p.type : '');
   document.getElementById('p_units').textContent = (p.units||'—') + ' units';
   document.getElementById('p_beds').textContent = (p.bedrooms||'—') + ' bedrooms';
   document.getElementById('p_parking').textContent = (p.parking?'Parking':'No parking');
@@ -336,7 +336,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const ml = document.getElementById('p_milestones'); ml.innerHTML='';
   ms.forEach(m => {
   const item = document.createElement('div'); item.className='titem';
-  item.innerHTML = '<div style="font-weight:600">'+(m.title||'')+'</div><div class="p">'+(m.date||'')+(m.note? ' · '+m.note : '')+'</div>';
+  item.innerHTML = '<div style="font-weight:600">'+(m.title||'')+'</div><div class="p">'+(m.date||'')+(m.note? ' &middot; '+m.note : '')+'</div>';
   ml.appendChild(item);
   });
 

@@ -526,15 +526,15 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
   <div style="text-align:right">
-  <a href="projects.html">Projects</a> ·
-  <a href="apply.html">Apply</a> ·
-  <a href="bids.html">Bids & RFPs</a> ·
-  <a href="partner.html">Municipal Partnerships</a> ·
-  <a href="privacy.html">Privacy</a> ·
-  <a href="terms.html">Terms</a> ·
-  <a href="accessibility.html">Accessibility</a> ·
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
   <a href="contact.html">Contact</a>
   </div>
   </div>
@@ -662,7 +662,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.year||'')+'</td>'+
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-remove="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-remove="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(a=>{
@@ -873,7 +873,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+
   '<select data-i="'+idx+'" data-status-select>'+options+'</select> '+
   '<label style="font-size:12px;margin-left:4px"><input type="checkbox" data-archive-toggle="'+idx+'"'+(isArchived?' checked':'')+'> Archive</label> '+
-  '· <a href="#" data-remove="'+idx+'">Remove</a>'+
+  '&middot; <a href="#" data-remove="'+idx+'">Remove</a>'+
   '</td>';
   tb.appendChild(tr);
   });
@@ -1073,7 +1073,7 @@ function getAdminUsers(){
   var tr = document.createElement('tr');
   var when = item.createdAt ? new Date(item.createdAt) : null;
   var whenStr = when ? when.toLocaleDateString() + ' ' + when.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : '';
-  var contact = (item.contact_name||'') + (item.organization ? ' · '+item.organization : '');
+  var contact = (item.contact_name||'') + (item.organization ? ' &middot; '+item.organization : '');
   var property = item.property_address || '';
   var status = item.status || 'Unread';
   var options = statuses.map(function(s){
@@ -1087,7 +1087,7 @@ function getAdminUsers(){
   '<td>'+property+'</td>'+
   '<td>'+(item.county||'')+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><select data-i="'+idx+'" data-status-select>'+options+'</select> · <a href="#" data-remove="'+idx+'">Remove</a></td>';
+  '<td><select data-i="'+idx+'" data-status-select>'+options+'</select> &middot; <a href="#" data-remove="'+idx+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('select[data-status-select]').forEach(function(sel){
@@ -1139,7 +1139,7 @@ function getAdminUsers(){
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+link+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-i="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-i="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(function(a){
@@ -1659,15 +1659,15 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
   <div style="text-align:right">
-  <a href="projects.html">Projects</a> ·
-  <a href="apply.html">Apply</a> ·
-  <a href="bids.html">Bids & RFPs</a> ·
-  <a href="partner.html">Municipal Partnerships</a> ·
-  <a href="privacy.html">Privacy</a> ·
-  <a href="terms.html">Terms</a> ·
-  <a href="accessibility.html">Accessibility</a> ·
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
   <a href="contact.html">Contact</a>
   </div>
   </div>
@@ -1795,7 +1795,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.year||'')+'</td>'+
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-remove="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-remove="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(a=>{
@@ -1950,7 +1950,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+link+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-i="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-i="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(function(a){
@@ -2499,15 +2499,15 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
   <div style="text-align:right">
-  <a href="projects.html">Projects</a> ·
-  <a href="apply.html">Apply</a> ·
-  <a href="bids.html">Bids & RFPs</a> ·
-  <a href="partner.html">Municipal Partnerships</a> ·
-  <a href="privacy.html">Privacy</a> ·
-  <a href="terms.html">Terms</a> ·
-  <a href="accessibility.html">Accessibility</a> ·
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
   <a href="contact.html">Contact</a>
   </div>
   </div>
@@ -2635,7 +2635,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.year||'')+'</td>'+
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-remove="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-remove="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(a=>{
@@ -2872,7 +2872,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+link+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-i="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-i="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(function(a){
@@ -3392,15 +3392,15 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
   <div style="text-align:right">
-  <a href="projects.html">Projects</a> ·
-  <a href="apply.html">Apply</a> ·
-  <a href="bids.html">Bids & RFPs</a> ·
-  <a href="partner.html">Municipal Partnerships</a> ·
-  <a href="privacy.html">Privacy</a> ·
-  <a href="terms.html">Terms</a> ·
-  <a href="accessibility.html">Accessibility</a> ·
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
   <a href="contact.html">Contact</a>
   </div>
   </div>
@@ -3528,7 +3528,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.year||'')+'</td>'+
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-remove="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-remove="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(a=>{
@@ -3683,7 +3683,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+(p.slug||'')+'</td>'+
   '<td>'+link+'</td>'+
   '<td>'+status+'</td>'+
-  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> · <a href="#" data-i="'+i+'">Remove</a></td>';
+  '<td><a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-i="'+i+'">Remove</a></td>';
   tb.appendChild(tr);
   });
   tb.querySelectorAll('a').forEach(function(a){
@@ -3835,8 +3835,8 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   '<td>'+rfpFlag+'</td>'+
   '<td>'+status+'</td>'+
   '<td>'+
-  '<a href="#" data-edit="'+i+'">Edit</a> · '+
-  '<a href="#" data-archive="'+i+'">'+(s.archived?'Unarchive':'Archive')+'</a> · '+
+  '<a href="#" data-edit="'+i+'">Edit</a> &middot; '+
+  '<a href="#" data-archive="'+i+'">'+(s.archived?'Unarchive':'Archive')+'</a> &middot; '+
   '<a href="#" data-remove="'+i+'">Remove</a>'+
   '</td>';
   tb.appendChild(tr);
