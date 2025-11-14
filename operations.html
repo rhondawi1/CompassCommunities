@@ -238,33 +238,88 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
   </div>
 </footer>
 <script>
+(function(){
+  const API_BASE = "https://compass-ops-api-e3fae8eackc3cpff.centralus-01.azurewebsites.net/api/store";
+  const REMOTE_KEYS = new Set([
+    'adminUsers',
+    'bidsExtra',
+    'bidsSubmitted',
+    'eventsExtra',
+    'municipalities',
+    'partnersExtra',
+    'projectPhotos',
+    'projectsExtra',
+    'propertyIntakeRequests',
+    'subcontractors'
+  ]);
+  const realLocalStorage = window.localStorage;
+
+  function fetchSync(method, key, value) {
+    const url = API_BASE + '/' + encodeURIComponent(key);
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, url, false); // synchronous
+    if (method !== 'GET') {
+      xhr.setRequestHeader('Content-Type', 'application/json');
+    }
+    try {
+      xhr.send(method === 'GET' ? null : JSON.stringify(value || []));
+      if (xhr.status >= 200 && xhr.status < 300) {
+        return xhr.responseText || '';
+      }
+    } catch (e) {
+      console.error('Remote storage error', method, key, e);
+    }
+    return '';
+  }
+
+  window.localStorage = {
+    getItem: function(key) {
+      if (!REMOTE_KEYS.has(key)) {
+        return realLocalStorage.getItem(key);
+      }
+      const text = fetchSync('GET', key, null);
+      // original code expects JSON string or null; use '[]' fallback
+      return text || '[]';
+    },
+    setItem: function(key, value) {
+      if (!REMOTE_KEYS.has(key)) {
+        return realLocalStorage.setItem(key, value);
+      }
+      let data;
+      try {
+        data = JSON.parse(value || '[]');
+      } catch (e) {
+        data = [];
+      }
+      fetchSync('PUT', key, data);
+    },
+    removeItem: function(key) {
+      if (!REMOTE_KEYS.has(key)) {
+        return realLocalStorage.removeItem(key);
+      }
+      // represent "no data" as empty array in backend
+      fetchSync('PUT', key, []);
+    },
+    clear: function() {
+      realLocalStorage.clear();
+      REMOTE_KEYS.forEach(function(key) {
+        fetchSync('PUT', key, []);
+      });
+    },
+    key: function(i) {
+      return realLocalStorage.key(i);
+    },
+    get length() {
+      return realLocalStorage.length;
+    }
+  };
+})();
+</script>
+
+<script>
 function $(s){return document.querySelector(s);}
-
-const API_BASE = "https://compass-ops-api-e3fae8eackc3cpff.centralus-01.azurewebsites.net/api/store";
-
-async function getStore(k){
-  try {
-    const res = await fetch(`${API_BASE}/store/${encodeURIComponent(k)}`);
-    if (!res.ok) return [];
-    return await res.json();
-  } catch (e) {
-    console.error("getStore error", k, e);
-    return [];
-  }
-}
-
-async function setStore(k, v){
-  try {
-    await fetch(`${API_BASE}/store/${encodeURIComponent(k)}`, {
-      method: "PUT",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(v || [])
-    });
-  } catch (e) {
-    console.error("setStore error", k, e);
-  }
-}
-
+function getStore(k){try{return JSON.parse(localStorage.getItem(k)||'[]')||[];}catch(e){return [];}}
+function setStore(k,v){localStorage.setItem(k, JSON.stringify(v||[]));}
 function parseDue(d){if(!d)return null;var p=d.split('/');if(p.length<3)return null;var m=+p[0],day=+p[1],y=+p[2];if(y<100)y+=2000;return new Date(y,m-1,day,23,59,59);}
 function daysAgo(n){const dt=new Date(); dt.setDate(dt.getDate()-n); return dt;}
 

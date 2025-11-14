@@ -4,7 +4,7 @@
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Project details, milestones, partners, and location from Compass Communities.">
-<meta property="og:title" content="Project &ndash; Compass Communities">
+<meta property="og:title" content="Project - Compass Communities">
 <meta property="og:description" content="Project details, milestones, partners, and location from Compass Communities.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -240,7 +240,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const shareUrl = (location.protocol  'file:') ? ('project.html?slug='+slug) : url.toString();
   try{
   if (navigator.share){
-  await navigator.share({ title: name + ' &ndash; Compass Communities', text: name, url: shareUrl });
+  await navigator.share({ title: name + ' - Compass Communities', text: name, url: shareUrl });
   } else if (navigator.clipboard && navigator.clipboard.writeText){
   await navigator.clipboard.writeText(shareUrl);
   btn.textContent = 'Copied!';
@@ -309,10 +309,10 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
   function render(p){
   if(!p){ document.getElementById('p_name').textContent='Project not found'; return; }
-  document.title = p.name + ' &ndash; Compass Communities';
+  document.title = p.name + ' - Compass Communities';
   document.getElementById('p_name').textContent = p.name;
   document.getElementById('p_summary').textContent = p.summary || '';
-  document.getElementById('p_status').textContent = (p.status||'') + (p.type? ' &middot; '+p.type : '');
+  document.getElementById('p_status').textContent = (p.status||'') + (p.type? ' - '+p.type : '');
   document.getElementById('p_units').textContent = (p.units||'&mdash;') + ' units';
   document.getElementById('p_beds').textContent = (p.bedrooms||'&mdash;') + ' bedrooms';
   document.getElementById('p_parking').textContent = (p.parking?'Parking':'No parking');
@@ -336,7 +336,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const ml = document.getElementById('p_milestones'); ml.innerHTML='';
   ms.forEach(m => {
   const item = document.createElement('div'); item.className='titem';
-  item.innerHTML = '<div style="font-weight:600">'+(m.title||'')+'</div><div class="p">'+(m.date||'')+(m.note? ' &middot; '+m.note : '')+'</div>';
+  item.innerHTML = '<div style="font-weight:600">'+(m.title||'')+'</div><div class="p">'+(m.date||'')+(m.note? ' - '+m.note : '')+'</div>';
   ml.appendChild(item);
   });
 
