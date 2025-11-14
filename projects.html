@@ -4,15 +4,76 @@
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Explore active, planned, and completed Compass Communities projects. Filter by city, status, type, units, and more.">
-<meta property="og:title" content="Projects  Compass Communities">
+<meta property="og:title" content="Projects – Compass Communities">
 <meta property="og:description" content="Explore active, planned, and completed Compass Communities projects. Filter by city, status, type, units, and more.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
 <meta name="twitter:card" content="summary_large_image">
+
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Projects  Compass Communities</title>
+<title>Projects – Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -37,7 +98,7 @@
   .push-bottom{margin-top:auto}
   @media (max-width:1024px){.layout{grid-template-columns:1fr} aside.filters{position:static} .grid-3{grid-template-columns:1fr}}
 
-/* === Accessibility / ADA improvements === */
+/*  Accessibility / ADA improvements  */
 :root{
   /* Darker muted text for >=4.5:1 on white backgrounds */
   --muted:#374151;
@@ -87,86 +148,88 @@ aside.filters label.check input[type="checkbox"]{
 </style>
 <header>
   <div class="container header-inner">
-    <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
-    <nav>
-      <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
-      <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
-      <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
-      <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
-      <a href="ai.html">Analysis Tools</a>
-      <a href="login.html" class="login-link" aria-label="Admin login">
-        <span class="login-icon" aria-hidden="true"></span>
-        <span class="login-text">Log in</span>
-      </a>
-    </nav>
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+  <nav>
+  <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+  <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+  <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+  <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+  <a href="ai.html">Analysis Tools</a>
+  <a href="login.html" class="login-link" aria-label="Admin login">
+  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-text">Log in</span>
+  </a>
+  
+  <a href="operations.html">Operations</a>
+  </nav>
   </div>
 </header>
 <main class="section">
   <div class="container">
-    <div class="eyebrow">Projects</div>
-    <h2 class="h2">Project directory</h2>
-    <p class="p">Filter by city, status, type, size, bedrooms, parking, funding, and year. Click any card for highlights.</p>
+  <div class="eyebrow">Projects</div>
+  <h2 class="h2">Project directory</h2>
+  <p class="p">Filter by city, status, type, size, bedrooms, parking, funding, and year. Click any card for highlights.</p>
 
-    <div class="layout" style="margin-top:14px">
-      <aside class="filters card">
-        <div style="display:grid;gap:10px">
-          <label>Search<br><input id="f_q" placeholder="Search by name or address"></label>
-          <label>Cities<br>
-            <select id="f_city"><option value="">All</option></select>
-          </label>
-          <label>Status<br>
-            <select id="f_status">
-              <option value="">All</option><option>Leasing</option><option>Under Construction</option><option>Planning</option><option>Concept</option>
-            </select>
-          </label>
-          <label>Type<br>
-            <select id="f_type">
-              <option value="">All</option><option>Affordable</option><option>Mixed-income</option><option>Senior</option><option>Workforce</option>
-            </select>
-          </label>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <label>Min units<br><input id="f_units" type="number" min="0" placeholder="0"></label>
-            <label>Min bedrooms<br><input id="f_beds" type="number" min="0" placeholder="0"></label>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <label>Year from<br><input id="f_year_from" type="number" min="2000" placeholder="2024"></label>
-            <label>Year to<br><input id="f_year_to" type="number" min="2000" placeholder="2030"></label>
-          </div>
-          <label>Funding<br>
-            <select id="f_funding">
-              <option value="">Any</option><option>LIHTC</option><option>Bond</option><option>Local</option><option>State</option><option>Federal</option>
-            </select>
-          </label>
-          <label class="check"><input id="f_aff" type="checkbox"> Affordable only</label>
-          <label class="check"><input id="f_park" type="checkbox"> Require parking</label>
-          <div style="display:flex;gap:8px;margin-top:6px">
-            <button class="btn btn-dark" id="f_apply">Apply</button>
-            <button class="btn" id="f_clear">Clear</button>
-          </div>
-          <div class="p" id="resultCount" style="margin-top:6px">0 results</div>
-        </div>
-      </aside>
+  <div class="layout" style="margin-top:14px">
+  <aside class="filters card">
+  <div style="display:grid;gap:10px">
+  <label>Search<br><input id="f_q" placeholder="Search by name or address"></label>
+  <label>Cities<br>
+  <select id="f_city"><option value="">All</option></select>
+  </label>
+  <label>Status<br>
+  <select id="f_status">
+  <option value="">All</option><option>Leasing</option><option>Under Construction</option><option>Planning</option><option>Concept</option>
+  </select>
+  </label>
+  <label>Type<br>
+  <select id="f_type">
+  <option value="">All</option><option>Affordable</option><option>Mixed-income</option><option>Senior</option><option>Workforce</option>
+  </select>
+  </label>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+  <label>Min units<br><input id="f_units" type="number" min="0" placeholder="0"></label>
+  <label>Min bedrooms<br><input id="f_beds" type="number" min="0" placeholder="0"></label>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+  <label>Year from<br><input id="f_year_from" type="number" min="2000" placeholder="2024"></label>
+  <label>Year to<br><input id="f_year_to" type="number" min="2000" placeholder="2030"></label>
+  </div>
+  <label>Funding<br>
+  <select id="f_funding">
+  <option value="">Any</option><option>LIHTC</option><option>Bond</option><option>Local</option><option>State</option><option>Federal</option>
+  </select>
+  </label>
+  <label class="check"><input id="f_aff" type="checkbox"> Affordable only</label>
+  <label class="check"><input id="f_park" type="checkbox"> Require parking</label>
+  <div style="display:flex;gap:8px;margin-top:6px">
+  <button class="btn btn-dark" id="f_apply">Apply</button>
+  <button class="btn" id="f_clear">Clear</button>
+  </div>
+  <div class="p" id="resultCount" style="margin-top:6px">0 results</div>
+  </div>
+  </aside>
 
-      <section>
-        <div id="cards" class="grid-3"></div>
-      </section>
-    </div>
+  <section>
+  <div id="cards" class="grid-3"></div>
+  </section>
+  </div>
   </div>
 </main>
 
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
-    <div> <span id="footYear"></span> Compass Communities LLC</div>
-    <div style="text-align:right">
-      <a href="projects.html">Projects</a> 
-      <a href="apply.html">Apply</a> 
-      <a href="bids.html">Bids & RFPs</a> 
-      <a href="partner.html">Municipal Partnerships</a> 
-      <a href="privacy.html">Privacy</a> 
-      <a href="terms.html">Terms</a> 
-      <a href="accessibility.html">Accessibility</a> 
-      <a href="contact.html">Contact</a>
-    </div>
+  <div>© <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> ·
+  <a href="apply.html">Apply</a> ·
+  <a href="bids.html">Bids & RFPs</a> ·
+  <a href="partner.html">Municipal Partnerships</a> ·
+  <a href="privacy.html">Privacy</a> ·
+  <a href="terms.html">Terms</a> ·
+  <a href="accessibility.html">Accessibility</a> ·
+  <a href="contact.html">Contact</a>
+  </div>
   </div>
 </footer>
 <script>
@@ -174,27 +237,27 @@ aside.filters label.check input[type="checkbox"]{
 
   // Share handler (Web Share API with clipboard fallback)
   document.addEventListener('click', async (e)=>{
-    const btn = e.target.closest('button[data-action="share-project"]');
-    if(!btn) return;
-    const slug = btn.getAttribute('data-slug');
-    const name = btn.getAttribute('data-name') || 'Compass Communities project';
-    // Construct a relative URL that works offline and online
-    const url = new URL('project.html', window.location.origin);
-    url.searchParams.set('slug', slug);
-    const shareUrl = (location.protocol === 'file:') ? ('project.html?slug='+slug) : url.toString();
-    try{
-      if (navigator.share){
-        await navigator.share({ title: name + '  Compass Communities', text: name, url: shareUrl });
-      } else if (navigator.clipboard && navigator.clipboard.writeText){
-        await navigator.clipboard.writeText(shareUrl);
-        btn.textContent = 'Copied!';
-        setTimeout(()=>{ btn.innerHTML = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share'; }, 1200);
-      } else {
-        alert('Share this link: ' + shareUrl);
-      }
-    }catch(err){
-      console.log('Share canceled or failed', err);
-    }
+  const btn = e.target.closest('button[data-action="share-project"]');
+  if(!btn) return;
+  const slug = btn.getAttribute('data-slug');
+  const name = btn.getAttribute('data-name') || 'Compass Communities project';
+  // Construct a relative URL that works offline and online
+  const url = new URL('project.html', window.location.origin);
+  url.searchParams.set('slug', slug);
+  const shareUrl = (location.protocol  'file:') ? ('project.html?slug='+slug) : url.toString();
+  try{
+  if (navigator.share){
+  await navigator.share({ title: name + ' – Compass Communities', text: name, url: shareUrl });
+  } else if (navigator.clipboard && navigator.clipboard.writeText){
+  await navigator.clipboard.writeText(shareUrl);
+  btn.textContent = 'Copied!';
+  setTimeout(()=>{ btn.innerHTML = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share'; }, 1200);
+  } else {
+  alert('Share this link: ' + shareUrl);
+  }
+  }catch(err){
+  console.log('Share canceled or failed', err);
+  }
   });
 
 </script>
@@ -212,62 +275,62 @@ aside.filters label.check input[type="checkbox"]{
   cities.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; citySel.appendChild(o); });
 
   function applyFilters(){
-    const q = document.getElementById('f_q').value.trim().toLowerCase();
-    const city = document.getElementById('f_city').value;
-    const status = document.getElementById('f_status').value;
-    const type = document.getElementById('f_type').value;
-    const units = Number(document.getElementById('f_units').value||0);
-    const beds = Number(document.getElementById('f_beds').value||0);
-    const yf = Number(document.getElementById('f_year_from').value||0);
-    const yt = Number(document.getElementById('f_year_to').value||9999);
-    const funding = document.getElementById('f_funding').value;
-    const aff = document.getElementById('f_aff').checked;
-    const park = document.getElementById('f_park').checked;
+  const q = document.getElementById('f_q').value.trim().toLowerCase();
+  const city = document.getElementById('f_city').value;
+  const status = document.getElementById('f_status').value;
+  const type = document.getElementById('f_type').value;
+  const units = Number(document.getElementById('f_units').value||0);
+  const beds = Number(document.getElementById('f_beds').value||0);
+  const yf = Number(document.getElementById('f_year_from').value||0);
+  const yt = Number(document.getElementById('f_year_to').value||9999);
+  const funding = document.getElementById('f_funding').value;
+  const aff = document.getElementById('f_aff').checked;
+  const park = document.getElementById('f_park').checked;
 
-    let out = PROJECTS.filter(p=>{
-      if (q && !((p.name||'').toLowerCase().includes(q) || (p.address||'').toLowerCase().includes(q))) return false;
-      if (city && p.city !== city) return false;
-      if (status && p.status !== status) return false;
-      if (type && p.type !== type) return false;
-      if (units && (p.units||0) < units) return false;
-      if (beds && (p.bedrooms||0) < beds) return false;
-      if ((p.year||0) < yf || (p.year||0) > yt) return false;
-      if (funding && !(p.funding||[]).includes(funding)) return false;
-      if (aff && p.type !== 'Affordable') return false;
-      if (park && !p.parking) return false;
-      return true;
-    });
-    renderCards(out);
+  let out = PROJECTS.filter(p=>{
+  if (q && !((p.name||'').toLowerCase().includes(q) || (p.address||'').toLowerCase().includes(q))) return false;
+  if (city && p.city !== city) return false;
+  if (status && p.status !== status) return false;
+  if (type && p.type !== type) return false;
+  if (units && (p.units||0) < units) return false;
+  if (beds && (p.bedrooms||0) < beds) return false;
+  if ((p.year||0) < yf || (p.year||0) > yt) return false;
+  if (funding && !(p.funding||[]).includes(funding)) return false;
+  if (aff && p.type !== 'Affordable') return false;
+  if (park && !p.parking) return false;
+  return true;
+  });
+  renderCards(out);
   }
 
   function renderCards(list){
-    const wrap = document.getElementById('cards'); wrap.innerHTML='';
-    document.getElementById('resultCount').textContent = list.length + ' result' + (list.length===1?'':'s');
-    list.forEach(p=>{ wrap.append(card(p)); });
+  const wrap = document.getElementById('cards'); wrap.innerHTML='';
+  document.getElementById('resultCount').textContent = list.length + ' result' + (list.length1?'':'s');
+  list.forEach(p=>{ wrap.append(card(p)); });
   }
 
   function card(p){
-    const div = document.createElement('div'); div.className='card';
-    const chips = `
-      <span class="badge">${p.city||''}</span>
-      <span class="badge">${p.year||''}</span>
-      <span class="badge">${p.bedrooms||''} bedrooms</span>
-      <span class="badge">${p.parking?'Parking':'No parking'}</span>
-      ${(p.funding||[]).map(f=>' <span class="badge">'+f+'</span>').join('')}
-    `;
-    div.innerHTML = `
-      <div style="font-weight:600">${p.name}</div>
-      <div class="p" style="margin:4px 0">${p.status}  ${p.type}  ${p.units} units</div>
-      <p class="p" style="margin:6px 0">${p.summary||''}</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">${chips}</div>
-      <div class="push-bottom"></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <a class="btn btn-dark" href="project.html?slug=${p.slug}">View details</a>
-        <button class="btn" type="button" data-action="share-project" aria-label="Share project" data-slug="${p.slug}" data-name="${p.name}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share</button>
-        <a class="btn" href="apply.html">Apply for housing</a>
-      </div>
-    `;
-    return div;
+  const div = document.createElement('div'); div.className='card';
+  const chips = `
+  <span class="badge">${p.city||'—'}</span>
+  <span class="badge">${p.year||'—'}</span>
+  <span class="badge">${p.bedrooms||'—'} bedrooms</span>
+  <span class="badge">${p.parking?'Parking':'No parking'}</span>
+  ${(p.funding||[]).map(f=>' <span class="badge">'+f+'</span>').join('')}
+  `;
+  div.innerHTML = `
+  <div style="font-weight:600">${p.name}</div>
+  <div class="p" style="margin:4px 0">${p.status} · ${p.type} · ${p.units} units</div>
+  <p class="p" style="margin:6px 0">${p.summary||''}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0">${chips}</div>
+  <div class="push-bottom"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+  <a class="btn btn-dark" href="project.html?slug=${p.slug}">View details</a>
+  <button class="btn" type="button" data-action="share-project" aria-label="Share project" data-slug="${p.slug}" data-name="${p.name}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share</button>
+  <a class="btn" href="apply.html">Apply for housing</a>
+  </div>
+  `;
+  return div;
   }
 
   document.getElementById('f_apply').addEventListener('click', applyFilters);
