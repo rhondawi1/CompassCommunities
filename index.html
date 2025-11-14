@@ -613,12 +613,12 @@ const strings = {
   items = items.filter(p => p && !p.archived);
   const featured = items.filter(p => p && p.featured);
   const SEED = [
-  { name:'Riverfront Commons', city:'Salem, OR', status:'In construction &middot; 72 affordable homes and community space', detail:'Riverfront homes with on-site resident services and access to the riverfront trail.', slug:'riverfront-commons' },
-  { name:'Willow Creek Homes', city:'Albany, OR', status:'Planned &middot; 82 homes near transit and schools', detail:'Townhomes and small apartments next to bus routes and neighborhood schools.', slug:'willow-creek-homes' },
-  { name:'Pioneer Court', city:'Corvallis, OR', status:'Concept &middot; 54 homes with ground-floor community services', detail:'Supportive housing with shared indoor space for classes, services, and meetings.', slug:'pioneer-court' },
-  { name:'Harbor View Lofts', city:'Astoria, OR', status:'Predevelopment &middot; 64 mixed-income homes over retail', detail:'Upper-floor homes above active ground-floor uses a short walk from the waterfront.', slug:'harbor-view-lofts' },
-  { name:'Maple Grove Cottages', city:'Springfield, OR', status:'Under design &middot; Small homes and shared green space', detail:'Compact cottages organized around a central green with play space and gardens.', slug:'maple-grove-cottages' },
-  { name:'Cedar Ridge Residences', city:'Bend, OR', status:'Concept &middot; Supportive housing with onsite services', detail:'Energy-efficient apartments with integrated case management and community rooms.', slug:'cedar-ridge-residences' }
+  { name:'Riverfront Commons', city:'Salem, OR', status:'In construction - 72 affordable homes and community space', detail:'Riverfront homes with on-site resident services and access to the riverfront trail.', slug:'riverfront-commons' },
+  { name:'Willow Creek Homes', city:'Albany, OR', status:'Planned - 82 homes near transit and schools', detail:'Townhomes and small apartments next to bus routes and neighborhood schools.', slug:'willow-creek-homes' },
+  { name:'Pioneer Court', city:'Corvallis, OR', status:'Concept - 54 homes with ground-floor community services', detail:'Supportive housing with shared indoor space for classes, services, and meetings.', slug:'pioneer-court' },
+  { name:'Harbor View Lofts', city:'Astoria, OR', status:'Predevelopment - 64 mixed-income homes over retail', detail:'Upper-floor homes above active ground-floor uses a short walk from the waterfront.', slug:'harbor-view-lofts' },
+  { name:'Maple Grove Cottages', city:'Springfield, OR', status:'Under design - Small homes and shared green space', detail:'Compact cottages organized around a central green with play space and gardens.', slug:'maple-grove-cottages' },
+  { name:'Cedar Ridge Residences', city:'Bend, OR', status:'Concept - Supportive housing with onsite services', detail:'Energy-efficient apartments with integrated case management and community rooms.', slug:'cedar-ridge-residences' }
   ];
   const list = (featured.length ? featured : SEED).slice(0,4);
   function toSlug(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
