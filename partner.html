@@ -1,0 +1,49 @@
+<head><style>.check{display:flex;align-items:center;gap:8px;justify-content:flex-start}</style>
+<link rel="canonical" href="partner.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Compass Communities: Building. Better. Together.">
+<meta property="og:title" content="Redirecting…">
+<meta property="og:description" content="Compass Communities: Building. Better. Together.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+
+</head><!doctype html><html lang="en"><meta charset="utf-8">
+<title>Redirecting…</title>
+<meta http-equiv="refresh" content="0; url=planning/partner.html">
+<link rel="canonical" href="planning/partner.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<p>Redirecting to <a href="planning/partner.html">Municipal Partnerships</a>…</p>
+<script>try{location.replace('planning/partner.html')}catch(e){location.href='planning/partner.html'}</script>
+
+<script>
+(function(){
+  function applyContrast(){
+    const mode = localStorage.getItem('contrast') || 'standard';
+    document.documentElement.setAttribute('data-contrast', mode === 'high' ? 'high' : 'standard');
+    const btn = document.getElementById('contrastToggle');
+    if(btn) btn.textContent = mode === 'high' ? 'Contrast: High' : 'Contrast: Standard';
+  }
+  function toggleContrast(){
+    const cur = localStorage.getItem('contrast') || 'standard';
+    localStorage.setItem('contrast', cur === 'high' ? 'standard' : 'high');
+    applyContrast();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    // Inject a small toggle button into the header nav if present
+    const nav = document.querySelector('header nav');
+    if(nav && !document.getElementById('contrastToggle')){
+      const wrap = document.createElement('span');
+      wrap.style.marginLeft = '12px';
+      wrap.innerHTML = '<button id="contrastToggle" class="btn" type="button" aria-pressed="false">Contrast: Standard</button>';
+      nav.appendChild(wrap);
+      wrap.querySelector('button').addEventListener('click', toggleContrast);
+    }
+    applyContrast();
+  });
+})();
+</script>
+
+</html>

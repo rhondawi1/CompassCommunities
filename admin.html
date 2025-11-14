@@ -1,0 +1,577 @@
+<head>
+<link rel="canonical" href="admin.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Local admin tools for managing projects, bids, events, and project photo galleries.">
+<meta property="og:title" content="Admin – Compass Communities">
+<meta property="og:description" content="Local admin tools for managing projects, bids, events, and project photo galleries.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+</head><!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin – Compass Communities</title>
+<style>
+  :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
+  *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
+  a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+  .container{max-width:1120px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+  .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:12px}.logo-badge{height:36px;width:36px;border-radius:10px;background:var(--sand);color:#fff;display:grid;place-content:center;font-weight:700}
+  nav{display:flex;gap:8px;flex-wrap:nowrap;white-space:nowrap} nav a{padding:6px 10px;border-radius:10px;color:#374151} nav a:hover{background:#f3f4f6}
+  .section{padding:40px 0} .eyebrow{color:#78350f;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .h2{font-size:24px;margin:6px 0} .p{color:var(--muted)} .card{border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04);padding:18px}
+  input,select,textarea{width:100%;padding:8px;border:1px solid var(--border);border-radius:12px}
+  label{font-size:14px;color:#374151}
+  .tabs{display:flex;gap:6px;margin-top:10px}
+  .tabs button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+  .tabs button.active{background:#111;color:#fff;border-color:#111}
+  .grid{display:grid;gap:12px}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;border:1px solid var(--border)}
+  .btn-dark{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  table{width:100%;border-collapse:collapse} th,td{padding:8px 10px;text-align:left;border-top:1px solid var(--border)} thead{color:#6b7280;font-size:12px;text-transform:uppercase}
+  @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+
+/* === Accessibility / ADA improvements === */
+:root{
+  /* Darker muted text for >=4.5:1 on white backgrounds */
+  --muted:#374151;
+}
+/* Ensure link visibility not relying on color alone */
+a{text-decoration:underline;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+/* Strong, visible focus rings */
+:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+/* Buttons and controls should not lose outlines */
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+/* Logo badge: use dark text on sand background for contrast */
+.logo-badge{color:#111827 !important}
+/* Badges and pills: keep text sufficiently dark */
+.badge,.pill{color:#1f2937}
+/* Optional high-contrast mode */
+:root[data-contrast="high"]{
+  --text:#0b0f19;
+  --muted:#111827;
+  --border:#9ca3af;
+  --bg:#ffffff;
+}
+:root[data-contrast="high"] a{color:var(--accent);}
+:root[data-contrast="high"] .btn{border-color:#111;background:#111;color:#fff}
+@media (prefers-contrast: more){
+  :root{--muted:#111827}
+  a{text-decoration-thickness:2px}
+}
+
+.check{display:flex;align-items:center;gap:8px;justify-content:flex-start}
+</style>
+<header>
+  <div class="container header-inner">
+    <a class="logo" href="index.html"><img src="assets/cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+      <a href="index.html">Site</a>
+      <a href="projects.html">Projects</a>
+      <a href="bids.html">Bids</a>
+      <a href="events.html">Events</a>
+      <a href="ai.html">Planning Tools</a>
+</nav>
+  </div>
+</header>
+<main class="section"><div class="container">
+  <div class="eyebrow">Admin</div>
+  <h2 class="h2">Content manager</h2>
+  <p class="p">Add or edit entries. Data is stored in your browser (<b>localStorage</b>) for offline use. Export JSON to share with others.</p>
+
+  <div class="tabs">
+    <button class="active" data-tab="projects">Projects</button>
+    <button data-tab="bids">Bids</button>
+    <button data-tab="events">Events</button>
+  </div>
+
+  <!-- Projects tab -->
+  <section id="tab-projects" class="card" style="margin-top:12px">
+    <h3>Add project</h3>
+    <div class="grid grid-2">
+      <label>Name<br><input id="p_name"></label>
+      <label>Slug (unique, for URL)<br><input id="p_slug" placeholder="lowercase-with-dashes"></label>
+      <label>City<br><input id="p_city"></label>
+      <label>Status<br><input id="p_status" placeholder="Leasing / Planning / Under Construction"></label>
+      <label>Units<br><input id="p_units" inputmode="numeric"></label>
+      <label>Type<br><input id="p_type" placeholder="Affordable / Mixed-income / Senior / Workforce"></label>
+      <label>Year<br><input id="p_year" inputmode="numeric" placeholder="2026"></label>
+      <label>Bedrooms<br><input id="p_bedrooms" inputmode="numeric" placeholder="1-3"></label>
+      <label>Address<br><input id="p_address"></label>
+      <label>Parking<br>
+        <select id="p_parking"><option value="true">Yes</option><option value="false">No</option></select>
+      </label>
+      <label>Funding (comma separated)<br><input id="p_funding" placeholder="LIHTC, Local"></label>
+      <label>Lat,Lng (optional)<br><input id="p_latlng" placeholder="45.5,-122.6"></label>
+      <label class="grid" style="grid-column:1/-1">Summary<br><textarea id="p_summary" rows="3"></textarea></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-dark" id="p_add">Add project</button>
+      <button class="btn" id="p_export">Export JSON</button>
+      <label class="btn"><input type="file" id="p_import" accept="application/json" style="display:none">Import JSON</label>
+      <button class="btn" id="p_clear">Clear added</button>
+    </div>
+    <div style="margin-top:12px;overflow:auto">
+      <table>
+        <thead><tr><th>Name</th><th>City</th><th>Status</th><th>Units</th><th>Type</th><th>Year</th><th>Slug</th><th></th></tr></thead>
+        <tbody id="p_list"></tbody>
+      </table>
+    </div>
+  
+    <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)">
+    <h3>Project photos</h3>
+    <div class="grid grid-2">
+      <label>Project slug<br><input id="ph_slug" placeholder="e.g., riverfront-commons"></label>
+      <label>Upload images (JPG/PNG, multiple)<br><input id="ph_files" type="file" accept="image/*" multiple></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-dark" id="ph_add">Add to gallery</button>
+      <button class="btn" id="ph_export">Export photos JSON</button>
+      <label class="btn"><input type="file" id="ph_import" accept="application/json" style="display:none">Import photos JSON</label>
+      <button class="btn" id="ph_clear">Clear gallery for slug</button>
+    </div>
+    <div id="ph_preview" style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px"></div>
+
+  </section>
+
+  <!-- Bids tab -->
+  <section id="tab-bids" class="card" style="margin-top:12px;display:none">
+    <h3>Add bid / RFP</h3>
+    <div class="grid grid-2">
+      <label>ID<br><input id="b_id" placeholder="RFP-YYYY-XX"></label>
+      <label>Title<br><input id="b_title"></label>
+      <label>Due (MM/DD/YYYY)<br><input id="b_due" placeholder="01/15/2026"></label>
+      <label>City<br><input id="b_city"></label>
+      <label>Development<br><input id="b_dev"></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-dark" id="b_add">Add bid</button>
+      <button class="btn" id="b_export">Export JSON</button>
+      <label class="btn"><input type="file" id="b_import" accept="application/json" style="display:none">Import JSON</label>
+      <button class="btn" id="b_clear">Clear added</button>
+    </div>
+    <div style="margin-top:12px;overflow:auto">
+      <table>
+        <thead><tr><th>ID</th><th>Title</th><th>Due</th><th>City</th><th>Development</th><th></th></tr></thead>
+        <tbody id="b_list"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Events tab -->
+  <section id="tab-events" class="card" style="margin-top:12px;display:none">
+    <h3>Add event</h3>
+    <div class="grid grid-2">
+      <label>ID (unique)<br><input id="e_id" placeholder="event-slug-YYYY-MM-DD"></label>
+      <label>Title<br><input id="e_title"></label>
+      <label>Start (ISO)<br><input id="e_start" placeholder="2026-01-10T18:00:00"></label>
+      <label>End (ISO)<br><input id="e_end" placeholder="2026-01-10T19:30:00"></label>
+      <label>Location<br><input id="e_loc"></label>
+      <label class="grid" style="grid-column:1/-1">Summary<br><textarea id="e_sum" rows="3"></textarea></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn-dark" id="e_add">Add event</button>
+      <button class="btn" id="e_export">Export JSON</button>
+      <label class="btn"><input type="file" id="e_import" accept="application/json" style="display:none">Import JSON</label>
+      <button class="btn" id="e_clear">Clear added</button>
+    </div>
+    <div style="margin-top:12px;overflow:auto">
+      <table>
+        <thead><tr><th>Title</th><th>Date</th><th>Location</th><th>ID</th><th></th></tr></thead>
+        <tbody id="e_list"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+  <section id="tab-muni" class="card" style="display:none">
+    <h2>Municipalities</h2>
+    <p class="p">Manage cities and counties we partner with. Logos stay in-browser (localStorage) for this demo.</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+      <label>Name<br><input id="m_name" placeholder="City of Salem"></label>
+      <label>Type<br>
+        <select id="m_type"><option>City</option><option>County</option></select>
+      </label>
+      <label>Website<br><input id="m_url" placeholder="https://example.gov"></label>
+      <label>Logo (optional)<br><input id="m_logo" type="file" accept="image/*"></label>
+      <label style="grid-column:1/-1">Blurb<br><textarea id="m_blurb" rows="3" placeholder="Why they partnered with Compass..."></textarea></label>
+    </div>
+    <div class="row" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="planning/partner.html" target="_blank" rel="noopener">Open Partnerships Page</a>
+      <button class="btn btn-dark" id="m_add">Add</button>
+      <button class="btn" id="m_export">Export JSON</button>
+      <label class="btn"><input type="file" id="m_import" accept="application/json" style="display:none">Import JSON</label>
+      <button class="btn" id="m_clear">Clear All</button>
+    </div>
+    <div id="m_table" style="margin-top:12px"></div>
+  </section>
+
+
+<section id="partners-admin" class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <h2 style="margin:0">Municipal Partners</h2>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-dark" id="p_toggle">Manage partners</button>
+      <button class="btn" id="p_export">Export JSON</button>
+      <label class="btn"><input type="file" id="p_import" accept="application/json" style="display:none">Import JSON</label>
+      <a class="btn" href="planning/partner.html" target="_blank" rel="noopener">Open Partnerships Page</a>
+    </div>
+  </div>
+  <div id="p_panel" style="display:none;margin-top:12px">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+      <label>Name<br><input id="p_name" placeholder="City of Salem"></label>
+      <label>Type<br><select id="p_type"><option>City</option><option>County</option></select></label>
+      <label>Website<br><input id="p_url" placeholder="https://example.gov"></label>
+      <label>Logo (optional)<br><input id="p_logo" type="file" accept="image/*"></label>
+      <label style="grid-column:1/-1">Blurb<br><textarea id="p_blurb" rows="3" placeholder="Why they partnered with Compass..."></textarea></label>
+    </div>
+    <div class="row" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-dark" id="p_add">Add</button>
+      <button class="btn" id="p_clear">Clear All</button>
+    </div>
+    <div id="p_table" style="margin-top:12px"></div>
+  </div>
+</section>
+<script>
+  // Storage helpers
+  function pm_get(){ try{ return JSON.parse(localStorage.getItem('municipalities')||'[]'); }catch(e){ return []; } }
+  function pm_set(arr){ localStorage.setItem('municipalities', JSON.stringify(arr)); }
+  // UI
+  (function(){
+    const toggle=document.getElementById('p_toggle'); const panel=document.getElementById('p_panel');
+    const addBtn=document.getElementById('p_add'); const table=document.getElementById('p_table');
+    const clearBtn=document.getElementById('p_clear'); const exp=document.getElementById('p_export');
+    const imp=document.getElementById('p_import');
+    function render(){
+      const arr=pm_get(); table.innerHTML='';
+      if(!arr.length){ table.innerHTML='<div class="p">No partners yet.</div>'; return; }
+      const grid=document.createElement('div'); grid.style.display='grid'; grid.style.gridTemplateColumns='1.3fr .7fr 1fr 2fr auto auto'; grid.style.gap='8px';
+      grid.innerHTML='<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
+      arr.forEach((m,i)=>{
+        const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+        grid.insertAdjacentHTML('beforeend',
+          '<div>'+ (m.name||'') +'</div>'+
+          '<div>'+ (m.type||'') +'</div>'+
+          '<div>'+ w +'</div>'+
+          '<div>'+ (m.blurb||'') +'</div>'+
+          '<div><button class="btn" data-edit="'+i+'">Edit</button></div>'+
+          '<div><button class="btn" data-remove="'+i+'">Remove</button></div>'
+        );
+      });
+      grid.addEventListener('click', async (e)=>{
+        const b=e.target.closest('button'); if(!b) return;
+        const arr=pm_get();
+        if (b.dataset.remove!==undefined){ arr.splice(+b.dataset.remove,1); pm_set(arr); render(); return; }
+        if (b.dataset.edit!==undefined){
+          const i=+b.dataset.edit, curr=arr[i]||{};
+          const name=prompt('Name:', curr.name||''); if(name===null) return;
+          const type=prompt('Type (City/County):', curr.type||'City'); if(type===null) return;
+          const url=prompt('Website:', curr.url||''); if(url===null) return;
+          const blurb=prompt('Blurb:', curr.blurb||''); if(blurb===null) return;
+          let logo=curr.logo||'';
+          if (confirm('Update logo? (OK to choose a file, Cancel to keep current)')){
+            const input=document.createElement('input'); input.type='file'; input.accept='image/*';
+            const pick = await new Promise(res=>{ input.onchange=()=>res(input.files&&input.files[0]?input.files[0]:null); input.click(); });
+            if (pick){
+              logo = await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(pick); });
+            }
+          }
+          arr[i] = {name,type,url,blurb,logo}; pm_set(arr); render();
+        }
+      });
+      table.appendChild(grid);
+    }
+    toggle.addEventListener('click', ()=>{ panel.style.display = (panel.style.display==='none' || !panel.style.display) ? 'block' : 'none'; });
+    addBtn.addEventListener('click', async ()=>{
+      const name=(document.getElementById('p_name').value||'').trim(); if(!name){ alert('Name is required.'); return; }
+      const type=(document.getElementById('p_type').value||'').trim();
+      const url=(document.getElementById('p_url').value||'').trim();
+      const blurb=(document.getElementById('p_blurb').value||'').trim();
+      let logo=''; const lf=document.getElementById('p_logo'); if(lf && lf.files && lf.files[0]){
+        logo = await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(lf.files[0]); });
+      }
+      const arr=pm_get(); arr.push({name,type,url,blurb,logo}); pm_set(arr);
+      document.getElementById('p_name').value=''; document.getElementById('p_url').value=''; document.getElementById('p_blurb').value=''; if(lf) lf.value='';
+      render();
+    });
+    clearBtn.addEventListener('click', ()=>{ if(confirm('Clear all partners?')){ pm_set([]); render(); } });
+    exp.addEventListener('click', ()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(pm_get(),null,2)],{type:'application/json'})); a.download='municipalities.json'; a.click(); });
+    imp.addEventListener('change', e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ pm_set(JSON.parse(r.result)); render(); alert('Imported.'); }catch(err){ alert('Invalid JSON'); } }; r.readAsText(f); });
+    render();
+  })();
+</script>
+
+</main>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+    <div>© <span id="footYear"></span> Compass Communities LLC</div>
+    <div style="text-align:right">
+      <a href="projects.html">Projects</a> ·
+      <a href="apply.html">Apply</a> ·
+      <a href="bids.html">Bids & RFPs</a> ·
+      <a href="planning/partner.html">Municipal Partnerships</a> ·
+      <a href="privacy.html">Privacy</a> ·
+      <a href="terms.html">Terms</a> ·
+      <a href="accessibility.html">Accessibility</a> ·
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+<script>
+  (function(){{ var y=document.getElementById('footYear'); if(y){{ y.textContent=new Date().getFullYear(); }} }})();
+
+  // --- Municipalities storage helpers ---
+  function getMuni(){ try{ return JSON.parse(localStorage.getItem('municipalities')||'[]'); }catch(e){ return []; } }
+  function setMuni(a){ localStorage.setItem('municipalities', JSON.stringify(a)); }
+  
+  // --- Municipalities: Edit mode support ---
+  function renderMuni(){
+    const arr = getMuni();
+    const box = document.getElementById('m_table'); if(!box) return;
+    box.innerHTML='';
+    if(!arr.length){ box.innerHTML = '<div class="p">No municipalities yet.</div>'; return; }
+    const table = document.createElement('div');
+    table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
+    table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
+    arr.forEach((m,i)=>{
+      const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+      table.insertAdjacentHTML('beforeend',
+        '<div>'+ (m.name||'') +'</div>' +
+        '<div>'+ (m.type||'') +'</div>' +
+        '<div>'+ w +'</div>' +
+        '<div>'+ (m.blurb||'') +'</div>' +
+        '<div><button class="btn" data-edit="'+i+'">Edit</button></div>' +
+        '<div><button class="btn" data-remove="'+i+'">Remove</button></div>'
+      );
+    });
+    table.addEventListener('click', async (e)=>{
+      const btn=e.target.closest('button'); if(!btn) return;
+      const i = btn.dataset.remove!==undefined ? +btn.dataset.remove : (btn.dataset.edit!==undefined ? +btn.dataset.edit : -1);
+      if (i<0) return;
+      const arr = getMuni();
+      if (btn.dataset.remove!==undefined){
+        arr.splice(i,1); setMuni(arr); renderMuni(); return;
+      }
+      if (btn.dataset.edit!==undefined){
+        const curr = arr[i];
+        // Simple prompt-based editor for demo/offline use
+        const name = prompt('Name:', curr.name||''); if (name===null) return;
+        const type = prompt('Type (City/County):', curr.type||'City'); if (type===null) return;
+        const url = prompt('Website:', curr.url||''); if (url===null) return;
+        const blurb = prompt('Blurb:', curr.blurb||''); if (blurb===null) return;
+        // Optionally update logo by picking a file
+        let logo = curr.logo||'';
+        if (confirm('Update logo? (OK to choose a file, Cancel to keep current)')){
+          const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+          const pick = await new Promise((resolve)=>{ input.addEventListener('change', ()=> resolve(input.files && input.files[0] ? input.files[0] : null)); input.click(); });
+          if (pick){
+            logo = await new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(pick); });
+          }
+        }
+        arr[i] = {name, type, url, blurb, logo};
+        setMuni(arr); renderMuni();
+      }
+    });
+    box.appendChild(table);
+  }
+)();
+
+  // Show initial list when tab is opened
+  const _showTab = showTab;
+  showTab = function(id){ _showTab(id); if(id==='muni'){ renderMuni(); } }
+
+</script>
+
+
+<script>
+(function(){
+  function applyContrast(){
+    const mode = localStorage.getItem('contrast') || 'standard';
+    document.documentElement.setAttribute('data-contrast', mode === 'high' ? 'high' : 'standard');
+    const btn = document.getElementById('contrastToggle');
+    if(btn) btn.textContent = mode === 'high' ? 'Contrast: High' : 'Contrast: Standard';
+  }
+  function toggleContrast(){
+    const cur = localStorage.getItem('contrast') || 'standard';
+    localStorage.setItem('contrast', cur === 'high' ? 'standard' : 'high');
+    applyContrast();
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    // Inject a small toggle button into the header nav if present
+    const nav = document.querySelector('header nav');
+    if(nav && !document.getElementById('contrastToggle')){
+      const wrap = document.createElement('span');
+      wrap.style.marginLeft = '12px';
+      wrap.innerHTML = '<button id="contrastToggle" class="btn" type="button" aria-pressed="false">Contrast: Standard</button>';
+      nav.appendChild(wrap);
+      wrap.querySelector('button').addEventListener('click', toggleContrast);
+    }
+    applyContrast();
+  });
+})();
+</script>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tabs button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.getElementById('tab-projects').style.display = (tab==='projects'?'block':'none');
+      document.getElementById('tab-bids').style.display = (tab==='bids'?'block':'none');
+      document.getElementById('tab-events').style.display = (tab==='events'?'block':'none');
+    });
+  });
+
+  // Helpers
+  const $ = s => document.querySelector(s);
+  function downloadJSON(name, data){
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)], {type:'application/json'}));
+    a.download = name;
+    a.click();
+  }
+
+  // ----- Projects -----
+  function getProj(){ try{ return JSON.parse(localStorage.getItem('projectsExtra')||'[]'); }catch(e){ return []; } }
+  function setProj(arr){ localStorage.setItem('projectsExtra', JSON.stringify(arr)); }
+  function renderProj(){
+    const list = getProj();
+    const tb = document.getElementById('p_list'); tb.innerHTML='';
+    list.forEach((p,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+p.name+'</td><td>'+p.city+'</td><td>'+p.status+'</td><td>'+p.units+'</td><td>'+p.type+'</td><td>'+p.year+'</td><td>'+p.slug+'</td><td><a href="#" data-i="'+i+'">Remove</a></td>';
+      tb.appendChild(tr);
+    });
+    tb.querySelectorAll('a').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); const i=+a.dataset.i; const arr=getProj(); arr.splice(i,1); setProj(arr); renderProj(); }));
+  }
+  document.getElementById('p_add').addEventListener('click', ()=>{
+    const p = {
+      slug: $('#p_slug').value.trim(),
+      name: $('#p_name').value.trim(),
+      city: $('#p_city').value.trim(),
+      status: $('#p_status').value.trim(),
+      units: Number($('#p_units').value||0),
+      type: $('#p_type').value.trim(),
+      year: Number($('#p_year').value||0),
+      address: $('#p_address').value.trim(),
+      summary: $('#p_summary').value.trim(),
+      bedrooms: Number($('#p_bedrooms').value||0),
+      parking: $('#p_parking').value==='true',
+      funding: $('#p_funding').value.split(',').map(s=>s.trim()).filter(Boolean),
+      lat: Number(($('#p_latlng').value.split(',')[0]||'').trim()||0),
+      lng: Number(($('#p_latlng').value.split(',')[1]||'').trim()||0),
+    };
+    if(!p.slug || !p.name){ alert('Slug and Name are required.'); return; }
+    const arr = getProj(); if(arr.some(x=>x.slug===p.slug)){ alert('Slug already exists.'); return; }
+    arr.push(p); setProj(arr); renderProj(); alert('Project added. Open Projects to see it.');
+  });
+  document.getElementById('p_export').addEventListener('click', ()=> downloadJSON('projectsExtra.json', getProj()));
+  document.getElementById('p_import').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ setProj(JSON.parse(r.result)); renderProj(); alert('Imported.'); }catch(err){ alert('Invalid JSON'); } }; r.readAsText(f); });
+  document.getElementById('p_clear').addEventListener('click', ()=>{ if(confirm('Clear all added projects?')){ setProj([]); renderProj(); }});
+  renderProj();
+
+  // ----- Bids -----
+  function getBids(){ try{ return JSON.parse(localStorage.getItem('bidsExtra')||'[]'); }catch(e){ return []; } }
+  function setBids(arr){ localStorage.setItem('bidsExtra', JSON.stringify(arr)); }
+  function renderBids(){
+    const list = getBids();
+    const tb = document.getElementById('b_list'); tb.innerHTML='';
+    list.forEach((b,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+b.id+'</td><td>'+b.title+'</td><td>'+b.due+'</td><td>'+b.city+'</td><td>'+b.development+'</td><td><a href="#" data-i="'+i+'">Remove</a></td>';
+      tb.appendChild(tr);
+    });
+    tb.querySelectorAll('a').forEach(a=> a.addEventListener('click', (e)=>{ e.preventDefault(); const i=+a.dataset.i; const arr=getBids(); arr.splice(i,1); setBids(arr); renderBids(); }));
+  }
+  document.getElementById('b_add').addEventListener('click', ()=>{
+    const b = { id: $('#b_id').value.trim(), title: $('#b_title').value.trim(), due: $('#b_due').value.trim(), city: $('#b_city').value.trim(), development: $('#b_dev').value.trim() };
+    if(!b.id || !b.title){ alert('ID and Title are required.'); return; }
+    const arr = getBids(); if(arr.some(x=>x.id===b.id)){ alert('ID already exists.'); return; }
+    arr.push(b); setBids(arr); renderBids(); alert('Bid added. Open Bids to see it.');
+  });
+  document.getElementById('b_export').addEventListener('click', ()=> downloadJSON('bidsExtra.json', getBids()));
+  document.getElementById('b_import').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ setBids(JSON.parse(r.result)); renderBids(); alert('Imported.'); }catch(err){ alert('Invalid JSON'); } }; r.readAsText(f); });
+  document.getElementById('b_clear').addEventListener('click', ()=>{ if(confirm('Clear all added bids?')){ setBids([]); renderBids(); }});
+  renderBids();
+
+  // ----- Events -----
+  function getEvents(){ try{ return JSON.parse(localStorage.getItem('eventsExtra')||'[]'); }catch(e){ return []; } }
+  function setEvents(arr){ localStorage.setItem('eventsExtra', JSON.stringify(arr)); }
+  function renderEvents(){
+    const list = getEvents();
+    const tb = document.getElementById('e_list'); tb.innerHTML='';
+    list.forEach((e,i)=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+e.title+'</td><td>'+e.datetime+'</td><td>'+e.location+'</td><td>'+e.id+'</td><td><a href="#" data-i="'+i+'">Remove</a></td>';
+      tb.appendChild(tr);
+    });
+    tb.querySelectorAll('a').forEach(a=> a.addEventListener('click', (ev)=>{ ev.preventDefault(); const i=+a.dataset.i; const arr=getEvents(); arr.splice(i,1); setEvents(arr); renderEvents(); }));
+  }
+  document.getElementById('e_add').addEventListener('click', ()=>{
+    const e = { id: $('#e_id').value.trim(), title: $('#e_title').value.trim(), datetime: $('#e_start').value.trim(), end: $('#e_end').value.trim(), location: $('#e_loc').value.trim(), summary: $('#e_sum').value.trim() };
+    if(!e.id || !e.title || !e.datetime){ alert('ID, Title, and Start time are required.'); return; }
+    const arr = getEvents(); if(arr.some(x=>x.id===e.id)){ alert('ID already exists.'); return; }
+    arr.push(e); setEvents(arr); renderEvents(); alert('Event added. Open Events to see it.');
+  });
+  document.getElementById('e_export').addEventListener('click', ()=> downloadJSON('eventsExtra.json', getEvents()));
+  document.getElementById('e_import').addEventListener('change', (e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ setEvents(JSON.parse(r.result)); renderEvents(); alert('Imported.'); }catch(err){ alert('Invalid JSON'); } }; r.readAsText(f); });
+  document.getElementById('e_clear').addEventListener('click', ()=>{ if(confirm('Clear all added events?')){ setEvents([]); renderEvents(); }});
+  renderEvents();
+
+  // ----- Project Photos -----
+  function getPhotoMap(){ try{ return JSON.parse(localStorage.getItem('projectPhotos')||'{}'); }catch(e){ return {}; } }
+  function setPhotoMap(m){ localStorage.setItem('projectPhotos', JSON.stringify(m)); }
+  function renderPhotos(slug){
+    const m = getPhotoMap(); const list = m[slug]||[];
+    const prev = document.getElementById('ph_preview'); prev.innerHTML='';
+    list.forEach((src, i)=>{
+      const wrap = document.createElement('div'); wrap.style.position='relative';
+      const img = document.createElement('img'); img.src=src; img.alt='photo '+(i+1); img.style.width='100%'; img.style.height='100px'; img.style.objectFit='cover'; img.style.borderRadius='10px'; img.style.border='1px solid var(--border)';
+      const del = document.createElement('button'); del.textContent='✕'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
+      del.addEventListener('click', ()=>{ const mm=getPhotoMap(); (mm[slug]||[]).splice(i,1); setPhotoMap(mm); renderPhotos(slug); });
+      wrap.append(img, del); prev.appendChild(wrap);
+    });
+  }
+  document.getElementById('ph_add').addEventListener('click', async ()=>{
+    const slug = document.getElementById('ph_slug').value.trim();
+    const files = document.getElementById('ph_files').files;
+    if(!slug){ alert('Enter the project slug.'); return; }
+    if(!files || !files.length){ alert('Choose one or more images.'); return; }
+    const m = getPhotoMap(); m[slug] = m[slug] || [];
+    const arr = m[slug];
+    const tasks = [];
+    for (const f of files){
+      tasks.push(new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(f); }));
+    }
+    const results = await Promise.all(tasks);
+    results.forEach(dataUrl => arr.push(dataUrl));
+    setPhotoMap(m);
+    renderPhotos(slug);
+    alert('Photos added. Open the project detail page to view the carousel.');
+  });
+  document.getElementById('ph_import').addEventListener('change', (e)=>{
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader(); r.onload=()=>{ try{ const m=JSON.parse(r.result); setPhotoMap(m); const slug=document.getElementById('ph_slug').value.trim(); if(slug) renderPhotos(slug); alert('Imported.'); }catch(err){ alert('Invalid JSON'); } }; r.readAsText(f);
+  });
+  document.getElementById('ph_export').addEventListener('click', ()=>{
+    const m = getPhotoMap();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(m,null,2)], {type:'application/json'}));
+    a.download = 'projectPhotos.json'; a.click();
+  });
+  document.getElementById('ph_clear').addEventListener('click', ()=>{
+    const slug = document.getElementById('ph_slug').value.trim(); if(!slug){ alert('Enter the project slug.'); return; }
+    const m = getPhotoMap(); m[slug]=[]; setPhotoMap(m); renderPhotos(slug);
+  });
+  document.getElementById('ph_slug').addEventListener('input', (e)=> renderPhotos(e.target.value.trim()));
+
+</script>
+</html>
