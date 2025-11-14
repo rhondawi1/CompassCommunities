@@ -4,7 +4,7 @@
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Upcoming and past community meetings, workshops, and events hosted by Compass Communities.">
-<meta property="og:title" content="<span data-i18n="events_title">Events</span> – Compass Communities">
+<meta property="og:title" content="<span data-i18n="events_title">Events</span> &ndash; Compass Communities">
 <meta property="og:description" content="Upcoming and past community meetings, workshops, and events hosted by Compass Communities.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -73,7 +73,7 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title><span data-i18n="events_title">Events</span> – Compass Communities</title>
+<title><span data-i18n="events_title">Events</span> &ndash; Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -147,7 +147,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   
@@ -199,7 +199,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   nav_bids: 'Bids & RFPs',
   nav_partners: 'Municipal Partnerships',
   hero_title: 'One umbrella, many paths to thriving communities',
-  hero_sub: 'A unified home for projects, affordable housing, construction, and planning—organized for residents, partners, and municipalities.',
+  hero_sub: 'A unified home for projects, affordable housing, construction, and planning&mdash;organized for residents, partners, and municipalities.',
   cta_explore_projects: 'Explore Projects',
   cta_find_housing: 'Find Housing',
   upcoming: 'Upcoming',
@@ -257,7 +257,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   nav_bids: 'Licitaciones y RFP',
   nav_partners: 'Alianzas Municipales',
   hero_title: 'Un mismo paraguas, muchos caminos hacia comunidades prósperas',
-  hero_sub: 'Un hogar unificado para proyectos, vivienda asequible, construcción y planeación—organizado para residentes, socios y municipios.',
+  hero_sub: 'Un hogar unificado para proyectos, vivienda asequible, construcción y planeación&mdash;organizado para residentes, socios y municipios.',
   cta_explore_projects: 'Explorar proyectos',
   cta_find_housing: 'Buscar vivienda',
   upcoming: 'Próximos',
@@ -313,7 +313,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   nav_bids: 'Mời thầu & RFP',
   nav_partners: 'Đối tác đô thị',
   hero_title: 'Một mái nhà chung, nhiều con đường xây dựng cộng đồng thịnh vượng',
-  hero_sub: 'Cổng thông tin thống nhất cho dự án, nhà ở giá phải chăng, xây dựng và quy hoạch—dành cho cư dân, đối tác và địa phương.',
+  hero_sub: 'Cổng thông tin thống nhất cho dự án, nhà ở giá phải chăng, xây dựng và quy hoạch&mdash;dành cho cư dân, đối tác và địa phương.',
   cta_explore_projects: 'Xem dự án',
   cta_find_housing: 'Tìm nhà ở',
   upcoming: 'Sắp diễn ra',
@@ -430,7 +430,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   if (!e) return sd;
   const sameDay = s.toDateString()e.toDateString();
   const et = e.toLocaleTimeString(undefined, {hour:'numeric', minute:'2-digit'});
-  return sameDay ? (sd + ' – ' + et) : (sd + ' → ' + e.toLocaleString(undefined, opts));
+  return sameDay ? (sd + ' &ndash; ' + et) : (sd + ' &rarr; ' + e.toLocaleString(undefined, opts));
   }
 
   function card(evt){
@@ -451,9 +451,9 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const admin = document.createElement('details');
   admin.innerHTML = `<summary class="p" style="margin-top:10px"><span data-i18n="manage_attachments">Manage attachments</span></summary>
   <div style="display:grid;gap:10px;margin-top:8px">
-  <label><span data-i18n="video_url">Video URL</span><br><input id="v-${evt.id}" placeholder="https://…"></label>
-  <label><span data-i18n="notes_url">Meeting notes URL</span><br><input id="n-${evt.id}" placeholder="https://…"></label>
-  <label><span data-i18n="agenda_url">Agenda URL</span><br><input id="g-${evt.id}" placeholder="https://…"></label>
+  <label><span data-i18n="video_url">Video URL</span><br><input id="v-${evt.id}" placeholder="https://&hellip;"></label>
+  <label><span data-i18n="notes_url">Meeting notes URL</span><br><input id="n-${evt.id}" placeholder="https://&hellip;"></label>
+  <label><span data-i18n="agenda_url">Agenda URL</span><br><input id="g-${evt.id}" placeholder="https://&hellip;"></label>
   <div><button class="btn btn-dark" id="save-${evt.id}"><span data-i18n="save">Save</span></button>
   <button class="btn" id="clear-${evt.id}" style="margin-left:8px"><span data-i18n="clear">Clear</span></button></div>
   <p class="p">Tip: Use SharePoint, Google Drive, or your website URLs. Offline file uploads won't persist when reloading.</p>

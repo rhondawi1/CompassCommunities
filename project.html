@@ -4,7 +4,7 @@
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Project details, milestones, partners, and location from Compass Communities.">
-<meta property="og:title" content="Project – Compass Communities">
+<meta property="og:title" content="Project &ndash; Compass Communities">
 <meta property="og:description" content="Project details, milestones, partners, and location from Compass Communities.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -73,7 +73,7 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Project – Compass Communities</title>
+<title>Project &ndash; Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -143,7 +143,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   
@@ -152,7 +152,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   </div>
 </header>
 <main class="section"><div class="container">
-  <a href="projects.html" class="p">← Back to projects</a>
+  <a href="projects.html" class="p">&larr; Back to projects</a>
   <div class="grid-2" style="margin-top:10px">
   <section>
   <div class="eyebrow">Project</div>
@@ -162,11 +162,11 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <h2 class="h2">Photos</h2>
   <div class="carousel" id="p_carousel" style="position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
   <div id="p_slides" style="position:relative;width:100%;height:0;padding-bottom:56%;background:#f3f4f6"></div>
-  <button id="prevBtn" aria-label="Previous" class="btn" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:#fff">‹</button>
-  <button id="nextBtn" aria-label="Next" class="btn" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#fff">›</button>
+  <button id="prevBtn" aria-label="Previous" class="btn" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:#fff">&lsaquo;</button>
+  <button id="nextBtn" aria-label="Next" class="btn" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#fff">&rsaquo;</button>
   <div id="p_dots" style="position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:6px"></div>
   </div>
-  <div class="p" style="margin-top:8px">Tip: add photos in <a href="admin.html">Admin</a> under the project’s slug.</div>
+  <div class="p" style="margin-top:8px">Tip: add photos in <a href="admin.html">Admin</a> under the project&rsquo;s slug.</div>
   </div>
 
   <div class="card" style="margin-top:12px">
@@ -186,17 +186,17 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <aside class="stack">
   <div class="card">
   <h2 class="h2">Status</h2>
-  <div id="p_status" class="p">—</div>
+  <div id="p_status" class="p">&mdash;</div>
   <div class="row" style="margin-top:8px">
-  <span class="badge" id="p_units">— units</span>
-  <span class="badge" id="p_beds">— bedrooms</span>
-  <span class="badge" id="p_parking">—</span>
+  <span class="badge" id="p_units">&mdash; units</span>
+  <span class="badge" id="p_beds">&mdash; bedrooms</span>
+  <span class="badge" id="p_parking">&mdash;</span>
   </div>
   <div class="row" style="margin-top:8px" id="p_funding"></div>
   </div>
   <div class="card">
   <h2 class="h2">Location</h2>
-  <div id="p_address" class="p" style="margin-bottom:8px">—</div>
+  <div id="p_address" class="p" style="margin-bottom:8px">&mdash;</div>
   <div style="border-radius:14px;border:1px solid var(--border);height:220px;background:radial-gradient(ellipse at center, rgba(191,165,138,.18), transparent 70%);display:grid;place-content:center;color:#6b7280">Map placeholder</div>
   </div>
   <div class="card">
@@ -240,7 +240,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const shareUrl = (location.protocol  'file:') ? ('project.html?slug='+slug) : url.toString();
   try{
   if (navigator.share){
-  await navigator.share({ title: name + ' – Compass Communities', text: name, url: shareUrl });
+  await navigator.share({ title: name + ' &ndash; Compass Communities', text: name, url: shareUrl });
   } else if (navigator.clipboard && navigator.clipboard.writeText){
   await navigator.clipboard.writeText(shareUrl);
   btn.textContent = 'Copied!';
@@ -309,22 +309,22 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 
   function render(p){
   if(!p){ document.getElementById('p_name').textContent='Project not found'; return; }
-  document.title = p.name + ' – Compass Communities';
+  document.title = p.name + ' &ndash; Compass Communities';
   document.getElementById('p_name').textContent = p.name;
   document.getElementById('p_summary').textContent = p.summary || '';
   document.getElementById('p_status').textContent = (p.status||'') + (p.type? ' &middot; '+p.type : '');
-  document.getElementById('p_units').textContent = (p.units||'—') + ' units';
-  document.getElementById('p_beds').textContent = (p.bedrooms||'—') + ' bedrooms';
+  document.getElementById('p_units').textContent = (p.units||'&mdash;') + ' units';
+  document.getElementById('p_beds').textContent = (p.bedrooms||'&mdash;') + ' bedrooms';
   document.getElementById('p_parking').textContent = (p.parking?'Parking':'No parking');
-  document.getElementById('p_address').textContent = p.address || '—';
+  document.getElementById('p_address').textContent = p.address || '&mdash;';
 
   const fb = document.getElementById('p_funding'); fb.innerHTML='';
   (p.funding||[]).forEach(f=> fb.appendChild(badge(f)));
 
   const pb = document.getElementById('p_badges'); pb.innerHTML='';
-  pb.appendChild(badge((p.city||'—')));
-  pb.appendChild(badge((p.year||'—')));
-  pb.appendChild(badge((p.bedrooms||'—')));
+  pb.appendChild(badge((p.city||'&mdash;')));
+  pb.appendChild(badge((p.year||'&mdash;')));
+  pb.appendChild(badge((p.bedrooms||'&mdash;')));
   pb.appendChild(badge((p.parking?'Parking':'No parking')));
 
   const pm = document.getElementById('p_meta'); pm.innerHTML='';

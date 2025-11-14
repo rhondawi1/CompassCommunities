@@ -6,7 +6,7 @@
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
-<meta property="og:title" content="Admin – Compass Communities">
+<meta property="og:title" content="Admin &ndash; Compass Communities">
 <meta property="og:description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -75,7 +75,7 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin – Compass Communities</title>
+<title>Admin &ndash; Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -142,7 +142,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   
@@ -469,7 +469,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const grid=document.createElement('div'); grid.style.display='grid'; grid.style.gridTemplateColumns='1.3fr .7fr 1fr 2fr auto auto'; grid.style.gap='8px';
   grid.innerHTML='<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   grid.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>'+
   '<div>'+ (m.type||'') +'</div>'+
@@ -556,7 +556,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
   table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   table.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>' +
   '<div>'+ (m.type||'') +'</div>' +
@@ -851,7 +851,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   return new Date(b.createdAt||0) - new Date(a.createdAt||0);
   });
   tb.innerHTML = '';
-  var statuses = ['Unread','In review','Declined','Short‑listed','Awarded'];
+  var statuses = ['Unread','In review','Declined','Short&ndash;listed','Awarded'];
   list.forEach(function(item, idx){
   var tr = document.createElement('tr');
   var when = item.createdAt ? new Date(item.createdAt) : null;
@@ -1130,7 +1130,7 @@ function getAdminUsers(){
   tb.innerHTML = '';
   list.forEach(function(p,i){
   const tr = document.createElement('tr');
-  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '—';
+  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '&mdash;';
   const archived = !!p.archived;
   const status = archived ? 'Archived' : 'Active';
   tr.innerHTML =
@@ -1222,7 +1222,7 @@ function getAdminUsers(){
   list.forEach((src, i)=>{
   const wrap = document.createElement('div'); wrap.style.position='relative';
   const img = document.createElement('img'); img.src=src; img.alt='photo '+(i+1); img.style.width='100%'; img.style.height='100px'; img.style.objectFit='cover'; img.style.borderRadius='10px'; img.style.border='1px solid var(--border)';
-  const del = document.createElement('button'); del.textContent='✕'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
+  const del = document.createElement('button'); del.textContent='&times;'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
   del.addEventListener('click', ()=>{ const mm=getPhotoMap(); (mm[slug]||[]).splice(i,1); setPhotoMap(mm); renderPhotos(slug); });
   wrap.append(img, del); prev.appendChild(wrap);
   });
@@ -1267,7 +1267,7 @@ function getAdminUsers(){
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
-<meta property="og:title" content="Admin – Compass Communities">
+<meta property="og:title" content="Admin &ndash; Compass Communities">
 <meta property="og:description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -1309,7 +1309,7 @@ header .nav-wrap{ display:flex; align-items:center; justify-content:space-betwee
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin – Compass Communities</title>
+<title>Admin &ndash; Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -1376,7 +1376,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   </nav>
@@ -1602,7 +1602,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const grid=document.createElement('div'); grid.style.display='grid'; grid.style.gridTemplateColumns='1.3fr .7fr 1fr 2fr auto auto'; grid.style.gap='8px';
   grid.innerHTML='<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   grid.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>'+
   '<div>'+ (m.type||'') +'</div>'+
@@ -1689,7 +1689,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
   table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   table.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>' +
   '<div>'+ (m.type||'') +'</div>' +
@@ -1941,7 +1941,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   tb.innerHTML = '';
   list.forEach(function(p,i){
   const tr = document.createElement('tr');
-  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '—';
+  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '&mdash;';
   const archived = !!p.archived;
   const status = archived ? 'Archived' : 'Active';
   tr.innerHTML =
@@ -2033,7 +2033,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   list.forEach((src, i)=>{
   const wrap = document.createElement('div'); wrap.style.position='relative';
   const img = document.createElement('img'); img.src=src; img.alt='photo '+(i+1); img.style.width='100%'; img.style.height='100px'; img.style.objectFit='cover'; img.style.borderRadius='10px'; img.style.border='1px solid var(--border)';
-  const del = document.createElement('button'); del.textContent='✕'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
+  const del = document.createElement('button'); del.textContent='&times;'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
   del.addEventListener('click', ()=>{ const mm=getPhotoMap(); (mm[slug]||[]).splice(i,1); setPhotoMap(mm); renderPhotos(slug); });
   wrap.append(img, del); prev.appendChild(wrap);
   });
@@ -2086,7 +2086,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
-<meta property="og:title" content="Admin – Compass Communities">
+<meta property="og:title" content="Admin &ndash; Compass Communities">
 <meta property="og:description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -2128,7 +2128,7 @@ header .nav-wrap{ display:flex; align-items:center; justify-content:space-betwee
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin – Compass Communities</title>
+<title>Admin &ndash; Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -2195,7 +2195,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   </nav>
@@ -2442,7 +2442,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const grid=document.createElement('div'); grid.style.display='grid'; grid.style.gridTemplateColumns='1.3fr .7fr 1fr 2fr auto auto'; grid.style.gap='8px';
   grid.innerHTML='<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   grid.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>'+
   '<div>'+ (m.type||'') +'</div>'+
@@ -2529,7 +2529,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
   table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   table.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>' +
   '<div>'+ (m.type||'') +'</div>' +
@@ -2863,7 +2863,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   tb.innerHTML = '';
   list.forEach(function(p,i){
   const tr = document.createElement('tr');
-  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '—';
+  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '&mdash;';
   const archived = !!p.archived;
   const status = archived ? 'Archived' : 'Active';
   tr.innerHTML =
@@ -2955,7 +2955,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   list.forEach((src, i)=>{
   const wrap = document.createElement('div'); wrap.style.position='relative';
   const img = document.createElement('img'); img.src=src; img.alt='photo '+(i+1); img.style.width='100%'; img.style.height='100px'; img.style.objectFit='cover'; img.style.borderRadius='10px'; img.style.border='1px solid var(--border)';
-  const del = document.createElement('button'); del.textContent='✕'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
+  const del = document.createElement('button'); del.textContent='&times;'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
   del.addEventListener('click', ()=>{ const mm=getPhotoMap(); (mm[slug]||[]).splice(i,1); setPhotoMap(mm); renderPhotos(slug); });
   wrap.append(img, del); prev.appendChild(wrap);
   });
@@ -3000,7 +3000,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
 <meta name="description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
-<meta property="og:title" content="Admin – Compass Communities">
+<meta property="og:title" content="Admin &ndash; Compass Communities">
 <meta property="og:description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
@@ -3042,7 +3042,7 @@ header .nav-wrap{ display:flex; align-items:center; justify-content:space-betwee
 </head><!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin – Compass Communities</title>
+<title>Admin &ndash; Compass Communities</title>
 <style>
   :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
   *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
@@ -3109,7 +3109,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   </nav>
@@ -3335,7 +3335,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   const grid=document.createElement('div'); grid.style.display='grid'; grid.style.gridTemplateColumns='1.3fr .7fr 1fr 2fr auto auto'; grid.style.gap='8px';
   grid.innerHTML='<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   grid.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>'+
   '<div>'+ (m.type||'') +'</div>'+
@@ -3422,7 +3422,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
   table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
   arr.forEach((m,i)=>{
-  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '—';
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
   table.insertAdjacentHTML('beforeend',
   '<div>'+ (m.name||'') +'</div>' +
   '<div>'+ (m.type||'') +'</div>' +
@@ -3674,7 +3674,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   tb.innerHTML = '';
   list.forEach(function(p,i){
   const tr = document.createElement('tr');
-  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '—';
+  const link = p.website ? '<a href="'+p.website+'" target="_blank" rel="noopener">Link</a>' : '&mdash;';
   const archived = !!p.archived;
   const status = archived ? 'Archived' : 'Active';
   tr.innerHTML =
@@ -3766,7 +3766,7 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
   list.forEach((src, i)=>{
   const wrap = document.createElement('div'); wrap.style.position='relative';
   const img = document.createElement('img'); img.src=src; img.alt='photo '+(i+1); img.style.width='100%'; img.style.height='100px'; img.style.objectFit='cover'; img.style.borderRadius='10px'; img.style.border='1px solid var(--border)';
-  const del = document.createElement('button'); del.textContent='✕'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
+  const del = document.createElement('button'); del.textContent='&times;'; del.className='btn'; del.style.position='absolute'; del.style.top='6px'; del.style.right='6px'; del.style.padding='2px 6px';
   del.addEventListener('click', ()=>{ const mm=getPhotoMap(); (mm[slug]||[]).splice(i,1); setPhotoMap(mm); renderPhotos(slug); });
   wrap.append(img, del); prev.appendChild(wrap);
   });

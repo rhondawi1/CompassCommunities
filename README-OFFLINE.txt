@@ -1,4 +1,4 @@
-Compass Communities – Offline Bundle (v42)
+Compass Communities &ndash; Offline Bundle (v42)
 =========================================
 
 This site is fully self-contained. It runs entirely from local files with no external
@@ -12,16 +12,16 @@ How to open:
 Notes:
 - Some buttons intentionally link **out** to public websites (e.g., Nichols & Wood, JBLC Construction,
   Affordable Housing Oregon). Those are regular outbound links and will open in your browser if
-  you are online; otherwise they simply won’t load (the local site still works).
-- The Events page stores attachment links in your browser’s localStorage so it works offline.
+  you are online; otherwise they simply won&rsquo;t load (the local site still works).
+- The Events page stores attachment links in your browser&rsquo;s localStorage so it works offline.
 - You can replace `hero.jpg` with your own photo; keep the same filename.
 
 Files included (key pages):
-- index.html — Home
-- projects.html — Project directory (filters + detail via hash routes)
-- apply.html — Apply page (demo form)
-- bids.html — RFP portal (table-only)
-- register.html — Contractor registration form (redirects to success)
-- register-success.html — Confirmation handoff
-- events.html — Upcoming & Past events with attachable links
-- partner.html — Municipal Partnerships
+- index.html &mdash; Home
+- projects.html &mdash; Project directory (filters + detail via hash routes)
+- apply.html &mdash; Apply page (demo form)
+- bids.html &mdash; RFP portal (table-only)
+- register.html &mdash; Contractor registration form (redirects to success)
+- register-success.html &mdash; Confirmation handoff
+- events.html &mdash; Upcoming & Past events with attachable links
+- partner.html &mdash; Municipal Partnerships

@@ -63,7 +63,7 @@ header .nav-wrap{ display:flex; align-items:center; justify-content:space-betwee
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Analysis Tools — Compass Communities</title>
+<title>Analysis Tools &mdash; Compass Communities</title>
 <link rel="icon" href="favicon.ico">
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
@@ -103,7 +103,7 @@ canvas{image-rendering:pixelated}
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   
@@ -158,10 +158,10 @@ canvas{image-rendering:pixelated}
   </div>
 
   <section class="kpi">
-  <div class="card"><div class="note">Allowable GFA (gsf)</div><div class="num" id="k_gfa">—</div></div>
-  <div class="card"><div class="note">Net Rentable (nsf)</div><div class="num" id="k_nsf">—</div></div>
-  <div class="card"><div class="note">Est. Units</div><div class="num" id="k_units">—</div></div>
-  <div class="card"><div class="note">Parking Stalls</div><div class="num" id="k_stalls">—</div></div>
+  <div class="card"><div class="note">Allowable GFA (gsf)</div><div class="num" id="k_gfa">&mdash;</div></div>
+  <div class="card"><div class="note">Net Rentable (nsf)</div><div class="num" id="k_nsf">&mdash;</div></div>
+  <div class="card"><div class="note">Est. Units</div><div class="num" id="k_units">&mdash;</div></div>
+  <div class="card"><div class="note">Parking Stalls</div><div class="num" id="k_stalls">&mdash;</div></div>
   </section>
 
   <section class="card" aria-labelledby="proforma">
@@ -175,7 +175,7 @@ canvas{image-rendering:pixelated}
   <section class="card" aria-labelledby="insights">
   <h2 id="insights">Insight generator (offline)</h2>
   <p class="p">Rule-based reasoning that mimics AI suggestions based on your inputs. No data leaves this file.</p>
-  <pre class="insights" id="aiout">Run analysis to generate insights…</pre>
+  <pre class="insights" id="aiout">Run analysis to generate insights&hellip;</pre>
   </section>
 
   <section class="card" aria-labelledby="scenarios">
@@ -195,9 +195,9 @@ canvas{image-rendering:pixelated}
   <thead>
   <tr>
   <th>Metric</th>
-  <th id="sc_h1">—</th>
-  <th id="sc_h2">—</th>
-  <th id="sc_h3">—</th>
+  <th id="sc_h1">&mdash;</th>
+  <th id="sc_h2">&mdash;</th>
+  <th id="sc_h3">&mdash;</th>
   </tr>
   </thead>
   <tbody>
@@ -242,7 +242,7 @@ canvas{image-rendering:pixelated}
   <div style="overflow:auto;margin-top:10px">
   <canvas id="sens_canvas" width="880" height="520" style="border:1px solid var(--border);border-radius:12px"></canvas>
   </div>
-  <div class="note">X-axis: FAR →, Y-axis: Hard cost ($/gsf) ↑. Darker = better for the chosen metric.</div>
+  <div class="note">X-axis: FAR &rarr;, Y-axis: Hard cost ($/gsf) &uarr;. Darker = better for the chosen metric.</div>
   </section>
 
 </main>
@@ -308,19 +308,19 @@ function analyze(){
   ['Net rentable (nsf)', fmt(nsf)],
   ['Units (est.)', fmt(units)],
   ['Parking stalls', fmt(stalls)],
-  ['—','—'],
+  ['&mdash;','&mdash;'],
   ['Gross rent (annual, pre-vacancy)', money(((affNSF*rent_aff + mktNSF*rent_mkt)*12))],
   ['Vacancy', (vac*100).toFixed(1)+'%'],
   ['EGI (after vacancy)', money(EGI)],
   ['OpEx', money(OpEx)],
   ['NOI', money(NOI)],
-  ['—','—'],
+  ['&mdash;','&mdash;'],
   ['Hard cost', money(hardCost)],
   ['Soft cost', money(softCost)],
   ['Contingency', money(contCost)],
   ['Land', money(land)],
   ['Total cost', money(totalCost)],
-  ['—','—'],
+  ['&mdash;','&mdash;'],
   ['Value @ cap', money(Value)],
   ['Yield on cost', (YoC*100).toFixed(2)+'%'],
   ['Dev margin', (DevMargin*100).toFixed(2)+'%'],
@@ -331,12 +331,12 @@ function analyze(){
   rows.forEach(r=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td>`; tbody.appendChild(tr); });
 
   const lines = [];
-  if(far<2) lines.push('• FAR below 2.0 may constrain feasibility unless land cost is very low or rents are strong.');
-  if(YoC<0.06) lines.push('• Yield on cost under ~6%: consider grants, TIF, or cost reductions to close the gap.');
-  if(affshare>0.3 && rent_mkt<3) lines.push('• High affordable mix with modest market rent: explore layered financing (LIHTC, HOME, CDBG).');
-  if(parkingRatio>1) lines.push('• Parking ratio >1.0 can drive costs; evaluate shared, unbundled, or reduced minimums.');
-  if(DevMargin<0.10) lines.push('• Development margin under 10% is tight; value engineer envelope, MEP, or unit mix.');
-  if(lines.length0) lines.push('• Program appears broadly viable under given assumptions. Test sensitivity to FAR, rent, and costs.');
+  if(far<2) lines.push('&bull; FAR below 2.0 may constrain feasibility unless land cost is very low or rents are strong.');
+  if(YoC<0.06) lines.push('&bull; Yield on cost under ~6%: consider grants, TIF, or cost reductions to close the gap.');
+  if(affshare>0.3 && rent_mkt<3) lines.push('&bull; High affordable mix with modest market rent: explore layered financing (LIHTC, HOME, CDBG).');
+  if(parkingRatio>1) lines.push('&bull; Parking ratio >1.0 can drive costs; evaluate shared, unbundled, or reduced minimums.');
+  if(DevMargin<0.10) lines.push('&bull; Development margin under 10% is tight; value engineer envelope, MEP, or unit mix.');
+  if(lines.length0) lines.push('&bull; Program appears broadly viable under given assumptions. Test sensitivity to FAR, rent, and costs.');
   document.getElementById('aiout').textContent = lines.join('\n');
 
   return {gfa, nsf, units, stalls, EGI, NOI, Value, totalCost, YoC, DevMargin, loan, equity};
@@ -373,7 +373,7 @@ function renderScenarioList(){
 
 function compareScenarios(indexes){
   const arr=getScenarios(); const chosen=indexes.map(i=>arr[i]).filter(Boolean).slice(0,3);
-  const heads=['sc_h1','sc_h2','sc_h3']; for(let i=0;i<3;i++){ const h=document.getElementById(heads[i]); h.textContent=chosen[i]?.name||'—'; }
+  const heads=['sc_h1','sc_h2','sc_h3']; for(let i=0;i<3;i++){ const h=document.getElementById(heads[i]); h.textContent=chosen[i]?.name||'&mdash;'; }
   const rows=document.querySelectorAll('#sc_compare tbody tr'); rows.forEach(row=>{ row.querySelectorAll('td[data-k]').forEach(c=>c.textContent=''); });
   chosen.forEach((sc,col)=>{
   let res=sc.results; if(!res){ writeScenarioInputs(sc.inputs); res=analyze(); }
@@ -438,7 +438,7 @@ function runSensitivity(){
   ctx.textAlign='right'; ctx.textBaseline='middle'; for(let y=0;y<rows;y+=Math.max(1,Math.floor(rows/8))){ ctx.fillText(hards[y].toFixed(0), padL-6, padT+(rows-1-y)*ch+ch/2); }
   const lx=canvas.width-padR+8, ly=padT, lh=plotH, steps=40;
   for(let i=0;i<steps;i++){ const t=i/(steps-1); const r=Math.round(240-150*t), g=Math.round(240-80*t), b=Math.round(240-10*t); ctx.fillStyle=`rgb(${r},${g},${b})`; ctx.fillRect(lx, ly+(1-t)*lh, 10, lh/steps+1); }
-  ctx.fillStyle='#111'; ctx.textAlign='left'; ctx.fillText((isFinite(maxV)?maxV.toFixed(2):'—'), lx+14, ly+4); ctx.fillText((isFinite(minV)?minV.toFixed(2):'—'), lx+14, ly+lh-14); ctx.fillText(metric, lx, ly-6);
+  ctx.fillStyle='#111'; ctx.textAlign='left'; ctx.fillText((isFinite(maxV)?maxV.toFixed(2):'&mdash;'), lx+14, ly+4); ctx.fillText((isFinite(minV)?minV.toFixed(2):'&mdash;'), lx+14, ly+lh-14); ctx.fillText(metric, lx, ly-6);
 }
 document.getElementById('sens_run').addEventListener('click', runSensitivity);
 document.getElementById('sens_export').addEventListener('click', ()=>{ const a=document.createElement('a'); a.href=document.getElementById('sens_canvas').toDataURL('image/png'); a.download='sensitivity.png'; a.click(); });

@@ -6,9 +6,9 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
-<meta name="description" content="Compass Communities builds people-centered places across Oregon—projects, affordable housing, construction, and planning partnerships.">
+<meta name="description" content="Compass Communities builds people-centered places across Oregon&mdash;projects, affordable housing, construction, and planning partnerships.">
 <meta property="og:title" content="Compass Communities">
-<meta property="og:description" content="Compass Communities builds people-centered places across Oregon—projects, affordable housing, construction, and planning partnerships.">
+<meta property="og:description" content="Compass Communities builds people-centered places across Oregon&mdash;projects, affordable housing, construction, and planning partnerships.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="cc-mark.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -46,7 +46,7 @@ header .nav-wrap{ display:flex; align-items:center; justify-content:space-betwee
 @media (max-width: 880px){ header nav{ gap:12px; } }
 </style>
 
-  <title>Operations Dashboard – Compass Communities</title>
+  <title>Operations Dashboard &ndash; Compass Communities</title>
 
   <style>
   .ops .ops-title{ display: inline-flex; align-items: center; gap: 10px; }
@@ -98,7 +98,7 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
   <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
   <a href="ai.html">Analysis Tools</a>
   <a href="login.html" class="login-link" aria-label="Admin login">
-  <span class="login-icon" aria-hidden="true">👤</span>
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
   <span class="login-text">Log in</span>
   </a>
   
@@ -111,7 +111,7 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
   <div class="container">
   <div class="eyebrow">Operations</div>
   <h1 class="h2" style="margin-top:4px">Operations Dashboard</h1>
-  <p class="p" style="max-width:70ch">At‑a‑glance stats and working lists for RFPs, vendor standing, property intake, and subscriber activity.</p>
+  <p class="p" style="max-width:70ch">At&ndash;a&ndash;glance stats and working lists for RFPs, vendor standing, property intake, and subscriber activity.</p>
 
   <div class="ops-kpis" style="margin-top:8px">
   <div class="card">
@@ -165,7 +165,7 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
   <div class="card">
   <h3 class="h4" style="margin-top:0">Submitted responses</h3>
   <div class="ops-table"><table>
-  <thead><tr><th>Submitted</th><th>On‑time</th><th>RFP</th><th>Firm</th><th>Contact</th><th>Email</th><th>Status</th><th>Archived</th><th>Actions</th></tr></thead>
+  <thead><tr><th>Submitted</th><th>On&ndash;time</th><th>RFP</th><th>Firm</th><th>Contact</th><th>Email</th><th>Status</th><th>Archived</th><th>Actions</th></tr></thead>
   <tbody id="ops_bids_submitted"></tbody>
   </table></div>
   </div>
@@ -296,7 +296,7 @@ function renderSubmitted(){
   const opts = options.map(s=> '<option'+(s(x.status||'Unread')?' selected':'')+'>'+s+'</option>').join('');
   const tr = document.createElement('tr');
   tr.innerHTML = '<td>'+(when?(when.toLocaleDateString()+' '+when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})):'')+'</td>'+
-  '<td>'+ (ontime''?'—':(ontime?'Yes':'No')) +'</td><td>'+(x.rfp_id||'')+'</td><td>'+(x.firm||'')+'</td><td>'+(x.contact_name||'')+'</td><td>'+(x.email||'')+'</td>'+
+  '<td>'+ (ontime''?'&mdash;':(ontime?'Yes':'No')) +'</td><td>'+(x.rfp_id||'')+'</td><td>'+(x.firm||'')+'</td><td>'+(x.contact_name||'')+'</td><td>'+(x.email||'')+'</td>'+
   '<td><select data-i="'+idx+'" data-status>'+opts+'</select></td><td><input type="checkbox" data-arch="'+idx+'"' + (archived?' checked':'') + '></td>'+
   '<td><a href="#" data-rem="'+idx+'">Remove</a></td>';
   tb.appendChild(tr);
