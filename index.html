@@ -651,9 +651,9 @@ const strings = {
   if (ev.date)  parts.push(ev.date);
   if (ev.time)  parts.push(ev.time);
   if (ev.location) parts.push(ev.location);
-  body.textContent = parts.join(' &middot; ');
+  body.textContent = parts.join(' - ');
   } else {
-  body.textContent = 'Open House &mdash; Riverfront Commons &middot; Tue Dec 16, 2025 &middot; 6&ndash;8 PM &middot; Salem Public Library';
+  body.textContent = 'Open House - Riverfront Commons - Tue Dec 16, 2025 - 6-8 PM - Salem Public Library';
   }
   }
 })();
