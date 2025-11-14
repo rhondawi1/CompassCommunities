@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3efe9"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="440" fill="url(#g)"/>
+  <!-- abstract blocks -->
+  <g fill="none" stroke="#BFA58A" stroke-width="2">
+    <rect x="60" y="60" width="120" height="80" rx="8"/>
+    <rect x="200" y="60" width="180" height="80" rx="8"/>
+    <rect x="400" y="60" width="120" height="80" rx="8"/>
+    <rect x="60" y="160" width="180" height="80" rx="8"/>
+    <rect x="260" y="160" width="120" height="80" rx="8"/>
+    <rect x="400" y="160" width="180" height="80" rx="8"/>
+    <rect x="60" y="260" width="120" height="80" rx="8"/>
+    <rect x="200" y="260" width="180" height="80" rx="8"/>
+    <rect x="400" y="260" width="120" height="80" rx="8"/>
+  </g>
+  <!-- brand badge -->
+  <circle cx="600" cy="340" r="40" fill="#6E5B49"/>
+  <text x="600" y="346" font-family="Inter, Arial" font-size="22" text-anchor="middle" fill="#fff" font-weight="700">CC</text>
+</svg>
