@@ -494,7 +494,6 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
         return realLocalStorage.getItem(key);
       }
       const text = fetchSync('GET', key, null);
-      // original code expects JSON string or null; use '[]' fallback
       return text || '[]';
     },
     setItem: function(key, value) {
@@ -513,7 +512,6 @@ button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-
       if (!REMOTE_KEYS.has(key)) {
         return realLocalStorage.removeItem(key);
       }
-      // represent "no data" as empty array in backend
       fetchSync('PUT', key, []);
     },
     clear: function() {

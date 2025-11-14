@@ -156,7 +156,41 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
   </div>
   <div class="grid grid-2" style="gap:16px">
   <div class="card">
-  <h3 class="h4" style="margin-top:0">Open RFPs</h3>
+  <div class="ops-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+    <h3 class="h4" style="margin-top:0">Open RFPs</h3>
+    <button type="button" id="btn_add_rfp" class="btn" style="padding:4px 12px;font-size:13px;">Add RFP</button>
+  </div>
+
+  <div id="rfp_form_panel" class="ops-rfp-form" style="display:none;margin:12px 0;padding:12px;border:1px solid #ddd;border-radius:6px;background:#fafafa;">
+    <form id="rfp_form">
+      <div class="grid grid-2">
+        <label>RFP ID<br><input id="rfp_id" placeholder="RFP-2025-001" required></label>
+        <label>Title<br><input id="rfp_title" required></label>
+        <label>Opening date<br><input id="rfp_open" type="date"></label>
+        <label>Due date<br><input id="rfp_due" type="date"></label>
+        <label>City<br><input id="rfp_city"></label>
+        <label>Development<br><input id="rfp_dev"></label>
+      </div>
+      <div class="grid grid-2" style="margin-top:10px">
+        <label>RFP document URL<br><input id="rfp_doc_url" placeholder="https://example.com/rfp.pdf"></label>
+        <label>Primary contact email<br><input id="rfp_contact_email" type="email"></label>
+      </div>
+      <details style="margin-top:10px">
+        <summary>Addendum &amp; Q&amp;A links (optional)</summary>
+        <label style="display:block;margin-top:8px">Addenda links (comma separated)<br>
+          <textarea id="rfp_addenda" rows="2" placeholder="https://example.com/addendum1.pdf, https://example.com/addendum2.pdf"></textarea>
+        </label>
+        <label style="display:block;margin-top:8px">Q&amp;A links (comma separated)<br>
+          <textarea id="rfp_qa" rows="2" placeholder="https://example.com/qa1.pdf, https://example.com/qa2.pdf"></textarea>
+        </label>
+      </details>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="submit" class="btn btn-dark" id="rfp_form_save">Save RFP</button>
+        <button type="button" class="btn" id="rfp_form_cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+
   <div class="ops-table"><table>
   <thead><tr><th>ID</th><th>Title</th><th>Due</th><th>City</th><th>Dev</th><th>Status</th><th>Archived</th><th>Actions</th></tr></thead>
   <tbody id="ops_rfps"></tbody>
@@ -278,7 +312,6 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
         return realLocalStorage.getItem(key);
       }
       const text = fetchSync('GET', key, null);
-      // original code expects JSON string or null; use '[]' fallback
       return text || '[]';
     },
     setItem: function(key, value) {
@@ -297,7 +330,6 @@ header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
       if (!REMOTE_KEYS.has(key)) {
         return realLocalStorage.removeItem(key);
       }
-      // represent "no data" as empty array in backend
       fetchSync('PUT', key, []);
     },
     clear: function() {
@@ -327,6 +359,28 @@ function bidsOpen(){return getStore('bidsExtra').filter(b=>!b.archived);}
 function bidsSubmitted(){return getStore('bidsSubmitted');}
 function subsAll(){return getStore('subcontractors');}
 function intakeAll(){return getStore('propertyIntakeRequests');}
+
+var rfpEditingIndex = null;
+
+function normalizeDateInput(value){
+  if(!value) return '';
+  if(value.indexOf('-') > -1){
+    var parts = value.split('-');
+    if(parts.length===3){
+      var y = parts[0], m = parts[1], d = parts[2];
+      if(m.length===1) m = '0'+m;
+      if(d.length===1) d = '0'+d;
+      return m.replace(/^0/,'') + '/' + d.replace(/^0/,'') + '/' + y;
+    }
+  }
+  return value;
+}
+
+function splitLinks(text){
+  if(!text) return [];
+  return text.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return !!s; });
+}
+
 function projectsAll(){return getStore('projectsExtra');}
 function adminUsers(){return getStore('adminUsers');}
 
@@ -343,22 +397,90 @@ function renderStats(){
   document.getElementById('stat_submitted_bids').textContent = bidsSubmitted().length;
 }
 
+
 function renderRFPs(){
-  const list = getStore('bidsExtra'); const arch = document.getElementById('rfp_arch_filter').value;
-  const tb = document.getElementById('ops_rfps'); tb.innerHTML = '';
+  const list = getStore('bidsExtra'); 
+  const arch = document.getElementById('rfp_arch_filter').value;
+  const tb = document.getElementById('ops_rfps'); 
+  if (!tb) return;
+  tb.innerHTML = '';
   list.forEach((b,i)=>{
-  const archived=!!b.archived;
-  if(arch'active' && archived) return;
-  if(arch'archived' && !archived) return;
-  const tr = document.createElement('tr');
-  tr.innerHTML = '<td>'+(b.id||'')+'</td><td>'+(b.title||'')+'</td><td>'+(b.due||'')+'</td><td>'+(b.city||'')+'</td><td>'+(b.development||'')+'</td><td>'+(b.status||'')+'</td><td>'+(archived?'Yes':'No')+'</td>'+
-  '<td><a href="#" data-edit="'+i+'">Edit</a> &middot; <a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-rem="'+i+'">Remove</a></td>';
-  tb.appendChild(tr);
+    const archived = !!b.archived;
+    if(arch==='active' && archived) return;
+    if(arch==='archived' && !archived) return;
+    const tr = document.createElement('tr');
+    tr.innerHTML = 
+      '<td>'+(b.id||'')+'</td>'+
+      '<td>'+(b.title||'')+'</td>'+
+      '<td>'+(b.due||'')+'</td>'+
+      '<td>'+(b.city||'')+'</td>'+
+      '<td>'+(b.development||'')+'</td>'+
+      '<td>'+(b.status||'')+'</td>'+
+      '<td>'+(archived?'Yes':'No')+'</td>'+
+      '<td><a href="#" data-edit="'+i+'">Edit</a> &middot; '+
+          '<a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; '+
+          '<a href="#" data-rem="'+i+'">Remove</a></td>';
+    tb.appendChild(tr);
   });
-  tb.querySelectorAll('a[data-arch]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const i=+a.dataset.arch;const arr=getStore('bidsExtra');arr[i].archived=!arr[i].archived;setStore('bidsExtra',arr);renderRFPs();renderStats();}));
-  tb.querySelectorAll('a[data-rem]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const i=+a.dataset.rem;const arr=getStore('bidsExtra');arr.splice(i,1);setStore('bidsExtra',arr);renderRFPs();renderStats();}));
-  tb.querySelectorAll('a[data-edit]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const i=+a.dataset.edit;const arr=getStore('bidsExtra');const b=arr[i];if(!b)return;const t=prompt('Title', b.title||'');if(tnull)return;b.title=t;const due=prompt('Due (MM/DD/YYYY)', b.due||'');if(due!==null)b.due=due;const s=prompt('Status', b.status||'');if(s!==null)b.status=s;setStore('bidsExtra',arr);renderRFPs();renderStats();}));
+
+  tb.querySelectorAll('a[data-arch]').forEach(a=>a.addEventListener('click', function(e){
+    e.preventDefault();
+    const i = +a.dataset.arch;
+    const arr = getStore('bidsExtra');
+    arr[i] = arr[i] || {};
+    arr[i].archived = !arr[i].archived;
+    setStore('bidsExtra', arr);
+    renderRFPs();
+    renderStats();
+  }));
+
+  tb.querySelectorAll('a[data-rem]').forEach(a=>a.addEventListener('click', function(e){
+    e.preventDefault();
+    const i = +a.dataset.rem;
+    const arr = getStore('bidsExtra');
+    arr.splice(i,1);
+    setStore('bidsExtra', arr);
+    renderRFPs();
+    renderStats();
+  }));
+
+  tb.querySelectorAll('a[data-edit]').forEach(a=>a.addEventListener('click', function(e){
+    e.preventDefault();
+    const i = +a.dataset.edit;
+    const arr = getStore('bidsExtra');
+    const b = arr[i] || {};
+    const panel = document.getElementById('rfp_form_panel');
+    const form = document.getElementById('rfp_form');
+    if(!panel || !form) return;
+
+    rfpEditingIndex = i;
+
+    document.getElementById('rfp_id').value = b.id || '';
+    document.getElementById('rfp_title').value = b.title || '';
+
+    function toDateInput(v){
+      if(!v || v.indexOf('/') === -1) return '';
+      var p = v.split('/');
+      if(p.length!==3) return '';
+      var m = p[0].padStart(2,'0');
+      var d = p[1].padStart(2,'0');
+      var y = p[2].length===2? ('20'+p[2]) : p[2];
+      return y + '-' + m + '-' + d;
+    }
+
+    document.getElementById('rfp_open').value = toDateInput(b.open||'');
+    document.getElementById('rfp_due').value = toDateInput(b.due||'');
+    document.getElementById('rfp_city').value = b.city || '';
+    document.getElementById('rfp_dev').value = b.development || '';
+    document.getElementById('rfp_doc_url').value = b.documentUrl || '';
+    document.getElementById('rfp_contact_email').value = b.contactEmail || '';
+    document.getElementById('rfp_addenda').value = (b.addendaLinks||[]).join(', ');
+    document.getElementById('rfp_qa').value = (b.qaLinks||[]).join(', ');
+
+    panel.style.display = 'block';
+  }));
 }
+
 
 function renderSubmitted(){
   const tb = document.getElementById('ops_bids_submitted'); tb.innerHTML='';
@@ -458,6 +580,86 @@ document.addEventListener('DOMContentLoaded', function(){
   else if(id'subs_contacts_filter'){ renderSubsContacts(); }
   else { renderIntake(); }
   }); });
+});
+
+
+document.addEventListener('DOMContentLoaded', function(){
+  const panel = document.getElementById('rfp_form_panel');
+  const form = document.getElementById('rfp_form');
+  const btnAdd = document.getElementById('btn_add_rfp');
+  const btnCancel = document.getElementById('rfp_form_cancel');
+  if(!panel || !form || !btnAdd || !btnCancel) return;
+
+  btnAdd.addEventListener('click', function(){
+    rfpEditingIndex = null;
+    form.reset();
+    panel.style.display = 'block';
+    var idInput = document.getElementById('rfp_id');
+    if(idInput) idInput.focus();
+  });
+
+  btnCancel.addEventListener('click', function(){
+    panel.style.display = 'none';
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const id = document.getElementById('rfp_id').value.trim();
+    const title = document.getElementById('rfp_title').value.trim();
+    if(!id || !title){
+      alert('RFP ID and Title are required.');
+      return;
+    }
+    const openRaw = document.getElementById('rfp_open').value;
+    const dueRaw = document.getElementById('rfp_due').value;
+    const open = normalizeDateInput(openRaw);
+    const due = normalizeDateInput(dueRaw);
+    const city = document.getElementById('rfp_city').value.trim();
+    const dev = document.getElementById('rfp_dev').value.trim();
+    const docUrl = document.getElementById('rfp_doc_url').value.trim();
+    const email = document.getElementById('rfp_contact_email').value.trim();
+    const addendaText = document.getElementById('rfp_addenda').value;
+    const qaText = document.getElementById('rfp_qa').value;
+
+    const addenda = splitLinks(addendaText);
+    const qa = splitLinks(qaText);
+
+    const arr = getStore('bidsExtra');
+
+    // if editing, update existing
+    let b;
+    if(rfpEditingIndex !== null){
+      b = arr[rfpEditingIndex] || {};
+    } else {
+      if(arr.some(x => String(x.id||'') === id)){
+        alert('An RFP with this ID already exists.');
+        return;
+      }
+      b = {};
+    }
+
+    b.id = id;
+    b.title = title;
+    b.city = city;
+    b.development = dev;
+    if(due) b.due = due;
+    if(open) b.open = open;
+    b.documentUrl = docUrl;
+    b.contactEmail = email;
+    b.addendaLinks = addenda;
+    b.qaLinks = qa;
+
+    if(rfpEditingIndex !== null){
+      arr[rfpEditingIndex] = b;
+    } else {
+      arr.push(b);
+    }
+
+    setStore('bidsExtra', arr);
+    panel.style.display = 'none';
+    renderRFPs();
+    renderStats();
+  });
 });
 </script>
 </body>
