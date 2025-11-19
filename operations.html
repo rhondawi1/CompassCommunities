@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<link rel="canonical" href="index.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Compass Communities builds people-centered places across Oregon&mdash;projects, affordable housing, construction, and planning partnerships.">
+<meta property="og:title" content="Compass Communities">
+<meta property="og:description" content="Compass Communities builds people-centered places across Oregon&mdash;projects, affordable housing, construction, and planning partnerships.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+
+  <title>Operations Dashboard &ndash; Compass Communities</title>
+
+  <style>
+  .ops .ops-title{ display: inline-flex; align-items: center; gap: 10px; }
+  .ops .ops-icon{ width: 20px; height: 20px; stroke: currentColor; fill: none; opacity: .92; }
+  .ops .ops-table{ overflow:auto; border:1px solid var(--border); border-radius:10px; background:var(--surface); }
+  .ops .ops-table table{ min-width: 760px; }
+  .ops .ops-controls{ display:flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0 12px; }
+  .ops .ops-kpis{ display:grid; gap: 12px; grid-template-columns: repeat(4, minmax(180px, 1fr)); }
+  @media (max-width: 980px){ .ops .ops-kpis{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px){ .ops .ops-kpis{ grid-template-columns: 1fr; } }
+  </style>
+  
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+    <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+    <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+    <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+    <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+    <a href="login.html" class="login-link" aria-label="Admin login">
+      <span class="login-icon" aria-hidden="true">&#128100;</span>
+      <span class="login-text">Log in</span>
+    </a>
+    <a href="analysis.html">Analysis Tools</a>
+    <a href="admin.html">Admin</a>
+    <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+<main class="ops">
+  <section class="section">
+  <div class="container">
+  <div class="eyebrow">Operations</div>
+  <h1 class="h2" style="margin-top:4px">Operations Dashboard</h1>
+  <p class="p" style="max-width:70ch">At&ndash;a&ndash;glance stats and working lists for RFPs, vendor standing, property intake, and subscriber activity.</p>
+
+  <div class="ops-kpis" style="margin-top:8px">
+  <div class="card">
+  <div class="eyebrow">Open projects</div>
+  <div class="h2" id="stat_projects_count">0</div>
+  <div class="p" id="stat_projects_value">$0 total value</div>
+  </div>
+  <div class="card">
+  <div class="eyebrow">Intake (30 days)</div>
+  <div class="h2" id="stat_intake_30">0</div>
+  <div class="p">New property intake</div>
+  </div>
+  <div class="card">
+  <div class="eyebrow">Subscribers (30 days)</div>
+  <div class="h2" id="stat_subs_30">0</div>
+  <div class="p">New RFP subscribers</div>
+  </div>
+  <div class="card">
+  <div class="eyebrow">RFPs</div>
+  <div class="h2"><span id="stat_open_rfps">0</span> open</div>
+  <div class="p"><span id="stat_submitted_bids">0</span> submissions</div>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <section class="section">
+  <div class="container">
+  <h2 class="h3 ops-title"><svg class="ops-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg> RFPs &amp; submitted responses</h2>
+  <div class="ops-controls">
+  <label>Status&nbsp;
+  <select id="rfp_status_filter">
+  <option value="">All</option><option>Unread</option><option>Read</option>
+  <option>Declined</option><option>Short-listed</option><option>Negotiating</option><option>Approved</option>
+  </select>
+  </label>
+  <label>Show&nbsp;
+  <select id="rfp_arch_filter">
+  <option value="active">Active</option><option value="archived">Archived</option><option value="all">All</option>
+  </select>
+  </label>
+  </div>
+  <div class="grid grid-2" style="gap:16px">
+  <div class="card">
+  <h3 class="h4" style="margin-top:0">Open RFPs</h3>
+  <div class="ops-table"><table>
+  <thead><tr><th>ID</th><th>Title</th><th>Due</th><th>City</th><th>Dev</th><th>Status</th><th>Archived</th><th>Actions</th></tr></thead>
+  <tbody id="ops_rfps"></tbody>
+  </table></div>
+  </div>
+  <div class="card">
+  <h3 class="h4" style="margin-top:0">Submitted responses</h3>
+  <div class="ops-table"><table>
+  <thead><tr><th>Submitted</th><th>On&ndash;time</th><th>RFP</th><th>Firm</th><th>Contact</th><th>Email</th><th>Status</th><th>Archived</th><th>Actions</th></tr></thead>
+  <tbody id="ops_bids_submitted"></tbody>
+  </table></div>
+  </div>
+  </div>
+  </div>
+  </section>
+
+  <section class="section">
+  <div class="container">
+  <h2 class="h3 ops-title"><svg class="ops-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-3-3.9"/><path d="M8 15.1A4 4 0 0 0 5 19v2"/><circle cx="12" cy="7" r="4"/></svg> Active vendors by standing</h2>
+  <div class="ops-controls">
+  <label>Sort by&nbsp;<select id="subs_sort"><option value="firm">Firm</option><option value="standing">Standing</option><option value="createdAt">Joined</option></select></label>
+  <label>Show&nbsp;<select id="subs_arch_filter"><option value="active">Active</option><option value="archived">Archived</option><option value="all">All</option></select></label>
+  </div>
+  <div class="card">
+  <div class="ops-table"><table>
+  <thead><tr><th>Firm</th><th>Contact</th><th>Email</th><th>Trade</th><th>Region</th><th>Standing</th><th>RFP notices</th><th>Archived</th><th>Actions</th></tr></thead>
+  <tbody id="ops_subs"></tbody>
+  </table></div>
+  </div>
+  </div>
+  </section>
+
+  <section class="section">
+  <div class="container">
+  <h2 class="h3 ops-title"><svg class="ops-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Property development intake</h2>
+  <div class="ops-controls">
+  <label>Status&nbsp;<select id="intake_status_filter">
+  <option value="">All</option><option>Unread</option><option>Read</option><option>Accepted</option><option>In review</option><option>Negotiating</option><option>Declined</option>
+  </select></label>
+  <label>Show&nbsp;<select id="intake_arch_filter"><option value="active">Active</option><option value="archived">Archived</option><option value="all">All</option></select></label>
+  </div>
+  <div class="card">
+  <div class="ops-table"><table>
+  <thead><tr><th>Submitted</th><th>Contact</th><th>Email</th><th>Property</th><th>County</th><th>Status</th><th>Archived</th><th>Actions</th></tr></thead>
+  <tbody id="ops_intake"></tbody>
+  </table></div>
+  </div>
+  </div>
+  </section>
+
+  <section class="section">
+  <div class="container">
+  <h2 class="h3 ops-title"><svg class="ops-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"/><polyline points="3 7 12 13 21 7"/></svg> Subscribers &amp; contacts</h2>
+  <div class="ops-controls">
+  <label>Show&nbsp;<select id="subs_contacts_filter"><option value="active">Active</option><option value="archived">Archived</option><option value="all">All</option></select></label>
+  </div>
+  <div class="card">
+  <div class="ops-table"><table>
+  <thead><tr><th>Type</th><th>Name/Firm</th><th>Email</th><th>Standing/Notes</th><th>Archived</th><th>Actions</th></tr></thead>
+  <tbody id="ops_subs_contacts"></tbody>
+  </table></div>
+  </div>
+  </div>
+  </section>
+</main>
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
+  <a href="contact.html">Contact</a>
+  </div>
+  </div>
+</footer>
+<script>
+const OPS_API = '/api/store';
+function $(s){return document.querySelector(s);} 
+function getStore(k){try{return JSON.parse(localStorage.getItem(k)||'[]')||[];}catch(e){return [];}}
+function setStore(k,v){localStorage.setItem(k, JSON.stringify(v||[]));}
+function parseDue(d){if(!d)return null;var p=d.split('/');if(p.length<3)return null;var m=+p[0],day=+p[1],y=+p[2];if(y<100)y+=2000;return new Date(y,m-1,day,23,59,59);} 
+function daysAgo(n){const dt=new Date(); dt.setDate(dt.getDate()-n); return dt;}
+async function upsertCloud(table, item){
+  if(!item) return;
+  try{
+    await fetch(OPS_API, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ table, action:'upsert', item })
+    });
+  }catch(err){
+    console.warn('Unable to sync change to cloud', table, err);
+  }
+}
+
+async function removeCloud(table, id){
+  if(!id) return;
+  try{
+    await fetch(`${OPS_API}?table=${encodeURIComponent(table)}&action=delete&id=${encodeURIComponent(id)}`, { method:'POST' });
+  }catch(err){
+    console.warn('Unable to remove item in cloud', table, id, err);
+  }
+}
+
+async function hydrateFromCloud(){
+  const tables = ['bidsExtra','bidsSubmitted','subcontractors','propertyIntakeRequests','projectsExtra','adminUsers'];
+  for(const table of tables){
+    try{
+      const res = await fetch(`${OPS_API}?table=${encodeURIComponent(table)}&action=list`);
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const payload = await res.json();
+      setStore(table, payload || []);
+    }catch(err){
+      console.warn('Using cached data for', table, err);
+    }
+  }
+}
+
+function bidsOpen(){return getStore('bidsExtra').filter(b=>!b.archived);}
+function bidsSubmitted(){return getStore('bidsSubmitted');}
+function subsAll(){return getStore('subcontractors');}
+function intakeAll(){return getStore('propertyIntakeRequests');}
+function projectsAll(){return getStore('projectsExtra');}
+function adminUsers(){return getStore('adminUsers');}
+
+function renderStats(){
+  const projects = projectsAll().filter(p=>!p.archived);
+  document.getElementById('stat_projects_count').textContent = projects.length;
+  const total = projects.reduce((s,p)=> s + (Number(p.value||p.budget||0)||0), 0);
+  document.getElementById('stat_projects_value').textContent = total ? ('$'+ total.toLocaleString()) + ' total value' : 'Value not set';
+  const intake30 = intakeAll().filter(i=> new Date(i.createdAt||0) >= daysAgo(30));
+  document.getElementById('stat_intake_30').textContent = intake30.length;
+  const subs30 = subsAll().filter(s=> s.subscribeRFP && new Date(s.createdAt||0) >= daysAgo(30));
+  document.getElementById('stat_subs_30').textContent = subs30.length;
+  document.getElementById('stat_open_rfps').textContent = bidsOpen().length;
+  document.getElementById('stat_submitted_bids').textContent = bidsSubmitted().length;
+}
+
+
+function renderRFPs(){
+  let list = getStore('bidsExtra') || [];
+  const archEl = document.getElementById('rfp_arch_filter');
+  const statusEl = document.getElementById('rfp_status_filter');
+  const arch = archEl ? archEl.value : '';
+  const statusFilter = statusEl ? statusEl.value : '';
+  const tb = document.getElementById('ops_rfps');
+  if(!tb) return;
+  tb.innerHTML = '';
+
+  // Sort: open / non-archived first, then by due date, then by title
+  list = list.slice().sort(function(a,b){
+    const aArchived = !!a.archived;
+    const bArchived = !!b.archived;
+    if(aArchived !== bArchived) return aArchived ? 1 : -1; // open first
+    const ad = parseDue(a.due||'');
+    const bd = parseDue(b.due||'');
+    if(ad && bd){
+      return ad - bd;
+    }else if(ad){ return -1; }
+    else if(bd){ return 1; }
+    return String(a.title||'').localeCompare(String(b.title||''));
+  });
+
+  list.forEach(function(b,i){
+    const archived = !!b.archived;
+    const status = String(b.status||'');
+    if(arch==='active' && archived) return;
+    if(arch==='archived' && !archived) return;
+    if(statusFilter && status && statusFilter !== status) return;
+
+    const invited = (b.subscribers || []).join(', ');
+
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>'+(b.id||'')+'</td>'+
+      '<td>'+(b.title||'')+'</td>'+
+      '<td>'+(b.due||'')+'</td>'+
+      '<td>'+(b.city||'')+'</td>'+
+      '<td>'+(b.development||'')+'</td>'+
+      '<td>'+(invited||'&mdash;')+'</td>'+
+      '<td>'+(status||'')+'</td>'+
+      '<td>'+(archived?'Yes':'No')+'</td>'+
+      '<td><a href="#" data-edit="'+i+'">Edit</a> &middot; '+
+          '<a href="#" data-arch="'+i+'">'+(archived?'Unarchive':'Archive')+'</a> &middot; '+
+          '<a href="#" data-rem="'+i+'">Remove</a></td>';
+
+    tb.appendChild(tr);
+  });
+
+  tb.querySelectorAll('a[data-arch]').forEach(function(a){
+     a.addEventListener('click', async function(e){
+      e.preventDefault();
+      const i = +a.dataset.arch;
+      const arr = getStore('bidsExtra');
+      if(!arr[i]) return;
+      arr[i].archived = !arr[i].archived;
+      setStore('bidsExtra', arr);
+      await upsertCloud('bidsExtra', arr[i]);
+      renderRFPs();
+      renderStats();
+    });
+  });
+
+  tb.querySelectorAll('a[data-rem]').forEach(function(a){
+    a.addEventListener('click', async function(e){
+      e.preventDefault();
+      const i = +a.dataset.rem;
+      const arr = getStore('bidsExtra');
+      const removed = arr.splice(i,1)[0];
+      setStore('bidsExtra', arr);
+      await removeCloud('bidsExtra', removed && removed.id);
+      renderRFPs();
+      renderStats();
+    });
+  });
+
+  tb.querySelectorAll('a[data-edit]').forEach(function(a){
+     a.addEventListener('click', async function(e){
+      e.preventDefault();
+      const i = +a.dataset.edit;
+      const arr = getStore('bidsExtra');
+      const b = arr[i] || {};
+      const next = window.prompt('Update status for '+(b.id||'RFP')+' (e.g. Open, Awarded, Cancelled, Draft):', b.status||'Open');
+      if(next===null) return;
+      arr[i].status = next;
+      setStore('bidsExtra', arr);
+      await upsertCloud('bidsExtra', arr[i]);
+      renderRFPs();
+      renderStats();
+    });
+  });
+}
+}
+
+function renderSubmitted(){
+  const tb = document.getElementById('ops_bids_submitted'); tb.innerHTML='';
+  const arr = bidsSubmitted(); const byId = Object.fromEntries(getStore('bidsExtra').map(b=>[b.id,b])); const status = document.getElementById('rfp_status_filter').value; const arch=document.getElementById('rfp_arch_filter').value;
+  const options = ['Unread','Read','Declined','Short-listed','Negotiating','Approved'];
+  arr.slice().sort((a,b)=> new Date(b.createdAt||0)-new Date(a.createdAt||0)).forEach((x,idx)=>{
+  const archived=!!x.archived;
+  if(arch==='active' && archived) return;
+  if(arch==='archived' && !archived) return;
+  if(status && String(x.status||'')!==status) return;
+  const due = byId[x.rfp_id]? (function(d){var p=d.split('/');var m=+p[0],day=+p[1],y=+p[2];if(y<100)y+=2000; return new Date(y,m-1,day,23,59,59);})(byId[x.rfp_id].due) : null;
+  const when = x.createdAt? new Date(x.createdAt) : null;
+  const ontime = (due && when) ? (when.getTime() <= due.getTime()) : '';
+  const opts = options.map(s=> '<option'+(s===(x.status||'Unread')?' selected':'')+'>'+s+'</option>').join('');
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>'+(when?(when.toLocaleDateString()+' '+when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})):'')+'</td>'+
+  '<td>'+ (ontime===''?'&mdash;':(ontime?'Yes':'No')) +'</td><td>'+(x.rfp_id||'')+'</td><td>'+(x.firm||'')+'</td><td>'+(x.contact_name||'')+'</td><td>'+(x.email||'')+'</td>'+
+  '<td><select data-i="'+idx+'" data-status>'+opts+'</select></td><td><input type="checkbox" data-arch="'+idx+'"' + (archived?' checked':'') + '></td>'+
+  '<td><a href="#" data-rem="'+idx+'">Remove</a></td>';
+  tb.appendChild(tr);
+  });
+   tb.querySelectorAll('select[data-status]').forEach(sel=> sel.addEventListener('change', async ()=>{const i=+sel.dataset.i; const arr=bidsSubmitted(); arr[i].status = sel.value; setStore('bidsSubmitted', arr); await upsertCloud('bidsSubmitted', arr[i]); renderSubmitted();}));
+  tb.querySelectorAll('input[data-arch]').forEach(box=> box.addEventListener('change', async ()=>{const i=+box.dataset.arch; const arr=bidsSubmitted(); arr[i].archived=!!box.checked; setStore('bidsSubmitted', arr); await upsertCloud('bidsSubmitted', arr[i]); renderSubmitted();}));
+  tb.querySelectorAll('a[data-rem]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.rem; const arr=bidsSubmitted(); const removed = arr.splice(i,1)[0]; setStore('bidsSubmitted', arr); await removeCloud('bidsSubmitted', removed && removed.id); renderSubmitted(); renderStats();}));
+}
+
+function renderSubs(){
+  const tb = document.getElementById('ops_subs'); tb.innerHTML='';
+  const sort = document.getElementById('subs_sort').value; const arch = document.getElementById('subs_arch_filter').value;
+  let list = subsAll().slice();
+  if(arch==='active') list=list.filter(s=>!s.archived);
+  if(arch==='archived') list=list.filter(s=>s.archived);
+  list.sort((a,b)=> sort==='createdAt' ? (new Date(b.createdAt||0)-new Date(a.createdAt||0)) : String((a[sort]||'')).localeCompare(String((b[sort]||''))));
+  list.forEach((s,idx)=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>'+(s.firm||'')+'</td><td>'+(s.contact||'')+'</td><td>'+(s.email||'')+'</td><td>'+(s.trade||'')+'</td><td>'+(s.region||'')+'</td><td>'+(s.standing||'')+'</td><td>'+(s.subscribeRFP?'Yes':'No')+'</td>'+
+  '<td>'+(s.archived?'Yes':'No')+'</td><td><a href="#" data-edit="'+idx+'">Edit</a> &middot; <a href="#" data-arch="'+idx+'">'+(s.archived?'Unarchive':'Archive')+'</a> &middot; <a href="#" data-rem="'+idx+'">Remove</a></td>';
+  tb.appendChild(tr);
+  });
+    tb.querySelectorAll('a[data-arch]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.arch; const arr=subsAll(); arr[i].archived=!arr[i].archived; setStore('subcontractors', arr); await upsertCloud('subcontractors', arr[i]); renderSubs();}));
+  tb.querySelectorAll('a[data-rem]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.rem; const arr=subsAll(); const removed = arr.splice(i,1)[0]; setStore('subcontractors', arr); await removeCloud('subcontractors', removed && removed.id); renderSubs();}));
+  tb.querySelectorAll('a[data-edit]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.edit; const arr=subsAll(); const s=arr[i]; if(!s) return; const standing = prompt('Standing (Good Standing, On Watch List, Terminated):', s.standing||''); if(standing!==null) s.standing=standing; setStore('subcontractors', arr); await upsertCloud('subcontractors', s); renderSubs();}));
+}
+
+function renderIntake(){
+  const tb = document.getElementById('ops_intake'); tb.innerHTML='';
+  const status = document.getElementById('intake_status_filter').value; const arch = document.getElementById('intake_arch_filter').value;
+  let list = intakeAll().slice().sort((a,b)=> new Date(b.createdAt||0)-new Date(a.createdAt||0));
+  list.forEach((x,idx)=>{
+  const archived = !!x.archived;
+  if(arch==='active' && archived) return;
+  if(arch==='archived' && !archived) return;
+  if(status && String(x.status||'')!==status) return;
+  const when = x.createdAt? new Date(x.createdAt) : null;
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>'+(when?(when.toLocaleDateString()+' '+when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})):'')+'</td>'+
+  '<td>'+((x.contact_name||'') + (x.organization? ' &middot; '+x.organization : ''))+'</td>'+
+  '<td>'+(x.email||'')+'</td><td>'+(x.property_address||'')+'</td><td>'+(x.county||'')+'</td><td>'+(x.status||'Unread')+'</td>'+
+  '<td><input type="checkbox" data-arch="'+idx+'"' + (archived?' checked':'') + '></td>'+
+  '<td><a href="#" data-edit="'+idx+'">Edit</a> &middot; <a href="#" data-rem="'+idx+'">Remove</a></td>';
+  tb.appendChild(tr);
+  });
+  tb.querySelectorAll('input[data-arch]').forEach(box=> box.addEventListener('change', async ()=>{const i=+box.dataset.arch; const arr=intakeAll(); arr[i].archived=!!box.checked; setStore('propertyIntakeRequests', arr); await upsertCloud('propertyIntakeRequests', arr[i]); renderIntake();}));
+  tb.querySelectorAll('a[data-rem]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.rem; const arr=intakeAll(); const removed = arr.splice(i,1)[0]; setStore('propertyIntakeRequests', arr); await removeCloud('propertyIntakeRequests', removed && removed.id); renderIntake(); renderStats();}));
+  tb.querySelectorAll('a[data-edit]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.edit; const arr=intakeAll(); const x=arr[i]; if(!x) return; const status=prompt('Status (Unread, Read, Accepted, In review, Negotiating, Declined):', x.status||'Unread'); if(status!==null) x.status=status; setStore('propertyIntakeRequests', arr); await upsertCloud('propertyIntakeRequests', x); renderIntake();}));
+}
+
+function renderSubsContacts(){
+  const tb = document.getElementById('ops_subs_contacts'); tb.innerHTML='';
+  const arch = document.getElementById('subs_contacts_filter').value;
+  let subs = subsAll().filter(s=> s.subscribeRFP);
+  let contacts = adminUsers();
+  subs = subs.filter(s=> arch==='all' ? true : (arch==='archived' ? !!s.archived : !s.archived));
+  contacts = contacts.filter(c=> arch==='all' ? true : (arch==='archived' ? !!c.archived : !c.archived));
+  const tr = document.createElement('tr');
+  subs.forEach((s, idx)=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>Subscriber</td><td>'+(s.firm||'')+'</td><td>'+(s.email||'')+'</td><td>'+(s.standing||'')+'</td><td>'+(s.archived?'Yes':'No')+'</td>'+
+  '<td><a href="#" data-sub-arch="'+idx+'">'+(s.archived?'Unarchive':'Archive')+'</a></td>';
+  tb.appendChild(tr);
+  });
+  contacts.forEach((c, j)=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>Contact</td><td>'+(c.name||'')+'</td><td>'+(c.email||'')+'</td><td>'+(c.role||'')+'</td><td>'+(c.archived?'Yes':'No')+'</td>'+
+  '<td><a href="#" data-contact-arch="'+j+'">'+(c.archived?'Unarchive':'Archive')+'</a></td>';
+  tb.appendChild(tr);
+  });
+  tb.querySelectorAll('a[data-sub-arch]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const i=+a.dataset.subArch; const arr=subsAll(); const active = arr.filter(s=> s.subscribeRFP); const s=active[i]; if(!s) return; const origIdx = arr.findIndex(x=> x.id===s.id); arr[origIdx].archived = !arr[origIdx].archived; setStore('subcontractors', arr); await upsertCloud('subcontractors', arr[origIdx]); renderSubsContacts(); }));
+  tb.querySelectorAll('a[data-contact-arch]').forEach(a=> a.addEventListener('click', async e=>{e.preventDefault(); const j=+a.dataset.contactArch; const arr=adminUsers(); const c=arr[j]; if(!c) return; arr[j].archived = !arr[j].archived; setStore('adminUsers', arr); await upsertCloud('adminUsers', c); renderSubsContacts(); }));
+}
+
+document.addEventListener('DOMContentLoaded', async function(){
+  await hydrateFromCloud();
+  renderStats(); renderRFPs(); renderSubmitted(); renderSubs(); renderIntake(); renderSubsContacts();
+  ['rfp_status_filter','rfp_arch_filter','subs_sort','subs_arch_filter','intake_status_filter','intake_arch_filter','subs_contacts_filter']
+  .forEach(id => { var el = document.getElementById(id); if(el) el.addEventListener('change', function(){
+  if(id.startsWith('rfp_')){ renderRFPs(); renderSubmitted(); }
+  else if(id.startsWith('subs_') && id!=='subs_contacts_filter'){ renderSubs(); }
+  else if(id==='subs_contacts_filter'){ renderSubsContacts(); }
+  else { renderIntake(); }
+  }); });
+});
+</script>
+</body>
+</html>

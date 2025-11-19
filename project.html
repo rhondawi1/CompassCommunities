@@ -1,0 +1,379 @@
+<head>
+  <script src="includes/site-shell.js" defer></script>
+<link rel="canonical" href="project.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Project details, milestones, partners, and location from Compass Communities.">
+<meta property="og:title" content="Project - Compass Communities">
+<meta property="og:description" content="Project details, milestones, partners, and location from Compass Communities.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+</head><!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project &ndash; Compass Communities</title>
+<style>
+  :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
+  *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
+  a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+  .container{max-width:1120px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+  .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:12px}.logo-badge{height:36px;width:36px;border-radius:10px;background:var(--sand);color:#fff;display:grid;place-content:center;font-weight:700}
+  nav{display:flex;gap:8px;flex-wrap:nowrap;white-space:nowrap} nav a{padding:6px 10px;border-radius:10px;color:#374151} nav a:hover{background:#f3f4f6}
+  .section{padding:32px 0} .eyebrow{color:#78350f;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .h1{font-size:28px;margin:6px 0} .h2{font-size:20px;margin:6px 0} .p{color:var(--muted)}
+  .grid-2{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+  .card{border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04);padding:18px;display:flex;flex-direction:column}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:8px 12px;font-size:14px;font-weight:600;border:1px solid var(--border)}
+  .btn-dark{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:999px;padding:2px 10px;font-size:12px;color:#374151;background:#fff}
+  .stack{display:grid;gap:10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .timeline{position:relative;margin-left:6px}
+  .timeline:before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:#e5e7eb;border-radius:2px}
+  .titem{position:relative;padding-left:24px;margin:8px 0}
+  .titem:before{content:"";position:absolute;left:-1px;top:6px;width:14px;height:14px;background:#fff;border:2px solid #6E5B49;border-radius:999px}
+  .pill{display:inline-flex;align-items:center;border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:12px;color:#374151;background:#fff}
+  .dot{width:10px;height:10px;border-radius:999px;background:#e5e7eb;border:1px solid #d1d5db}
+  .dot.active{background:#6E5B49;border-color:#6E5B49}
+  @media (max-width:960px){.grid-2{grid-template-columns:1fr}}
+
+/*  Accessibility / ADA improvements  */
+:root{
+  /* Darker muted text for >=4.5:1 on white backgrounds */
+  --muted:#374151;
+}
+/* Ensure link visibility not relying on color alone */
+a{text-decoration:underline;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+/* Strong, visible focus rings */
+:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+/* Buttons and controls should not lose outlines */
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+/* Logo badge: use dark text on sand background for contrast */
+.logo-badge{color:#111827 !important}
+/* Badges and pills: keep text sufficiently dark */
+.badge,.pill{color:#1f2937}
+/* Optional high-contrast mode */
+:root[data-contrast="high"]{
+  --text:#0b0f19;
+  --muted:#111827;
+  --border:#9ca3af;
+  --bg:#ffffff;
+}
+:root[data-contrast="high"] a{color:var(--accent);}
+:root[data-contrast="high"] .btn{border-color:#111;background:#111;color:#fff}
+@media (prefers-contrast: more){
+  :root{--muted:#111827}
+  a{text-decoration-thickness:2px}
+}
+
+.check{display:flex;align-items:center;gap:8px;justify-content:flex-start}
+</style>
+<header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+    <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+    <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+    <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+    <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+    <a href="login.html" class="login-link" aria-label="Admin login">
+      <span class="login-icon" aria-hidden="true">&#128100;</span>
+      <span class="login-text">Log in</span>
+    </a>
+    <a href="analysis.html">Analysis Tools</a>
+    <a href="admin.html">Admin</a>
+    <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+<main class="section"><div class="container">
+  <a href="projects.html" class="p">&larr; Back to projects</a>
+  <div class="grid-2" style="margin-top:10px">
+  <section>
+  <div class="eyebrow">Project</div>
+  <h1 id="p_name" class="h1">Project Name</h1>
+  <div class="row" id="p_badges" style="margin:6px 0"></div>
+  <div class="card" id="photosCard" style="margin-top:12px;display:none">
+  <h2 class="h2">Photos</h2>
+  <div class="carousel" id="p_carousel" style="position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--border)">
+  <div id="p_slides" style="position:relative;width:100%;height:0;padding-bottom:56%;background:#f3f4f6"></div>
+  <button id="prevBtn" aria-label="Previous" class="btn" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:#fff">&lsaquo;</button>
+  <button id="nextBtn" aria-label="Next" class="btn" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:#fff">&rsaquo;</button>
+  <div id="p_dots" style="position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:6px"></div>
+  </div>
+  <div class="p" style="margin-top:8px">Tip: add photos in <a href="admin.html">Admin</a> under the project&rsquo;s slug.</div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+  <h2 class="h2">Overview</h2>
+  <p id="p_summary" class="p" style="margin:6px 0">Summary</p>
+  <div class="row" id="p_meta" style="margin-top:8px"></div>
+  </div>
+  <div class="card" style="margin-top:12px">
+  <h2 class="h2">Milestones</h2>
+  <div class="timeline" id="p_milestones"></div>
+  </div>
+  <div class="card" style="margin-top:12px">
+  <h2 class="h2">Partners</h2>
+  <div class="row" id="p_partners"></div>
+  </div>
+  </section>
+  <aside class="stack">
+  <div class="card">
+  <h2 class="h2">Status</h2>
+  <div id="p_status" class="p">&mdash;</div>
+  <div class="row" style="margin-top:8px">
+  <span class="badge" id="p_units">&mdash; units</span>
+  <span class="badge" id="p_beds">&mdash; bedrooms</span>
+  <span class="badge" id="p_parking">&mdash;</span>
+  </div>
+  <div class="row" style="margin-top:8px" id="p_funding"></div>
+  </div>
+  <div class="card">
+  <h2 class="h2">Location</h2>
+  <div id="p_address" class="p" style="margin-bottom:8px">&mdash;</div>
+  <div style="border-radius:14px;border:1px solid var(--border);height:220px;background:radial-gradient(ellipse at center, rgba(191,165,138,.18), transparent 70%);display:grid;place-content:center;color:#6b7280">Map placeholder</div>
+  </div>
+  <div class="card">
+  <h2 class="h2">Get involved</h2>
+  <div class="row">
+  <a class="btn btn-dark" href="apply.html">Apply for housing</a>
+  <a class="btn" href="events.html">Upcoming events</a>
+  <button class="btn" type="button" data-action="share-detail" aria-label="Share this project"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share</button>
+  </div>
+  </div>
+  </aside>
+  </div>
+</div></main>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
+  <a href="contact.html">Contact</a>
+  </div>
+  </div>
+</footer>
+<script>
+  (function(){{ var y=document.getElementById('footYear'); if(y){{ y.textContent=new Date().getFullYear(); }} }})();
+
+  document.addEventListener('click', async (e)=>{
+  const btn = e.target.closest('button[data-action="share-detail"]');
+  if(!btn) return;
+  const u = new URL(window.location.href);
+  const slug = u.searchParams.get('slug') || '';
+  const name = document.getElementById('p_name') ? document.getElementById('p_name').textContent.trim() : 'Compass Communities project';
+  const url = new URL(window.location.href);
+  // For offline bundles, present a relative link
+  const shareUrl = (location.protocol  'file:') ? ('project.html?slug='+slug) : url.toString();
+  try{
+  if (navigator.share){
+  await navigator.share({ title: name + ' - Compass Communities', text: name, url: shareUrl });
+  } else if (navigator.clipboard && navigator.clipboard.writeText){
+  await navigator.clipboard.writeText(shareUrl);
+  btn.textContent = 'Copied!';
+  setTimeout(()=>{ btn.innerHTML = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg> Share'; }, 1200);
+  } else {
+  alert('Share this link: ' + shareUrl);
+  }
+  }catch(err){ console.log('Share canceled or failed', err); }
+  });
+
+</script>
+
+
+
+
+<script>
+  // Pull default + extra projects to resolve the slug
+  const DEFAULT_PROJECTS = [{"slug": "riverfront-commons", "name": "Riverfront Commons", "city": "Salem", "status": "Leasing", "units": 200, "type": "Mixed-income", "year": 2025, "address": "123 River St, Salem, OR", "summary": "200 homes along the Willamette with ground-floor services and a riverwalk connection.", "bedrooms": 1, "parking": true, "funding": ["LIHTC", "Local"], "lat": 44.9429, "lng": -123.0351}, {"slug": "cedar-grove", "name": "Cedar Grove", "city": "Eugene", "status": "Under Construction", "units": 120, "type": "Affordable", "year": 2026, "address": "45 Cedar Ave, Eugene, OR", "summary": "120-unit all-electric community with on-site childcare and mobility hub.", "bedrooms": 2, "parking": true, "funding": ["Bond", "LIHTC"], "lat": 44.0521, "lng": -123.0868, "milestones": [{"title": "Permits pending", "date": "2025-11", "note": "Mechanical & electrical under review"}, {"title": "Funding committed (Bond/LIHTC)", "date": "2025-10", "note": "Closing targeted Q1 2026"}, {"title": "Construction start", "date": "2026-03", "note": "Mobilization and sitework"}]}, {"slug": "maple-square", "name": "Maple Square", "city": "Portland", "status": "Planning", "units": 90, "type": "Senior", "year": 2026, "address": "800 Maple St, Portland, OR", "summary": "Downtown infill for seniors with service partnerships and active ground-floor.", "bedrooms": 1, "parking": false, "funding": ["Local"], "lat": 45.5152, "lng": -122.6784, "milestones": [{"title": "Pre-application meeting", "date": "2025-08-15", "note": "Neighborhood outreach complete"}, {"title": "Land use application filed", "date": "2025-09-30"}, {"title": "Permits pending", "date": "2026-01", "note": "Building & civil"}]}, {"slug": "pine-ridge", "name": "Pine Ridge", "city": "Bend", "status": "Planning", "units": 150, "type": "Workforce", "year": 2027, "address": "12 Pine Ridge Rd, Bend, OR", "summary": "Mixed-use with small-format retail and workforce housing near jobs.", "bedrooms": 3, "parking": true, "funding": ["State"], "lat": 44.0582, "lng": -121.3153, "milestones": [{"title": "Concept design", "date": "2025-12"}, {"title": "Funding applications submitted", "date": "2026-02", "note": "State & Local"}, {"title": "Environmental review", "date": "2026-03", "note": "No significant impacts found"}]}, {"slug": "albany-meadows", "name": "Albany Meadows", "city": "Albany", "status": "Leasing", "units": 80, "type": "Affordable", "year": 2025, "address": "300 Meadow Ln, Albany, OR", "summary": "Garden-style community with trails and on-site services.", "bedrooms": 2, "parking": true, "funding": ["LIHTC"], "lat": 44.6365, "lng": -123.1059}, {"slug": "tualatin-commons", "name": "Tualatin Commons", "city": "Tualatin", "status": "Under Construction", "units": 140, "type": "Mixed-income", "year": 2026, "address": "901 Commons Dr, Tualatin, OR", "summary": "Transit-oriented homes with ground-floor childcare.", "bedrooms": 2, "parking": false, "funding": ["Bond"], "lat": 45.3847, "lng": -122.7637, "milestones": [{"title": "Foundation complete", "date": "2025-10"}, {"title": "Framing underway", "date": "2025-12"}, {"title": "Top-out", "date": "2026-05"}]}, {"slug": "rose-city-flats", "name": "Rose City Flats", "city": "Portland", "status": "Leasing", "units": 110, "type": "Affordable", "year": 2025, "address": "440 NE 7th Ave, Portland, OR", "summary": "Energy-efficient building with community kitchen and study spaces.", "bedrooms": 1, "parking": false, "funding": ["LIHTC", "Local"], "lat": 45.523, "lng": -122.6765}, {"slug": "silverton-oaks", "name": "Silverton Oaks", "city": "Silverton", "status": "Planning", "units": 70, "type": "Senior", "year": 2027, "address": "50 Oak St, Silverton, OR", "summary": "Age-friendly homes with wellness and mobility features.", "bedrooms": 1, "parking": true, "funding": ["State"], "lat": 45.0054, "lng": -122.7837, "milestones": [{"title": "Site control", "date": "2025-09"}, {"title": "Concept refinement with stakeholders", "date": "2025-11"}, {"title": "Funding applications planned", "date": "2026-02"}]}, {"slug": "coastal-dunes", "name": "Coastal Dunes", "city": "Newport", "status": "Concept", "units": 95, "type": "Workforce", "year": 2028, "address": "1 Dunes Way, Newport, OR", "summary": "Resilient coastal housing with elevated design and community space.", "bedrooms": 2, "parking": true, "funding": ["Federal"], "lat": 44.6368, "lng": -124.0535, "milestones": [{"title": "Feasibility & resilience study", "date": "2026-01"}, {"title": "Permitting strategy", "date": "2026-04", "note": "Coordination with coastal regulators"}, {"title": "Funding strategy", "date": "2026-06", "note": "Exploring federal resilience grants"}]}];
+  function loadExtraProjects(){ try{ return JSON.parse(localStorage.getItem('projectsExtra')||'[]'); }catch(e){ return []; } }
+  const PROJECTS = DEFAULT_PROJECTS.concat(loadExtraProjects());
+
+  // Get slug from query (?slug=) or hash (#project=)
+  function getSlug(){
+  const url = new URL(window.location.href);
+  const q = url.searchParams.get('slug');
+  if (q) return q;
+  if (location.hash.startsWith('#project=')) return location.hash.split('=')[1];
+  return null;
+  }
+
+  function bySlug(slug){ return PROJECTS.find(p => p.slug  slug); }
+
+  function badge(text){ const s=document.createElement('span'); s.className='badge'; s.textContent=text; return s; }
+  function pill(text){ const s=document.createElement('span'); s.className='pill'; s.textContent=text; return s; }
+
+  function getPhotoMap(){ try{ return JSON.parse(localStorage.getItem('projectPhotos')||'{}'); }catch(e){ return {}; } }
+  function renderCarousel(slug){
+  const map = getPhotoMap(); const imgs = map[slug] || [];
+  const card = document.getElementById('photosCard');
+  if (!imgs.length){ card.style.display='none'; return; }
+  card.style.display = 'block';
+  const slides = document.getElementById('p_slides');
+  const dots = document.getElementById('p_dots');
+  slides.innerHTML=''; dots.innerHTML='';
+  imgs.forEach((src, i)=>{
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = 'Project photo '+(i+1);
+  img.style.position='absolute'; img.style.inset='0'; img.style.width='100%'; img.style.height='100%'; img.style.objectFit='cover'; img.style.opacity = (i0? '1':'0'); img.dataset.idx=i;
+  slides.appendChild(img);
+  const d = document.createElement('div'); d.className='dot'+(i0?' active':''); d.dataset.idx=i; dots.appendChild(d);
+  });
+  let idx = 0;
+  function show(i){
+  const all = slides.querySelectorAll('img'); const ds = dots.querySelectorAll('.dot');
+  idx = (i+all.length)%all.length;
+  all.forEach((im, j)=> im.style.opacity = (jidx? '1':'0'));
+  ds.forEach((dd, j)=> dd.classList.toggle('active', jidx));
+  }
+  document.getElementById('prevBtn').onclick = ()=> show(idx-1);
+  document.getElementById('nextBtn').onclick = ()=> show(idx+1);
+  dots.onclick = (e)=>{ const t=e.target.closest('.dot'); if(!t) return; show(parseInt(t.dataset.idx,10)); };
+  // Keyboard support
+  document.addEventListener('keydown', (e)=>{ if(e.key'ArrowLeft') show(idx-1); if(e.key'ArrowRight') show(idx+1); });
+  }
+
+  function render(p){
+  if(!p){ document.getElementById('p_name').textContent='Project not found'; return; }
+  document.title = p.name + ' - Compass Communities';
+  document.getElementById('p_name').textContent = p.name;
+  document.getElementById('p_summary').textContent = p.summary || '';
+  document.getElementById('p_status').textContent = (p.status||'') + (p.type? ' - '+p.type : '');
+  document.getElementById('p_units').textContent = (p.units||'&mdash;') + ' units';
+  document.getElementById('p_beds').textContent = (p.bedrooms||'&mdash;') + ' bedrooms';
+  document.getElementById('p_parking').textContent = (p.parking?'Parking':'No parking');
+  document.getElementById('p_address').textContent = p.address || '&mdash;';
+
+  const fb = document.getElementById('p_funding'); fb.innerHTML='';
+  (p.funding||[]).forEach(f=> fb.appendChild(badge(f)));
+
+  const pb = document.getElementById('p_badges'); pb.innerHTML='';
+  pb.appendChild(badge((p.city||'&mdash;')));
+  pb.appendChild(badge((p.year||'&mdash;')));
+  pb.appendChild(badge((p.bedrooms||'&mdash;')));
+  pb.appendChild(badge((p.parking?'Parking':'No parking')));
+
+  const pm = document.getElementById('p_meta'); pm.innerHTML='';
+  pm.appendChild(pill('Slug: '+p.slug));
+  if (p.lat && p.lng){ pm.appendChild(pill('Coords: '+p.lat.toFixed(4)+', '+p.lng.toFixed(4))); }
+
+  // Milestones: if not provided, generate a lightweight default timeline by status
+  const ms = (p.milestones && p.milestones.length) ? p.milestones : defaultMilestones(p.status, p.year);
+  const ml = document.getElementById('p_milestones'); ml.innerHTML='';
+  ms.forEach(m => {
+  const item = document.createElement('div'); item.className='titem';
+  item.innerHTML = '<div style="font-weight:600">'+(m.title||'')+'</div><div class="p">'+(m.date||'')+(m.note? ' - '+m.note : '')+'</div>';
+  ml.appendChild(item);
+  });
+
+  // Partners: show known ecosystem + placeholders
+  renderCarousel(p.slug);
+
+  const partners = p.partners || [
+  {name:'Nichols & Wood (Planning)', url:'https://nicholswood.com'},
+  {name:'JBLC Construction', url:'https://jblcconstruction.net'},
+  {name:'Affordable Housing Oregon', url:'https://affordablehousingoregon.com/about-us/'}
+  ];
+  const ph = document.getElementById('p_partners'); ph.innerHTML='';
+  partners.forEach(pr => {
+  const a = document.createElement('a'); a.href = pr.url; a.target='_blank'; a.rel='noopener';
+  a.className='badge'; a.textContent=pr.name; ph.appendChild(a);
+  });
+  }
+
+  function defaultMilestones(status, year){
+  const y = year || new Date().getFullYear();
+  if (status'Planning') return [
+  {title:'Site selection & feasibility', date:String(y-1)},
+  {title:'Community outreach', date:String(y)},
+  {title:'Land use submittal', date:String(y)},
+  {title:'Funding applications', date:String(y)},
+  ];
+  if (status'Under Construction') return [
+  {title:'Groundbreaking', date:String(y)}, {title:'Top-out', date:String(y)}, {title:'Substantial completion', date:String(y+1)}
+  ];
+  if (status'Leasing') return [
+  {title:'Certificate of Occupancy', date:String(y)}, {title:'Lease-up', date:String(y)}, {title:'Grand opening', date:String(y)}
+  ];
+  return [{title:'Concept', date:String(y)}];
+  }
+
+  const slug = getSlug();
+  render(bySlug(slug));
+</script>
+</html>

@@ -1,0 +1,92 @@
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact</title>
+<link rel="icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<style>:root{--text:#111827;--border:#e5e7eb;--accent:#E11D2E}body{font-family:'Avenir Next','Segoe UI',Inter,system-ui,Roboto,Arial,sans-serif;color:var(--text);margin:0} .container{max-width:840px;margin:0 auto;padding:24px 20px} h1{margin:8px 0} .p{color:#374151} a{color:var(--accent)}</style><main class='container'><h1>Contact</h1>
+<p class="p">Questions, partnerships, or media inquiries?</p>
+<ul>
+  <li>Phone: <a href="tel:+15033125375">(503) 555&ndash;0123</a></li>
+  <li>Email: <a href="mailto:info@compasscommunities.example">info@compasscommunities.example</a></li>
+  <li>Vendor/Subcontractor Portal: <a href="bids.html">Bids & RFPs</a></li>
+  <li>Municipal Partnerships: <a href="partner.html">Learn more</a></li>
+</ul>
+</main>
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
+  <a href="contact.html">Contact</a>
+  </div>
+  </div>
+</footer>
+<script>
+  (function(){{ var y=document.getElementById('footYear'); if(y){{ y.textContent=new Date().getFullYear(); }} }})();
+</script>

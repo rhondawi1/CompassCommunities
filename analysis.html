@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="includes/site-shell.js" defer></script>
+  <meta charset="UTF-8" />
+  <title>Community Housing Pro Forma - Scenario Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card-bg: #ffffff;
+      --card-alt: #f9fafb;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.08);
+      --border-subtle: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --danger: #b91c1c;
+      --success: #15803d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 10;
+    }
+    .header-inner {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+    nav a {
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 10px;
+      color: #374151;
+      text-decoration: none;
+    }
+    nav a:hover {
+      background: #f3f4f6;
+      text-decoration: none;
+    }
+
+    .shell { max-width: 1180px; margin: 0 auto; }
+    .proforma-hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .proforma-hero h1 {
+      font-size: 1.7rem;
+      margin: 0;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: #eef2ff;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    header p {
+      margin: 0.2rem 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 520px;
+    }
+    .pill-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pill {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+    }
+    
+    .btn {
+      background: var(--accent);
+      color: #f9fafb;
+      border: none;
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .btn:hover {
+      background: #4338ca;
+      transform: translateY(-0.5px);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .compare-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .compare-help {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .scenario-select-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+    .scenario-select-label input[type="checkbox"] {
+      width: 0.85rem;
+      height: 0.85rem;
+      accent-color: var(--accent);
+    }
+    .site-feas-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.0fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 900px) {
+      .site-feas-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .site-feas-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.5rem;
+    }
+    .heatmap-wrapper {
+      margin-top: 0.75rem;
+      overflow-x: auto;
+    }
+    .heatmap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.72rem;
+    }
+    .heatmap-table th,
+    .heatmap-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.25rem 0.35rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .heatmap-table th {
+      background: #f9fafb;
+      color: var(--muted);
+    }
+    .heatmap-cell {
+      min-width: 3.2rem;
+    }
+    .heatmap-cell-main {
+      font-weight: 500;
+    }
+    .heatmap-cell-sub {
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+    .heatmap-legend {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .legend-chip {
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+    }
+    .legend-negative {
+      background: rgba(220, 38, 38, 0.18);
+    }
+    .legend-neutral {
+      background: rgba(148, 163, 184, 0.18);
+    }
+    .legend-positive {
+      background: rgba(34, 197, 94, 0.18);
+    }
+    .heatmap-controls .inline-inputs {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .heatmap-controls input[type="number"] {
+      width: 4.2rem;
+    }
+main { display: flex; flex-direction: column; gap: 1rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.6fr);
+      gap: 1rem;
+    }
+    .grid > .card.card-wide {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--border-subtle);
+      padding: 1rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+    .card h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.02rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.1rem 0.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+    .subtext {
+      margin: 0 0 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.55rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: #eef2ff;
+      color: var(--text);
+      font-size: 0.8rem;
+      outline: none;
+    }
+    input[type="number"]:focus, input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 999px;
+    }
+    input[type="range"]::-moz-range-track {
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 999px;
+    }
+    input[type="range"]::-ms-track {
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      border-color: transparent;
+      color: transparent;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      margin-top: -6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      border: 2px solid #ffffff;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      border: 2px solid #ffffff;
+    }
+    input[type="range"]::-ms-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      border: 2px solid #ffffff;
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    @media (max-width: 900px) {
+      .scenario-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .scenario-card {
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: 0.9rem;
+      border: 1px solid #111827;
+      padding: 0.75rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .scenario-chip-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.25rem;
+    }
+    .scenario-name-input {
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 0.75rem;
+    }
+    .scenario-label-pill {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #edf2f7;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: var(--muted);
+    }
+    .scenario-badge {
+      position: absolute;
+      top: 0.4rem;
+      right: 0.6rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: rgba(148, 163, 184, 0.75);
+      text-transform: uppercase;
+    }
+    .scenario-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.35rem;
+      font-size: 0.78rem;
+    }
+    .metric {
+      padding: 0.35rem 0.45rem;
+      border-radius: 0.6rem;
+      border: 1px dashed #1f2937;
+      background: rgba(15, 23, 42, 0.7);
+    }
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.7rem;
+      margin-bottom: 0.1rem;
+    }
+    .metric-value {
+      font-weight: 500;
+      font-size: 0.82rem;
+    }
+    .metric-value.positive { color: var(--success); }
+    .metric-value.negative { color: var(--danger); }
+    .metric-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .compare-card {
+      margin-top: 0.5rem;
+      border-radius: 0.85rem;
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem;
+      background: radial-gradient(circle at top right, rgba(79, 70, 229, 0.18), transparent 55%), #020617;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .compare-table th, .compare-table td {
+      padding: 0.4rem 0.45rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+    .compare-table th {
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .compare-table td:first-child, .compare-table th:first-child {
+      text-align: left;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .sens-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr);
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    @media (max-width: 900px) {
+      .sens-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .slider-group { margin-bottom: 0.75rem; }
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+      color: var(--muted);
+    }
+    .slider-value {
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .sens-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .sens-table th, .sens-table td {
+      padding: 0.4rem 0.45rem;
+      text-align: right;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sens-table th { color: var(--muted); font-weight: 500; }
+    .sens-table td:first-child, .sens-table th:first-child { text-align: left; }
+    .sens-table tr:last-child td { border-bottom: none; }
+    .delta-up { color: var(--success); }
+    .delta-down { color: var(--danger); }
+    .delta-flat { color: var(--muted); }
+    .footnote {
+      margin-top: 0.35rem;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+  
+    /* High-contrast text for chips, pills, and heatmap cells on colored backgrounds */
+    .badge,
+    .pill,
+    .scenario-label-pill,
+    .tag,
+    .legend-chip,
+    .legend-chip.legend-negative,
+    .legend-chip.legend-neutral,
+    .legend-chip.legend-positive,
+    .heatmap-cell-main,
+    .heatmap-cell-sub {
+      color: #ffffff !important;
+    }
+
+    /* High-contrast for Site Feasibility metrics: white text on grey tiles */
+    .site-feas-metrics .metric {
+      background: #4b5563;
+      border-color: #111827;
+    }
+    .site-feas-metrics .metric-label,
+    .site-feas-metrics .metric-value,
+    .site-feas-metrics .metric-sub {
+      color: #ffffff !important;
+    }
+    .site-feas-metrics .metric-value.positive,
+    .site-feas-metrics .metric-value.negative {
+      color: #ffffff !important;
+    }
+
+    /* High-contrast Scenario Comparison section */
+    .compare-card {
+      background: #ffffff;
+      border-color: #d1d5db;
+    }
+    .compare-card h2 {
+      color: #111827;
+    }
+    .compare-table th {
+      color: #111827;
+      background: #f9fafb;
+    }
+    .compare-table td {
+      color: #111827;
+    }
+    .compare-table th,
+    .compare-table td {
+      border-bottom: 1px solid #d1d5db;
+    }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+    <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+    <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+    <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+    <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+    <a href="login.html" class="login-link" aria-label="Admin login">
+      <span class="login-icon" aria-hidden="true">&#128100;</span>
+      <span class="login-text">Log in</span>
+    </a>
+    <a href="analysis.html">Analysis Tools</a>
+    <a href="admin.html">Admin</a>
+    <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+
+
+
+
+
+  <section class="section" style="padding-top:24px;padding-bottom:8px">
+    <div class="container">
+      <div class="shell">
+        <div class="proforma-hero">
+          <div>
+            <h1>
+              Community Housing Pro Forma
+              <span class="badge">3-scenario live model</span>
+            </h1>
+            <p>
+              Compare Base, Upside, and Downside stories for a community housing development using NOI-based cash flows, NPV, and payback.
+            </p>
+          </div>
+          <div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="shell">
+    
+
+    <main>
+      
+      <div class="grid">
+        <section class="card">
+          <h2>Site Feasibility Snapshot</h2>
+          <p class="subtext">
+            Quick check on density and envelope before diving into NOI-based scenarios.
+          </p>
+          <div class="site-feas-grid">
+            <div>
+              <div class="form-row">
+                <label>
+                  Site Area (sf)
+                  <input class="recalc" type="number" id="siteArea" value="40000" step="1000" />
+                </label>
+                <label>
+                  Baseline FAR (program)
+                  <input class="recalc" type="number" id="farBaseline" value="2.50" step="0.1" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Zoning FAR Limit
+                  <input class="recalc" type="number" id="farLimit" value="3.00" step="0.1" />
+                </label>
+                <label>
+                  Avg Residential Unit Size (nsf)
+                  <input class="recalc" type="number" id="avgUnitSize" value="850" step="25" />
+                </label>
+              </div>
+            </div>
+            <div class="site-feas-metrics">
+              <div class="metric">
+                <div class="metric-label">Max GFA @ FAR limit</div>
+                <div class="metric-value" id="siteMaxGfa">–</div>
+                <div class="metric-sub">Site area × FAR limit</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">GFA @ baseline FAR</div>
+                <div class="metric-value" id="siteBaseGfa">–</div>
+                <div class="metric-sub">Used to scale Base scenario rent</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Theoretical units (@ avg size)</div>
+                <div class="metric-value" id="siteUnits">–</div>
+                <div class="metric-sub">Baseline GFA ÷ avg unit size</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label">Zoning check</div>
+                <div class="metric-sub" id="siteFlag">–</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>
+            Global Assumptions
+            <span class="tag">Applies to all scenarios</span>
+          </h2>
+          <p class="subtext">
+            Projection horizon and context for the community housing project.
+          </p>
+          <div class="form-row">
+            <label>
+              Projection Years
+              <input class="recalc" type="number" id="years" min="1" max="30" value="10" />
+            </label>
+            <label>
+              Number of Units (for context)
+              <input type="number" id="units" min="1" value="80" />
+            </label>
+            <label>
+              Currency Label
+              <input type="text" id="currencyLabel" value="USD" />
+            </label>
+          </div>
+          <p class="subtext">
+            NOI is modeled as (Rent &times; NOI margin). Debt service and exit value can be layered on separately if needed.
+          </p>
+        </section>
+
+        <section class="card card-wide">
+          <h2>
+            Scenario Inputs
+            <span class="tag">Base vs Upside vs Downside</span>
+          </h2>
+          <p class="subtext">
+            Adjust project cost, initial rent roll, rent growth, NOI margin, and discount rate for each scenario.
+          </p>
+          <div class="scenario-grid">
+            <div class="scenario-card">
+              
+              <div class="scenario-chip-row">
+                <input type="text" class="scenario-name-input recalc" id="name-1" value="Base Case" />
+                <label class="scenario-select-label">
+                  <input type="checkbox" class="scenario-select" id="select-1" data-scenario="1" checked />
+                  <span>Include in export</span>
+                </label>
+              </div>
+              <span class="scenario-badge">S1</span>
+              <div class="form-row">
+                <label>
+                  Total Project Cost
+                  <input class="recalc" type="number" id="initial-1" value="12000000" step="500000" />
+                </label>
+                <label>
+                  Year 1 Gross Rent Roll
+                  <input class="recalc" type="number" id="revenue-1" value="950000" step="25000" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Rent Growth (%/yr)
+                  <input class="recalc" type="number" id="growth-1" value="3" step="0.25" />
+                </label>
+                <label>
+                  NOI Margin (% of rent)
+                  <input class="recalc" type="number" id="margin-1" value="45" step="0.5" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Discount Rate (%)
+                  <input class="recalc" type="number" id="discount-1" value="8" step="0.25" />
+                </label>
+              </div>
+              <div class="scenario-metrics">
+                <div class="metric">
+                  <div class="metric-label">NPV (NOI stream)</div>
+                  <div class="metric-value" id="npv-1">–</div>
+                  <div class="metric-sub" id="npv-1-sub">vs. project cost</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Total NOI</div>
+                  <div class="metric-value" id="totalCash-1">–</div>
+                  <div class="metric-sub">Undiscounted</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Payback</div>
+                  <div class="metric-value" id="payback-1">–</div>
+                  <div class="metric-sub">Years (undiscounted)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Year N NOI</div>
+                  <div class="metric-value" id="yearN-1">–</div>
+                  <div class="metric-sub" id="yearN-1-sub">Stabilized</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              
+              <div class="scenario-chip-row">
+                <input type="text" class="scenario-name-input recalc" id="name-2" value="Upside Case" />
+                <label class="scenario-select-label">
+                  <input type="checkbox" class="scenario-select" id="select-2" data-scenario="2" checked />
+                  <span>Include in export</span>
+                </label>
+              </div>
+              <span class="scenario-badge">S2</span>
+              <div class="form-row">
+                <label>
+                  Total Project Cost
+                  <input class="recalc" type="number" id="initial-2" value="13000000" step="500000" />
+                </label>
+                <label>
+                  Year 1 Gross Rent Roll
+                  <input class="recalc" type="number" id="revenue-2" value="1050000" step="25000" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Rent Growth (%/yr)
+                  <input class="recalc" type="number" id="growth-2" value="3.5" step="0.25" />
+                </label>
+                <label>
+                  NOI Margin (% of rent)
+                  <input class="recalc" type="number" id="margin-2" value="47" step="0.5" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Discount Rate (%)
+                  <input class="recalc" type="number" id="discount-2" value="7.5" step="0.25" />
+                </label>
+              </div>
+              <div class="scenario-metrics">
+                <div class="metric">
+                  <div class="metric-label">NPV (NOI stream)</div>
+                  <div class="metric-value" id="npv-2">–</div>
+                  <div class="metric-sub" id="npv-2-sub">vs. project cost</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Total NOI</div>
+                  <div class="metric-value" id="totalCash-2">–</div>
+                  <div class="metric-sub">Undiscounted</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Payback</div>
+                  <div class="metric-value" id="payback-2">–</div>
+                  <div class="metric-sub">Years (undiscounted)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Year N NOI</div>
+                  <div class="metric-value" id="yearN-2">–</div>
+                  <div class="metric-sub" id="yearN-2-sub">Stabilized</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              
+              <div class="scenario-chip-row">
+                <input type="text" class="scenario-name-input recalc" id="name-3" value="Downside Case" />
+                <label class="scenario-select-label">
+                  <input type="checkbox" class="scenario-select" id="select-3" data-scenario="3" checked />
+                  <span>Include in export</span>
+                </label>
+              </div>
+              <span class="scenario-badge">S3</span>
+              <div class="form-row">
+                <label>
+                  Total Project Cost
+                  <input class="recalc" type="number" id="initial-3" value="11500000" step="500000" />
+                </label>
+                <label>
+                  Year 1 Gross Rent Roll
+                  <input class="recalc" type="number" id="revenue-3" value="880000" step="25000" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Rent Growth (%/yr)
+                  <input class="recalc" type="number" id="growth-3" value="2.2" step="0.25" />
+                </label>
+                <label>
+                  NOI Margin (% of rent)
+                  <input class="recalc" type="number" id="margin-3" value="42" step="0.5" />
+                </label>
+              </div>
+              <div class="form-row">
+                <label>
+                  Discount Rate (%)
+                  <input class="recalc" type="number" id="discount-3" value="8.5" step="0.25" />
+                </label>
+              </div>
+              <div class="scenario-metrics">
+                <div class="metric">
+                  <div class="metric-label">NPV (NOI stream)</div>
+                  <div class="metric-value" id="npv-3">–</div>
+                  <div class="metric-sub" id="npv-3-sub">vs. project cost</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Total NOI</div>
+                  <div class="metric-value" id="totalCash-3">–</div>
+                  <div class="metric-sub">Undiscounted</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Payback</div>
+                  <div class="metric-value" id="payback-3">–</div>
+                  <div class="metric-sub">Years (undiscounted)</div>
+                </div>
+                <div class="metric">
+                  <div class="metric-label">Year N NOI</div>
+                  <div class="metric-value" id="yearN-3">–</div>
+                  <div class="metric-sub" id="yearN-3-sub">Stabilized</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="card compare-card">
+        <h2>Scenario Comparison</h2>
+        <div class="compare-controls">
+          <span class="compare-help">Select up to three scenarios and export their key metrics.</span>
+          <button type="button" class="btn" id="exportSelected">Export selected scenarios (CSV)</button>
+        </div>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th id="col-name-1">Base Case</th>
+              <th id="col-name-2">Upside Case</th>
+              <th id="col-name-3">Downside Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NPV</td>
+              <td id="cmp-npv-1">–</td>
+              <td id="cmp-npv-2">–</td>
+              <td id="cmp-npv-3">–</td>
+            </tr>
+            <tr>
+              <td>Total NOI</td>
+              <td id="cmp-cash-1">–</td>
+              <td id="cmp-cash-2">–</td>
+              <td id="cmp-cash-3">–</td>
+            </tr>
+            <tr>
+              <td>Payback (years)</td>
+              <td id="cmp-payback-1">–</td>
+              <td id="cmp-payback-2">–</td>
+              <td id="cmp-payback-3">–</td>
+            </tr>
+            <tr>
+              <td>Year N NOI</td>
+              <td id="cmp-yearN-1">–</td>
+              <td id="cmp-yearN-2">–</td>
+              <td id="cmp-yearN-3">–</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <div class="sens-grid">
+          <div>
+            <h2>Sensitivity Analysis <span class="tag">Rent &amp; discount</span></h2>
+            <p class="subtext">
+              Apply a global shock to rent growth and discount rate to see how each scenario&apos;s NPV moves.
+            </p>
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Rent Growth Shock (pts)</span>
+                <span class="slider-value" id="growthShockLabel">+0.0 pts</span>
+              </div>
+              <input type="range" id="growthShock" min="-5" max="5" value="0" step="0.25" />
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Discount Rate Shock (pts)</span>
+                <span class="slider-value" id="discountShockLabel">+0.0 pts</span>
+              </div>
+              <input type="range" id="discountShock" min="-5" max="5" value="0" step="0.25" />
+            </div>
+            <p class="footnote">
+              Example: 3.0% rent growth with a +1.5 pts shock becomes 4.5%. 8.0% discount with -1.0 pts shock becomes 7.0%.
+            </p>
+          </div>
+          <div>
+            <h2>NPV Under Shock</h2>
+            <table class="sens-table">
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>Base NPV</th>
+                  <th>NPV w/ shock</th>
+                  <th>&Delta; NPV</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="sens-name-1">Base Case</td>
+                  <td id="sens-base-1">–</td>
+                  <td id="sens-shock-1">–</td>
+                  <td id="sens-delta-1">–</td>
+                </tr>
+                <tr>
+                  <td id="sens-name-2">Upside Case</td>
+                  <td id="sens-base-2">–</td>
+                  <td id="sens-shock-2">–</td>
+                  <td id="sens-delta-2">–</td>
+                </tr>
+                <tr>
+                  <td id="sens-name-3">Downside Case</td>
+                  <td id="sens-base-3">–</td>
+                  <td id="sens-shock-3">–</td>
+                  <td id="sens-delta-3">–</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="footnote">
+              &Delta; NPV = shocked NPV minus base NPV. Positive = value creation, negative = value erosion.
+            </p>
+          </div>
+        </div>
+      </section>
+    
+      <section class="card">
+        <h2>Sensitivity Heatmap <span class="tag">FAR × Hard Cost</span></h2>
+        <p class="subtext">
+          Explore how NPV for the Base scenario moves as you vary FAR (scaling rent) and hard cost (scaling project cost).
+        </p>
+        <div class="heatmap-controls">
+          <div class="form-row">
+            <label>
+              FAR Range
+              <div class="inline-inputs">
+                <input class="recalc" type="number" id="hmFarMin" value="1.5" step="0.1" />
+                <span>to</span>
+                <input class="recalc" type="number" id="hmFarMax" value="3.5" step="0.1" />
+              </div>
+            </label>
+            <label>
+              Hard Cost Factor Range
+              <div class="inline-inputs">
+                <input class="recalc" type="number" id="hmHardMin" value="0.8" step="0.05" />
+                <span>to</span>
+                <input class="recalc" type="number" id="hmHardMax" value="1.2" step="0.05" />
+              </div>
+            </label>
+          </div>
+          <p class="footnote">
+            FAR scales Year&nbsp;1 rent linearly off the Base scenario. Hard cost factor scales total project cost. Cells show &Delta;NPV vs Base.
+          </p>
+        </div>
+        <div class="heatmap-wrapper">
+          <table class="heatmap-table">
+            <thead>
+              <tr id="heatmapHeadRow">
+                <th>FAR \ Cost factor</th>
+              </tr>
+            </thead>
+            <tbody id="heatmapBody"></tbody>
+          </table>
+          <div class="heatmap-legend">
+            <span class="legend-label">NPV vs Base:</span>
+            <span class="legend-chip legend-negative">Lower</span>
+            <span class="legend-chip legend-neutral">Similar</span>
+            <span class="legend-chip legend-positive">Higher</span>
+          </div>
+        </div>
+      </section>
+</main>
+  </div>
+
+  <script>
+    function parseNumber(id) {
+      const el = document.getElementById(id);
+      if (!el) return 0;
+      const v = parseFloat(el.value);
+      return isNaN(v) ? 0 : v;
+    }
+    function formatCurrency(value) {
+      if (value === null || isNaN(value)) return "–";
+      const currencyLabel = (document.getElementById("currencyLabel")?.value || "USD").toUpperCase();
+      const abs = Math.abs(value);
+      const formatted = abs.toLocaleString("en-US", { maximumFractionDigits: 0 });
+      const sign = value < 0 ? "-" : "";
+      return sign + formatted + " " + currencyLabel;
+    }
+    function formatYears(value) {
+      if (value === null || isNaN(value)) return "–";
+      return value.toFixed(1).replace(/\.0$/, "");
+    }
+    function computeScenario(idx, growthShockPts, discountShockPts) {
+      const years = Math.max(1, parseInt(parseNumber("years"), 10) || 1);
+      const initial = parseNumber("initial-" + idx);
+      const year1Rent = parseNumber("revenue-" + idx);
+      const growthPct = parseNumber("growth-" + idx) + (growthShockPts || 0);
+      const marginPct = parseNumber("margin-" + idx);
+      const discountPct = parseNumber("discount-" + idx) + (discountShockPts || 0);
+      const g = (growthPct || 0) / 100;
+      const m = (marginPct || 0) / 100;
+      let r = (discountPct || 0) / 100;
+      if (r <= -0.99) r = -0.99;
+      let cashFlows = [];
+      let totalCash = 0;
+      for (let t = 1; t <= years; t++) {
+        const rentT = year1Rent * Math.pow(1 + g, t - 1);
+        const noi = rentT * m;
+        cashFlows.push(noi);
+        totalCash += noi;
+      }
+      let npv = -initial;
+      for (let t = 1; t <= years; t++) {
+        npv += cashFlows[t - 1] / Math.pow(1 + r, t);
+      }
+      let cum = -initial;
+      let payback = null;
+      for (let t = 1; t <= years; t++) {
+        const prevCum = cum;
+        cum += cashFlows[t - 1];
+        if (prevCum < 0 && cum >= 0) {
+          const needed = -prevCum;
+          const fraction = cashFlows[t - 1] > 0 ? needed / cashFlows[t - 1] : 1;
+          payback = (t - 1) + fraction;
+          break;
+        }
+      }
+      const lastNOI = cashFlows[cashFlows.length - 1] || 0;
+      return { npv, totalCash, payback, lastNOI, growthPct, years };
+    }
+    
+    function updateSiteFeasibility() {
+      const siteArea = parseNumber("siteArea");
+      const farLimit = parseFloat((document.getElementById("farLimit")?.value || "0"));
+      const farBaseline = parseFloat((document.getElementById("farBaseline")?.value || "0"));
+      const avgUnitSize = parseFloat((document.getElementById("avgUnitSize")?.value || "0"));
+      const maxGfa = siteArea * (farLimit || 0);
+      const baseGfa = siteArea * (farBaseline || 0);
+      const units = avgUnitSize > 0 ? baseGfa / avgUnitSize : 0;
+      const curUnitsInput = document.getElementById("units");
+      const curUnits = curUnitsInput ? parseFloat(curUnitsInput.value || "0") : 0;
+
+      const maxEl = document.getElementById("siteMaxGfa");
+      const baseEl = document.getElementById("siteBaseGfa");
+      const unitsEl = document.getElementById("siteUnits");
+      const flagEl = document.getElementById("siteFlag");
+
+      if (maxEl) maxEl.textContent = maxGfa ? maxGfa.toLocaleString("en-US", { maximumFractionDigits: 0 }) + " sf" : "–";
+      if (baseEl) baseEl.textContent = baseGfa ? baseGfa.toLocaleString("en-US", { maximumFractionDigits: 0 }) + " sf" : "–";
+      if (unitsEl) unitsEl.textContent = units ? units.toFixed(0) + " units" : "–";
+
+      let flag = "Add site + FAR inputs to evaluate.";
+      if (siteArea && farBaseline && farLimit) {
+        if (farBaseline <= farLimit + 1e-6) {
+          flag = "Within zoning FAR limit";
+        } else {
+          flag = "Exceeds zoning FAR limit";
+        }
+        if (units && curUnits) {
+          const diff = units - curUnits;
+          const pct = curUnits ? (diff / curUnits) * 100 : 0;
+          const dir = diff >= 0 ? "above" : "below";
+          flag += " · Theoretical capacity is " + Math.abs(diff).toFixed(0) + " units " + dir + " current program (" + pct.toFixed(1).replace(/\.0$/, "") + "%).";
+        }
+      }
+      if (flagEl) flagEl.textContent = flag;
+    }
+
+    function computeScenarioWithParams(initial, year1Rent, growthPct, marginPct, discountPct, years) {
+      const g = (growthPct || 0) / 100;
+      const m = (marginPct || 0) / 100;
+      let r = (discountPct || 0) / 100;
+      if (r <= -0.99) r = -0.99;
+      let cashFlows = [];
+      let totalCash = 0;
+      for (let t = 1; t <= years; t++) {
+        const rentT = year1Rent * Math.pow(1 + g, t - 1);
+        const noi = rentT * m;
+        cashFlows.push(noi);
+        totalCash += noi;
+      }
+      let npv = -initial;
+      for (let t = 1; t <= years; t++) {
+        npv += cashFlows[t - 1] / Math.pow(1 + r, t);
+      }
+      return { npv, totalCash };
+    }
+
+    function updateHeatmap() {
+      const headRow = document.getElementById("heatmapHeadRow");
+      const body = document.getElementById("heatmapBody");
+      if (!headRow || !body) return;
+
+      const farMin = parseFloat((document.getElementById("hmFarMin")?.value || "0"));
+      const farMax = parseFloat((document.getElementById("hmFarMax")?.value || "0"));
+      const hardMin = parseFloat((document.getElementById("hmHardMin")?.value || "0.8"));
+      const hardMax = parseFloat((document.getElementById("hmHardMax")?.value || "1.2"));
+      const farBaseline = parseFloat((document.getElementById("farBaseline")?.value || "1")) || 1;
+
+      if (!(farMax > farMin && hardMax > hardMin)) {
+        headRow.innerHTML = '<th>FAR \\ Cost factor</th>';
+        body.innerHTML = "";
+        return;
+      }
+
+      const stepsFar = 5;
+      const stepsHard = 5;
+      const farValues = [];
+      const hardValues = [];
+      for (let i = 0; i < stepsFar; i++) {
+        const t = stepsFar === 1 ? 0 : i / (stepsFar - 1);
+        farValues.push(farMin + (farMax - farMin) * t);
+      }
+      for (let j = 0; j < stepsHard; j++) {
+        const t = stepsHard === 1 ? 0 : j / (stepsHard - 1);
+        hardValues.push(hardMin + (hardMax - hardMin) * t);
+      }
+
+      const baseScenario = computeScenario(1, 0, 0);
+      const baseNPV = baseScenario.npv;
+      const baseInitial = parseNumber("initial-1");
+      const baseRent = parseNumber("revenue-1");
+      const growthPct = parseNumber("growth-1");
+      const marginPct = parseNumber("margin-1");
+      const discountPct = parseNumber("discount-1");
+      const years = Math.max(1, parseInt(parseNumber("years"), 10) || 1);
+
+      function colorForDelta(delta) {
+        if (!isFinite(delta) || !isFinite(baseNPV) || baseNPV === 0) {
+          return "rgba(148, 163, 184, 0.25)";
+        }
+        const ratio = delta / Math.abs(baseNPV);
+        const clamped = Math.max(-0.5, Math.min(0.5, ratio));
+        if (clamped > 0) {
+          const alpha = 0.25 + 0.55 * (clamped / 0.5);
+          return "rgba(34, 197, 94, " + alpha.toFixed(2) + ")";
+        } else if (clamped < 0) {
+          const alpha = 0.25 + 0.55 * (Math.abs(clamped) / 0.5);
+          return "rgba(220, 38, 38, " + alpha.toFixed(2) + ")";
+        } else {
+          return "rgba(148, 163, 184, 0.25)";
+        }
+      }
+
+      headRow.innerHTML = "";
+      const firstTh = document.createElement("th");
+      firstTh.textContent = "FAR \\ Cost factor";
+      headRow.appendChild(firstTh);
+      hardValues.forEach((hf) => {
+        const th = document.createElement("th");
+        th.textContent = hf.toFixed(2) + "× cost";
+        headRow.appendChild(th);
+      });
+
+      body.innerHTML = "";
+      farValues.forEach((farVal) => {
+        const tr = document.createElement("tr");
+        const rowHead = document.createElement("th");
+        rowHead.textContent = farVal.toFixed(2);
+        tr.appendChild(rowHead);
+
+        hardValues.forEach((hf) => {
+          const scale = farBaseline > 0 ? farVal / farBaseline : 1;
+          const rent = baseRent * scale;
+          const initCost = baseInitial * hf;
+          const res = computeScenarioWithParams(initCost, rent, growthPct, marginPct, discountPct, years);
+          const delta = res.npv - baseNPV;
+
+          const td = document.createElement("td");
+          td.className = "heatmap-cell";
+          td.style.backgroundColor = colorForDelta(delta);
+
+          const main = document.createElement("div");
+          main.className = "heatmap-cell-main";
+          const denom = 1000000;
+          if (!isFinite(delta)) {
+            main.textContent = "–";
+          } else {
+            const valM = delta / denom;
+            main.textContent = (delta > 0 ? "+" : "") + valM.toFixed(2) + "M";
+          }
+
+          const sub = document.createElement("div");
+          sub.className = "heatmap-cell-sub";
+          if (!isFinite(res.npv)) {
+            sub.textContent = "NPV n/a";
+          } else {
+            const npvM = res.npv / 1000000;
+            sub.textContent = "NPV " + npvM.toFixed(2) + "M";
+          }
+
+          td.appendChild(main);
+          td.appendChild(sub);
+          tr.appendChild(td);
+        });
+
+        body.appendChild(tr);
+      });
+    }
+
+    function getScenarioExportData(idx) {
+      const nameInput = document.getElementById("name-" + idx);
+      const name = (nameInput && nameInput.value.trim()) || "Scenario " + idx;
+      const years = Math.max(1, parseInt(parseNumber("years"), 10) || 1);
+      const initial = parseNumber("initial-" + idx);
+      const year1Rent = parseNumber("revenue-" + idx);
+      const growthPctInput = parseNumber("growth-" + idx);
+      const marginPctInput = parseNumber("margin-" + idx);
+      const discountPctInput = parseNumber("discount-" + idx);
+      const base = computeScenario(idx, 0, 0);
+      return {
+        Name: name,
+        Years: years,
+        InitialCost: initial,
+        Year1Rent: year1Rent,
+        RentGrowthPct: growthPctInput,
+        NOIMarginPct: marginPctInput,
+        DiscountRatePct: discountPctInput,
+        NPV: base.npv,
+        TotalNOI: base.totalCash,
+        PaybackYears: base.payback,
+        YearNNOI: base.lastNOI
+      };
+    }
+
+    function exportSelectedScenarios() {
+      const checkboxes = Array.from(document.querySelectorAll(".scenario-select"));
+      const selected = checkboxes.filter((cb) => cb.checked).map((cb) => parseInt(cb.getAttribute("data-scenario"), 10));
+      if (!selected.length) {
+        alert("Select at least one scenario to export.");
+        return;
+      }
+      if (selected.length > 3) {
+        alert("Please select no more than three scenarios.");
+        return;
+      }
+      const rows = [];
+      const headers = [
+        "Name",
+        "Years",
+        "InitialCost",
+        "Year1Rent",
+        "RentGrowthPct",
+        "NOIMarginPct",
+        "DiscountRatePct",
+        "NPV",
+        "TotalNOI",
+        "PaybackYears",
+        "YearNNOI"
+      ];
+      rows.push(headers);
+      selected.forEach((idx) => {
+        const d = getScenarioExportData(idx);
+        const row = headers.map((h) => d[h]);
+        rows.push(row);
+      });
+      const csv = rows
+        .map((row) =>
+          row
+            .map((val) => {
+              const v = val === null || typeof val === "undefined" ? "" : String(val);
+              const escaped = v.replace(/"/g, '""');
+              return '"' + escaped + '"';
+            })
+            .join(",")
+        )
+        .join("\n");
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "scenario-comparison.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+function updateUI() {
+      const growthShockPts = parseFloat(document.getElementById("growthShock").value || "0");
+      const discountShockPts = parseFloat(document.getElementById("discountShock").value || "0");
+      const growthLabel = (growthShockPts > 0 ? "+" : growthShockPts < 0 ? "" : "+") + growthShockPts.toFixed(2).replace(/\.00$/, "") + " pts";
+      const discountLabel = (discountShockPts > 0 ? "+" : discountShockPts < 0 ? "" : "+") + discountShockPts.toFixed(2).replace(/\.00$/, "") + " pts";
+      document.getElementById("growthShockLabel").textContent = growthLabel;
+      document.getElementById("discountShockLabel").textContent = discountLabel;
+      for (let i = 1; i <= 3; i++) {
+        const nameInput = document.getElementById("name-" + i);
+        const name = (nameInput && nameInput.value.trim()) || "Scenario " + i;
+        const labelEl = document.getElementById("scenario-label-" + i);
+        if (labelEl) labelEl.textContent = name;
+        const base = computeScenario(i, 0, 0);
+        const shocked = computeScenario(i, growthShockPts, discountShockPts);
+        const npvEl = document.getElementById("npv-" + i);
+        const npvSubEl = document.getElementById("npv-" + i + "-sub");
+        const totalCashEl = document.getElementById("totalCash-" + i);
+        const paybackEl = document.getElementById("payback-" + i);
+        const yearNEl = document.getElementById("yearN-" + i);
+        const yearNSubEl = document.getElementById("yearN-" + i + "-sub");
+        if (npvEl) {
+          npvEl.textContent = formatCurrency(base.npv);
+          npvEl.classList.remove("positive", "negative");
+          if (!isNaN(base.npv)) {
+            if (base.npv > 0) npvEl.classList.add("positive");
+            if (base.npv < 0) npvEl.classList.add("negative");
+          }
+        }
+        if (npvSubEl) {
+          const initial = parseNumber("initial-" + i);
+          npvSubEl.textContent = "vs. " + formatCurrency(-initial) + " total cost";
+        }
+        if (totalCashEl) totalCashEl.textContent = formatCurrency(base.totalCash);
+        if (paybackEl) paybackEl.textContent = base.payback == null ? "No payback" : formatYears(base.payback);
+        if (yearNEl) yearNEl.textContent = formatCurrency(base.lastNOI);
+        if (yearNSubEl) yearNSubEl.textContent = "Year " + base.years + " NOI at " + base.growthPct.toFixed(1).replace(/\.0$/, "") + "% rent growth";
+        const cmpNpv = document.getElementById("cmp-npv-" + i);
+        const cmpCash = document.getElementById("cmp-cash-" + i);
+        const cmpPayback = document.getElementById("cmp-payback-" + i);
+        const cmpYearN = document.getElementById("cmp-yearN-" + i);
+        const colName = document.getElementById("col-name-" + i);
+        if (cmpNpv) cmpNpv.textContent = formatCurrency(base.npv);
+        if (cmpCash) cmpCash.textContent = formatCurrency(base.totalCash);
+        if (cmpPayback) cmpPayback.textContent = base.payback == null ? "No payback" : formatYears(base.payback);
+        if (cmpYearN) cmpYearN.textContent = formatCurrency(base.lastNOI);
+        if (colName) colName.textContent = name;
+        const sensName = document.getElementById("sens-name-" + i);
+        const sensBase = document.getElementById("sens-base-" + i);
+        const sensShock = document.getElementById("sens-shock-" + i);
+        const sensDelta = document.getElementById("sens-delta-" + i);
+        if (sensName) sensName.textContent = name;
+        if (sensBase) sensBase.textContent = formatCurrency(base.npv);
+        if (sensShock) sensShock.textContent = formatCurrency(shocked.npv);
+        if (sensDelta) {
+          const delta = shocked.npv - base.npv;
+          if (isNaN(delta)) {
+            sensDelta.textContent = "–";
+            sensDelta.className = "";
+          } else {
+            sensDelta.textContent = (delta > 0 ? "+" : delta < 0 ? "" : "") + formatCurrency(delta).replace(/^\-/, "").replace(/ /, " ");
+            sensDelta.classList.remove("delta-up", "delta-down", "delta-flat");
+            if (delta > 0.5) sensDelta.classList.add("delta-up");
+            else if (delta < -0.5) sensDelta.classList.add("delta-down");
+            else sensDelta.classList.add("delta-flat");
+          }
+        }
+      }
+      updateSiteFeasibility();
+      updateHeatmap();
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".recalc").forEach((input) => {
+        input.addEventListener("input", updateUI);
+      });
+      document.getElementById("growthShock").addEventListener("input", updateUI);
+      document.getElementById("discountShock").addEventListener("input", updateUI);
+      const exportBtn = document.getElementById("exportSelected");
+      if (exportBtn) {
+        exportBtn.addEventListener("click", exportSelectedScenarios);
+      }
+      updateUI();
+    });
+  </script>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
+  <a href="contact.html">Contact</a>
+  </div>
+  </div>
+</footer>
+<script>
+  (function(){{ var y=document.getElementById('footYear'); if(y){{ y.textContent=new Date().getFullYear(); }} }})();
+</script>
+
+
+
+
+
+<script>
+(function(){
+  const LANGS = ['en','es','vi'];
+  
+// --- Partners: shared profiles for homepage and detail page ---
+function getPartners(){
+  try{
+  return JSON.parse(localStorage.getItem('partnersExtra')||'[]');
+  }catch(e){
+  return [];
+  }
+}
+
+const DEFAULT_PARTNERS = [
+  {
+  slug: 'affordable-housing-oregon',
+  category: 'Affordable Housing',
+  name: 'Affordable Housing Oregon',
+  blurb: 'Eligibility, availability, and multilingual resources for income-qualified households.',
+  website: 'https://affordablehousingoregon.com/about-us/'
+  },
+  {
+  slug: 'jblc-construction',
+  category: 'Construction',
+  name: 'JBLC Construction',
+  blurb: 'Safety-first, schedule-driven building for mixed-income and supportive housing.',
+  website: 'https://jblcconstruction.net'
+  },
+  {
+  slug: 'nichols-and-wood',
+  category: 'Planning & Development',
+  name: 'Nichols & Wood',
+  blurb: 'Entitlements, engagement, and corridor-scale planning support.',
+  website: 'https://nicholswood.com'
+  }
+];
+
+function ensurePartnersData(){
+  const stored = getPartners() || [];
+  const active = stored.filter(function(p){ return !p.archived; });
+  if (!active.length){
+  return DEFAULT_PARTNERS;
+  }
+  return active;
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  const grid = document.getElementById('partners-grid');
+  if(!grid) return;
+  const partners = ensurePartnersData();
+  grid.innerHTML = '';
+  partners.forEach(function(p){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML =
+  '<div class="p" style="color:#6E5B49;font-weight:600">'+ (p.category||'Partner') +'</div>'+
+  '<h3>'+ (p.name||'Partner') +'</h3>'+
+  '<p class="p">'+ (p.blurb||'') +'</p>'+
+  '<a class="btn push-bottom" href="partners.html#'+ (p.slug||'') +'"><span data-i18n="learn_more">Learn more</span></a>';
+  grid.appendChild(card);
+  });
+});
+const strings = {
+  en: {
+  nav_projects: 'Projects',
+  nav_apply: 'Apply',
+  nav_bids: 'Bids & RFPs',
+  nav_partners: 'Municipal Partnerships',
+  hero_title: 'One umbrella, many paths to thriving communities',
+  hero_sub: 'A unified home for projects, affordable housing, construction, and planning&mdash;organized for residents, partners, and municipalities.',
+  cta_explore_projects: 'Explore Projects',
+  cta_find_housing: 'Find Housing',
+  upcoming: 'Upcoming Events',
+  details: 'Details',
+  our_work: 'Our Work',
+  work_with_us: 'Work With Us',
+  vendor_portal: 'Vendor & Subcontractor Portal',
+  open_portal: 'Open portal',
+  register_contractor: 'Register as contractor',
+  municipal_partnerships: 'Municipal Partnerships',
+  learn_more: 'Learn more',
+  resident_resources: 'Resident Resources',
+  view_resources: 'View resources',
+  #events: 'Events',
+  events_title: 'Events',
+  events_upcoming: 'Upcoming Events',
+  events_past: 'Past',
+  manage_attachments: 'Manage attachments',
+  video_url: 'Video URL',
+  notes_url: 'Meeting notes URL',
+  agenda_url: 'Agenda URL',
+  save: 'Save',
+  clear: 'Clear',
+  #projects: 'Projects',
+  projects_title: 'Project directory',
+  filters: 'Filters',
+  search: 'Search',
+  cities: 'Cities',
+  status: 'Status',
+  type: 'Type',
+  min_units: 'Min units',
+  min_bedrooms: 'Min bedrooms',
+  year_from: 'Year from',
+  year_to: 'Year to',
+  affordable_only: 'Affordable only',
+  require_parking: 'Require parking',
+  funding: 'Funding',
+  apply_for_housing: 'Apply for housing',
+  list: 'List',
+  map: 'Map',
+  results: 'result(s)',
+  overview: 'Overview',
+  back_to_projects: 'Back to projects',
+  bids_open: 'Open RFPs',
+  bids_title: 'Vendor bids & RFPs',
+  back_home: 'Back to home',
+  register_title: 'Contractor registration',
+  register_copy: 'Upload references, insurance, and certifications to be considered for future RFPs.',
+  certify: 'I certify this information is accurate.',
+  submit_registration: 'Submit registration'
+  },
+  es: {
+  nav_projects: 'Proyectos',
+  nav_apply: 'Solicitar',
+  nav_bids: 'Licitaciones y RFP',
+  nav_partners: 'Alianzas Municipales',
+  hero_title: 'Un mismo paraguas, muchos caminos hacia comunidades prósperas',
+  hero_sub: 'Un hogar unificado para proyectos, vivienda asequible, construcción y planeación&mdash;organizado para residentes, socios y municipios.',
+  cta_explore_projects: 'Explorar proyectos',
+  cta_find_housing: 'Buscar vivienda',
+  upcoming: 'Próximos',
+  details: 'Detalles',
+  our_work: 'Nuestro trabajo',
+  work_with_us: 'Trabaja con nosotros',
+  vendor_portal: 'Portal de proveedores y subcontratistas',
+  open_portal: 'Abrir portal',
+  register_contractor: 'Registrar contratista',
+  municipal_partnerships: 'Alianzas municipales',
+  learn_more: 'Más información',
+  resident_resources: 'Recursos para residentes',
+  view_resources: 'Ver recursos',
+  events_title: 'Eventos',
+  events_upcoming: 'Próximos',
+  events_past: 'Pasados',
+  manage_attachments: 'Gestionar adjuntos',
+  video_url: 'URL del video',
+  notes_url: 'URL de notas',
+  agenda_url: 'URL de agenda',
+  save: 'Guardar',
+  clear: 'Borrar',
+  projects_title: 'Directorio de proyectos',
+  filters: 'Filtros',
+  search: 'Buscar',
+  cities: 'Ciudades',
+  status: 'Estado',
+  type: 'Tipo',
+  min_units: 'Mín. unidades',
+  min_bedrooms: 'Mín. dormitorios',
+  year_from: 'Año desde',
+  year_to: 'Año hasta',
+  affordable_only: 'Solo asequible',
+  require_parking: 'Requiere estacionamiento',
+  funding: 'Financiamiento',
+  apply_for_housing: 'Solicitar vivienda',
+  list: 'Lista',
+  map: 'Mapa',
+  results: 'resultado(s)',
+  overview: 'Resumen',
+  back_to_projects: 'Volver a proyectos',
+  bids_open: 'RFP abiertos',
+  bids_title: 'Licitaciones y RFP',
+  back_home: 'Volver al inicio',
+  register_title: 'Registro de contratista',
+  register_copy: 'Sube referencias, seguro y certificaciones para ser considerado en futuros RFP.',
+  certify: 'Certifico que esta información es correcta.',
+  submit_registration: 'Enviar registro'
+  },
+  vi: {
+  nav_projects: 'Dự án',
+  nav_apply: 'Nộp đơn',
+  nav_bids: 'Mời thầu & RFP',
+  nav_partners: 'Đối tác đô thị',
+  hero_title: 'Một mái nhà chung, nhiều con đường xây dựng cộng đồng thịnh vượng',
+  hero_sub: 'Cổng thông tin thống nhất cho dự án, nhà ở giá phải chăng, xây dựng và quy hoạch&mdash;dành cho cư dân, đối tác và địa phương.',
+  cta_explore_projects: 'Xem dự án',
+  cta_find_housing: 'Tìm nhà ở',
+  upcoming: 'Sắp diễn ra',
+  details: 'Chi tiết',
+  our_work: 'Công việc của chúng tôi',
+  work_with_us: 'Hợp tác cùng chúng tôi',
+  vendor_portal: 'Cổng nhà thầu & nhà cung cấp',
+  open_portal: 'Mở cổng',
+  register_contractor: 'Đăng ký nhà thầu',
+  municipal_partnerships: 'Đối tác đô thị',
+  learn_more: 'Tìm hiểu thêm',
+  resident_resources: 'Tài nguyên cư dân',
+  view_resources: 'Xem tài nguyên',
+  events_title: 'Sự kiện',
+  events_upcoming: 'Sắp diễn ra',
+  events_past: 'Đã diễn ra',
+  manage_attachments: 'Quản lý tệp đính kèm',
+  video_url: 'Liên kết video',
+  notes_url: 'Liên kết biên bản',
+  agenda_url: 'Liên kết chương trình',
+  save: 'Lưu',
+  clear: 'Xóa',
+  projects_title: 'Danh mục dự án',
+  filters: 'Bộ lọc',
+  search: 'Tìm kiếm',
+  cities: 'Thành phố',
+  status: 'Trạng thái',
+  type: 'Loại hình',
+  min_units: 'Số căn tối thiểu',
+  min_bedrooms: 'Phòng ngủ tối thiểu',
+  year_from: 'Năm từ',
+  year_to: 'Năm đến',
+  affordable_only: 'Chỉ nhà ở giá phải chăng',
+  require_parking: 'Cần chỗ đậu xe',
+  funding: 'Nguồn vốn',
+  apply_for_housing: 'Nộp đơn xin nhà ở',
+  list: 'Danh sách',
+  map: 'Bản đồ',
+  results: 'kết quả',
+  overview: 'Tổng quan',
+  back_to_projects: 'Quay lại dự án',
+  bids_open: 'RFP mở',
+  bids_title: 'Mời thầu & RFP',
+  back_home: 'Về trang chủ',
+  register_title: 'Đăng ký nhà thầu',
+  register_copy: 'Tải tài liệu tham chiếu, bảo hiểm và chứng nhận để được xem xét cho các RFP.',
+  certify: 'Tôi xác nhận thông tin là chính xác.',
+  submit_registration: 'Gửi đăng ký'
+  }
+  };
+
+  function setLang(lang){
+  if (!LANGS.includes(lang)) lang = 'en';
+  localStorage.setItem('lang', lang);
+  document.documentElement.setAttribute('lang', lang);
+  applyI18n();
+  const sel = document.getElementById('langSelect');
+  if (sel) sel.value = lang;
+  }
+
+  function t(key){
+  const lang = localStorage.getItem('lang') || 'en';
+  return (strings[lang] && strings[lang][key]) || strings.en[key] || key;
+  }
+
+  function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+  const key = el.getAttribute('data-i18n');
+  const val = t(key);
+  if (el.tagName  'INPUT' || el.tagName  'TEXTAREA') {
+  el.setAttribute('placeholder', val);
+  } else {
+  el.textContent = val;
+  }
+  });
+  }
+
+  // Expose to window for inline handlers
+  window.setLang = setLang;
+  window.applyI18n = applyI18n;
+
+  // Insert language chooser into header nav if present
+  function ensureLangSelect(){
+  if (document.getElementById('langSelect')) return;
+  const nav = document.querySelector('header nav');
+  if (!nav) return;
+  const wrap = document.createElement('span');
+  wrap.style.marginLeft = '12px';
+  wrap.innerHTML = '<select id="langSelect" aria-label="Language"><option value="en">EN</option><option value="es">ES</option><option value="vi">VI</option></select>';
+  nav.appendChild(wrap);
+  wrap.querySelector('select').addEventListener('change', e => setLang(e.target.value));
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+  ensureLangSelect();
+  applyI18n();
+  setLang(localStorage.getItem('lang') || 'en');
+  });
+})();
+</script>
+
+</html>
+
+
+<script>
+(function(){
+  // Featured projects on home (Azure + local fallback)
+  const grid = document.getElementById('featured-projects-grid');
+  if (grid){
+    const SEED = [
+      { name:'Riverfront Commons', city:'Salem, OR', status:'In construction', detail:'Mixed-income housing with riverfront access and services.', slug:'riverfront-commons' },
+      { name:'Willow Creek Homes', city:'Albany, OR', status:'Planned', detail:'Townhomes and apartments near schools and transit.', slug:'willow-creek-homes' },
+      { name:'Pioneer Court', city:'Corvallis, OR', status:'Concept', detail:'Supportive housing with on-site services and community space.', slug:'pioneer-court' },
+      { name:'Harbor View Lofts', city:'Astoria, OR', status:'Predevelopment', detail:'Housing over active ground-floor commercial space.', slug:'harbor-view-lofts' },
+      { name:'Maple Grove Cottages', city:'Springfield, OR', status:'In construction', detail:'Small cottages around a shared green for families and seniors.', slug:'maple-grove-cottages' },
+      { name:'Cedar Ridge Residences', city:'Bend, OR', status:'Concept', detail:'Energy-efficient homes near jobs, transit, and services.', slug:'cedar-ridge-residences' }
+    ];
+    function toSlug(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+    function renderFeatured(list){
+      grid.innerHTML = '';
+      list.forEach(function(p){
+        const slug = p.slug || toSlug(p.name);
+        const href = 'project.html?slug=' + encodeURIComponent(slug);
+        const card = document.createElement('article');
+        card.className = 'card project-card';
+        const meta = [p.city, p.status].filter(Boolean).join(' \u00b7 ');
+        card.innerHTML =
+          '<h3 class="h3" style="margin:0 0 4px 0">'+(p.name||'Project')+'</h3>'+
+          '<div style="font-size:14px;color:#6b7280;margin-bottom:4px">'+meta+'</div>'+
+          '<div class="p" style="font-size:14px">'+(p.detail||'Affordable housing in partnership with local communities.')+'</div>'+
+          '<div class="push-bottom"></div>'+
+          '<div class="row" style="margin-top:10px">'+
+            '<a class="btn btn-dark" href="'+href+'">View project</a>'+
+          '</div>';
+        grid.appendChild(card);
+      });
+    }
+    (async function(){
+      let items = [];
+      try{
+        const res = await fetch('/api/projectsExtra');
+        if(res.ok){
+          items = await res.json();
+        }
+      }catch(e){
+        console.warn('Projects from Azure unavailable, using local storage/seed', e);
+      }
+      if(!Array.isArray(items) || !items.length){
+        try { items = JSON.parse(localStorage.getItem('projectsExtra') || '[]') || []; } catch(e){ items = []; }
+      }
+      items = items.filter(p => p && !p.archived);
+      const featured = items.filter(p => p && p.featured);
+      const list = (featured.length ? featured : SEED).slice(0,4);
+      renderFeatured(list);
+    })();
+  }
+
+  // Upcoming events summary (Azure + local fallback)
+  const body = document.getElementById('home-upcoming-body');
+  if (body){
+    const fallbackText = 'Open House - Riverfront Commons - Tue Dec 16, 2025 - 6-8 PM - Salem Public Library';
+    (async function(){
+      let items = [];
+      try{
+        const res = await fetch('/api/eventsExtra');
+        if(res.ok){
+          items = await res.json();
+        }
+      }catch(e){
+        console.warn('Events from Azure unavailable, using local storage/seed', e);
+      }
+      if(!Array.isArray(items) || !items.length){
+        try { items = JSON.parse(localStorage.getItem('eventsExtra') || '[]') || []; } catch(e){ items = []; }
+      }
+      if (!Array.isArray(items)) items = [];
+      const upcoming = items.filter(function(ev){ return ev && ev.type !== 'past'; });
+      if (upcoming.length){
+        const ev = upcoming[0];
+        const parts = [];
+        if (ev.title) parts.push(ev.title);
+        if (ev.date)  parts.push(ev.date);
+        if (ev.time)  parts.push(ev.time);
+        if (ev.location) parts.push(ev.location);
+        body.textContent = parts.join(' - ');
+      } else {
+        body.textContent = fallbackText;
+      }
+    })();
+  }
+})();
+</script>
+<style>
+  .home-work-grid{
+  display:grid;
+  grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+  gap:24px;
+  align-items:flex-start;
+  }
+  @media (max-width: 900px){
+  .home-work-grid{
+  grid-template-columns:minmax(0,1fr);
+  }
+  }
+</style>
+
+</body>
+</html>

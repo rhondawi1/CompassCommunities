@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="includes/site-shell.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Analysis Tools — Compass Communities</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <style id="site-typography-unify">
+  /* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+  <style>
+:root{--brand:#2F2F2F;--accent:#E11D2E;--border:#e5e7eb;--muted:#6b7280;--bg:#fff;--text:#111827}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Avenir Next','Segoe UI',Inter,system-ui,Roboto,Arial,sans-serif;color:var(--text)}
+.container{max-width:1200px;margin:0 auto;padding:24px 20px}
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.btn{appearance:none;border:1px solid var(--border);background:#f9fafb;padding:8px 12px;border-radius:10px;font:inherit;cursor:pointer}
+.btn:hover{background:#eff2f5}
+.btn-dark{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn-dark:hover{opacity:.95}
+input,select,textarea{width:100%;padding:8px;border:1px solid var(--border);border-radius:10px}
+h1,h2{margin:8px 0}
+.p{color:#374151}
+.note{font-size:12px;color:#6b7280}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border-bottom:1px solid var(--border);padding:8px;text-align:left}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+.kpi .card{text-align:center}
+.kpi .num{font-size:20px;font-weight:700}
+pre.insights{white-space:pre-wrap;background:#fafafa;border:1px solid var(--border);border-radius:12px;padding:12px;line-height:1.35}
+canvas{image-rendering:pixelated}
+</style>
+  </body>
+  <header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+  <nav>
+  <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+  <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+  <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+  <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+  <a href="analysis.html">Analysis Tools</a>
+  <a href="login.html" class="login-link" aria-label="Admin login">
+  <span class="login-icon" aria-hidden="true">&#128100;</span>
+  <span class="login-text">Log in</span>
+  </a>
+  
+  <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+<main class="container">
+  <h1>Analysis Tools</h1>
+  <p class="p">Offline-ready tools for early <b>site feasibility</b> and a <b>pro forma lite</b>. Export to CSV to share.</p>
+  <div id="admin-login-status" class="p" style="margin-top:8px;font-size:13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+  <span id="admin-login-email" style="font-weight:600"></span>
+  <button type="button" id="admin-logout" class="btn" style="padding:2px 10px;font-size:12px">Log out</button>
+  </div>
+
+
+  <section class="card" aria-labelledby="site">
+  <h2 id="site">Site & Zoning</h2>
+  <div class="grid4">
+  <label>Site area (acres)<br><input id="acres" type="number" step="0.01" value="2.0"></label>
+  <label>FAR (base)<br><input id="far" type="number" step="0.01" value="2.5"></label>
+  <label>Efficiency (%)<br><input id="eff" type="number" step="1" value="82"></label>
+  <label>Residential mix (% of GFA)<br><input id="resmix" type="number" step="1" value="92"></label>
+  <label>Max height (stories)<br><input id="stories" type="number" value="5"></label>
+  <label>Setbacks (ft)<br><input id="setbacks" type="number" value="10"></label>
+  <label>Parking ratio (stalls / unit)<br><input id="parking" type="number" step="0.1" value="0.75"></label>
+  <label>Affordable share (% units)<br><input id="affshare" type="number" step="1" value="40"></label>
+  </div>
+  </section>
+
+  <section class="card" aria-labelledby="costs">
+  <h2 id="costs">Costs & Revenues</h2>
+  <div class="grid4">
+  <label>Hard cost ($/gsf)<br><input id="hard" type="number" value="300"></label>
+  <label>Soft cost (% of hard)<br><input id="soft" type="number" value="25"></label>
+  <label>Contingency (% of hard+soft)<br><input id="cont" type="number" value="10"></label>
+  <label>Land cost ($)<br><input id="land" type="number" value="1500000"></label>
+  <label>Rent (market) $/nsf/mo<br><input id="rent_mkt" type="number" step="0.01" value="2.90"></label>
+  <label>Rent (affordable) $/nsf/mo<br><input id="rent_aff" type="number" step="0.01" value="1.60"></label>
+  <label>OpEx (% of EGI)<br><input id="opex" type="number" value="30"></label>
+  <label>Vacancy (% of PGI)<br><input id="vac" type="number" value="5"></label>
+  <label>Cap rate (%)<br><input id="cap" type="number" value="5.25"></label>
+  <label>Loan-to-cost (%)<br><input id="ltc" type="number" value="65"></label>
+  <label>Interest rate (%)<br><input id="rate" type="number" value="6.5"></label>
+  <label>Equity IRR hurdle (%)<br><input id="irr" type="number" value="14"></label>
+  </div>
+  </section>
+
+  <div class="row" style="margin:10px 0">
+  <button class="btn btn-dark" id="run" type="button">Run analysis</button>
+  <button class="btn" id="export" type="button">Export CSV</button>
+  </div>
+
+  <section class="kpi">
+  <div class="card"><div class="note">Allowable GFA (gsf)</div><div class="num" id="k_gfa">&mdash;</div></div>
+  <div class="card"><div class="note">Net Rentable (nsf)</div><div class="num" id="k_nsf">&mdash;</div></div>
+  <div class="card"><div class="note">Est. Units</div><div class="num" id="k_units">&mdash;</div></div>
+  <div class="card"><div class="note">Parking Stalls</div><div class="num" id="k_stalls">&mdash;</div></div>
+  </section>
+
+  <section class="card" aria-labelledby="proforma">
+  <h2 id="proforma">Pro Forma (Lite)</h2>
+  <table class="table" id="pf">
+  <thead><tr><th>Line</th><th>Amount</th></tr></thead>
+  <tbody></tbody>
+  </table>
+  </section>
+
+  <section class="card" aria-labelledby="insights">
+  <h2 id="insights">Insight generator (offline)</h2>
+  <p class="p">Rule-based reasoning that mimics AI suggestions based on your inputs. No data leaves this file.</p>
+  <pre class="insights" id="aiout">Run analysis to generate insights&hellip;</pre>
+  </section>
+
+  <section class="card" aria-labelledby="scenarios">
+  <h2 id="scenarios">Scenarios</h2>
+  <div class="row">
+  <label>Scenario name<br><input id="sc_name" placeholder="e.g., Base Case or Option B"></label>
+  <button class="btn btn-dark" id="sc_save" type="button">Save Scenario</button>
+  <button class="btn" id="sc_new" type="button">New Scenario</button>
+  <button class="btn" id="sc_export" type="button">Export JSON</button>
+  <label class="btn" style="cursor:pointer">Import JSON<input id="sc_import" type="file" accept="application/json" style="display:none"></label>
+  <button class="btn" id="sc_share" type="button">Share this scenario</button>
+  </div>
+  <p class="p">Pick up to three scenarios to compare:</p>
+  <div id="sc_list" class="row" style="align-items:center"></div>
+  <div style="overflow:auto;margin-top:10px">
+  <table class="table" id="sc_compare">
+  <thead>
+  <tr>
+  <th>Metric</th>
+  <th id="sc_h1">&mdash;</th>
+  <th id="sc_h2">&mdash;</th>
+  <th id="sc_h3">&mdash;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr><td>Allowable GFA (gsf)</td><td data-k="gfa"></td><td data-k="gfa"></td><td data-k="gfa"></td></tr>
+  <tr><td>Net rentable (nsf)</td><td data-k="nsf"></td><td data-k="nsf"></td><td data-k="nsf"></td></tr>
+  <tr><td>Units (est.)</td><td data-k="units"></td><td data-k="units"></td><td data-k="units"></td></tr>
+  <tr><td>Parking stalls</td><td data-k="stalls"></td><td data-k="stalls"></td><td data-k="stalls"></td></tr>
+  <tr><td>EGI</td><td data-k="EGI"></td><td data-k="EGI"></td><td data-k="EGI"></td></tr>
+  <tr><td>NOI</td><td data-k="NOI"></td><td data-k="NOI"></td><td data-k="NOI"></td></tr>
+  <tr><td>Value @ cap</td><td data-k="Value"></td><td data-k="Value"></td><td data-k="Value"></td></tr>
+  <tr><td>Total cost</td><td data-k="totalCost"></td><td data-k="totalCost"></td><td data-k="totalCost"></td></tr>
+  <tr><td>Yield on cost</td><td data-k="YoC"></td><td data-k="YoC"></td><td data-k="YoC"></td></tr>
+  <tr><td>Dev margin</td><td data-k="DevMargin"></td><td data-k="DevMargin"></td><td data-k="DevMargin"></td></tr>
+  <tr><td>Loan (est.)</td><td data-k="loan"></td><td data-k="loan"></td><td data-k="loan"></td></tr>
+  <tr><td>Equity (est.)</td><td data-k="equity"></td><td data-k="equity"></td><td data-k="equity"></td></tr>
+  </tbody>
+  </table>
+  </div>
+  </section>
+
+  <section class="card" aria-labelledby="sensitivity">
+  <h2 id="sensitivity">Sensitivity</h2>
+  <p class="p">Heatmap exploring outcomes vs. FAR and Hard Cost. Choose a metric and ranges.</p>
+  <div class="row">
+  <label>Metric<br>
+  <select id="sens_metric">
+  <option value="DevMargin">Dev margin (%)</option>
+  <option value="YoC">Yield on cost (%)</option>
+  <option value="Value">Value @ cap ($)</option>
+  <option value="NOI">NOI ($)</option>
+  </select>
+  </label>
+  <label>FAR min<br><input id="sens_far_min" type="number" step="0.1" value="1.5"></label>
+  <label>FAR max<br><input id="sens_far_max" type="number" step="0.1" value="4.0"></label>
+  <label>FAR step<br><input id="sens_far_step" type="number" step="0.1" value="0.25"></label>
+  <label>Hard $/gsf min<br><input id="sens_hard_min" type="number" value="250"></label>
+  <label>Hard $/gsf max<br><input id="sens_hard_max" type="number" value="400"></label>
+  <label>Hard $/gsf step<br><input id="sens_hard_step" type="number" value="25"></label>
+  <button class="btn btn-dark" id="sens_run" type="button">Run sensitivity</button>
+  <button class="btn" id="sens_export" type="button">Export CSV</button>
+  </div>
+  <div style="overflow:auto;margin-top:10px">
+  <canvas id="sens_canvas" width="880" height="520" style="border:1px solid var(--border);border-radius:12px"></canvas>
+  </div>
+  <div class="note">X-axis: FAR &rarr;, Y-axis: Hard cost ($/gsf) &uarr;. Darker = better for the chosen metric.</div>
+  </section>
+
+</main>
+
+<script>
+function num(v){ return Number((v||0)); }
+function fmt(n){ return n.toLocaleString(undefined,{maximumFractionDigits:0}); }
+function money(n){ return "$"+Number(n||0).toLocaleString(undefined,{maximumFractionDigits:0}); }
+
+function analyze(){
+  const acres = num(document.getElementById('acres').value);
+  const far = num(document.getElementById('far').value);
+  const eff = num(document.getElementById('eff').value)/100;
+  const resmix = num(document.getElementById('resmix').value)/100;
+  const parkingRatio = num(document.getElementById('parking').value);
+  const affshare = num(document.getElementById('affshare').value)/100;
+  const hard = num(document.getElementById('hard').value);
+  const soft = num(document.getElementById('soft').value)/100;
+  const cont = num(document.getElementById('cont').value)/100;
+  const land = num(document.getElementById('land').value);
+  const rent_mkt = num(document.getElementById('rent_mkt').value);
+  const rent_aff = num(document.getElementById('rent_aff').value);
+  const opex = num(document.getElementById('opex').value)/100;
+  const vac = num(document.getElementById('vac').value)/100;
+  const cap = num(document.getElementById('cap').value)/100;
+  const ltc = num(document.getElementById('ltc').value)/100;
+
+  const siteSF = acres*43560;
+  const gfa = siteSF*far;
+  const nsf = gfa*eff*resmix;
+  const avgUnitNSF = 850;
+  const units = Math.max(1, Math.round(nsf/avgUnitNSF));
+  const stalls = Math.round(units*parkingRatio);
+
+  const affUnits = Math.round(units*affshare);
+  const mktUnits = units - affUnits;
+  const affNSF = nsf*(affUnits/units);
+  const mktNSF = nsf*(mktUnits/units);
+
+  const EGI = ((affNSF*rent_aff + mktNSF*rent_mkt)*12) * (1 - vac);
+  const OpEx = EGI*opex;
+  const NOI = EGI - OpEx;
+  const Value = NOI / Math.max(0.0001, cap);
+
+  const hardCost = gfa * hard;
+  const softCost = hardCost * soft;
+  const contCost = (hardCost + softCost) * cont;
+  const totalCost = hardCost + softCost + contCost + land;
+
+  const loan = totalCost * ltc;
+  const equity = totalCost - loan;
+
+  const YoC = NOI / Math.max(1, totalCost);
+  const DevMargin = (Value - totalCost)/Math.max(1,totalCost);
+
+  document.getElementById('k_gfa').textContent = fmt(gfa);
+  document.getElementById('k_nsf').textContent = fmt(nsf);
+  document.getElementById('k_units').textContent = fmt(units);
+  document.getElementById('k_stalls').textContent = fmt(stalls);
+
+  const rows = [
+  ['Allowable GFA (gsf)', fmt(gfa)],
+  ['Net rentable (nsf)', fmt(nsf)],
+  ['Units (est.)', fmt(units)],
+  ['Parking stalls', fmt(stalls)],
+  ['&mdash;','&mdash;'],
+  ['Gross rent (annual, pre-vacancy)', money(((affNSF*rent_aff + mktNSF*rent_mkt)*12))],
+  ['Vacancy', (vac*100).toFixed(1)+'%'],
+  ['EGI (after vacancy)', money(EGI)],
+  ['OpEx', money(OpEx)],
+  ['NOI', money(NOI)],
+  ['&mdash;','&mdash;'],
+  ['Hard cost', money(hardCost)],
+  ['Soft cost', money(softCost)],
+  ['Contingency', money(contCost)],
+  ['Land', money(land)],
+  ['Total cost', money(totalCost)],
+  ['&mdash;','&mdash;'],
+  ['Value @ cap', money(Value)],
+  ['Yield on cost', (YoC*100).toFixed(2)+'%'],
+  ['Dev margin', (DevMargin*100).toFixed(2)+'%'],
+  ['Loan (est.)', money(loan)],
+  ['Equity (est.)', money(equity)]
+  ];
+  const tbody = document.querySelector('#pf tbody'); tbody.innerHTML='';
+  rows.forEach(r=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td>`; tbody.appendChild(tr); });
+
+  const lines = [];
+  if(far<2) lines.push('&bull; FAR below 2.0 may constrain feasibility unless land cost is very low or rents are strong.');
+  if(YoC<0.06) lines.push('&bull; Yield on cost under ~6%: consider grants, TIF, or cost reductions to close the gap.');
+  if(affshare>0.3 && rent_mkt<3) lines.push('&bull; High affordable mix with modest market rent: explore layered financing (LIHTC, HOME, CDBG).');
+  if(parkingRatio>1) lines.push('&bull; Parking ratio >1.0 can drive costs; evaluate shared, unbundled, or reduced minimums.');
+  if(DevMargin<0.10) lines.push('&bull; Development margin under 10% is tight; value engineer envelope, MEP, or unit mix.');
+  if(lines.length0) lines.push('&bull; Program appears broadly viable under given assumptions. Test sensitivity to FAR, rent, and costs.');
+  document.getElementById('aiout').textContent = lines.join('\n');
+
+  return {gfa, nsf, units, stalls, EGI, NOI, Value, totalCost, YoC, DevMargin, loan, equity};
+}
+
+const SC_KEY='ai_scenarios_v1';
+function readScenarioInputs(){ const ids=['acres','far','eff','resmix','stories','setbacks','parking','affshare','hard','soft','cont','land','rent_mkt','rent_aff','opex','vac','cap','ltc','rate','irr']; const o={}; ids.forEach(id=>{ const el=document.getElementById(id); if(el) o[id]= el.type'number'?Number(el.value):el.value; }); return o; }
+function writeScenarioInputs(o){ Object.entries(o||{}).forEach(([k,v])=>{ const el=document.getElementById(k); if(el) el.value=v; }); }
+function getScenarios(){ try{ return JSON.parse(localStorage.getItem(SC_KEY)||'[]'); }catch(e){ return []; } }
+function setScenarios(arr){ localStorage.setItem(SC_KEY, JSON.stringify(arr)); }
+function renderScenarioList(){
+  const box=document.getElementById('sc_list'); if(!box) return;
+  const arr=getScenarios(); box.innerHTML='';
+  arr.forEach((s,i)=>{
+  const id='scpick_'+i;
+  const wrap=document.createElement('label');
+  wrap.style.display='flex'; wrap.style.alignItems='center'; wrap.style.gap='6px';
+  wrap.innerHTML=`<input type="checkbox" id="${id}" data-idx="${i}"> ${s.name || ('Scenario '+(i+1))}
+  <button class="btn" type="button" data-load="${i}">Load</button>
+  <button class="btn" type="button" data-del="${i}">Delete</button>`;
+  box.appendChild(wrap);
+  });
+  box.addEventListener('change',(e)=>{
+  const picks=[...box.querySelectorAll('input[type=checkbox]:checked')];
+  if(picks.length>3){ e.target.checked=false; alert('Pick up to three scenarios to compare.'); }
+  else{ compareScenarios(picks.map(x=>+x.dataset.idx)); }
+  },{once:true});
+  box.addEventListener('click',(e)=>{
+  const load=e.target.closest('button[data-load]'); const del=e.target.closest('button[data-del]');
+  if(load){ const idx=+load.dataset.load; const arr=getScenarios(); const sc=arr[idx]; if(sc){ writeScenarioInputs(sc.inputs); document.getElementById('sc_name').value=sc.name||''; window.scrollTo({top:0,behavior:'smooth'});} }
+  if(del){ const idx=+del.dataset.del; const arr=getScenarios(); arr.splice(idx,1); setScenarios(arr); renderScenarioList(); compareScenarios([]); }
+  },{once:true});
+}
+
+function compareScenarios(indexes){
+  const arr=getScenarios(); const chosen=indexes.map(i=>arr[i]).filter(Boolean).slice(0,3);
+  const heads=['sc_h1','sc_h2','sc_h3']; for(let i=0;i<3;i++){ const h=document.getElementById(heads[i]); h.textContent=chosen[i]?.name||'&mdash;'; }
+  const rows=document.querySelectorAll('#sc_compare tbody tr'); rows.forEach(row=>{ row.querySelectorAll('td[data-k]').forEach(c=>c.textContent=''); });
+  chosen.forEach((sc,col)=>{
+  let res=sc.results; if(!res){ writeScenarioInputs(sc.inputs); res=analyze(); }
+  document.querySelectorAll('#sc_compare tbody tr').forEach(tr=>{
+  const k=tr.querySelector('td[data-k]').getAttribute('data-k');
+  const cells=tr.querySelectorAll('td[data-k]'); const cell=cells[col];
+  if(k'YoC' || k'DevMargin'){ cell.textContent=(res[k]*100).toFixed(2)+'%'; }
+  else if(['EGI','NOI','Value','totalCost','loan','equity'].includes(k)){ cell.textContent='$'+Math.round(res[k]).toLocaleString(); }
+  else { cell.textContent=Math.round(res[k]).toLocaleString(); }
+  });
+  });
+  highlightComparison();
+}
+
+document.getElementById('run').addEventListener('click', analyze);
+document.getElementById('export').addEventListener('click', ()=>{
+  const data=analyze(); const headers=['Metric','Value']; const rows=Object.entries(data).map(([k,v])=>[k, typeof v'number'? v.toFixed(2): v]); const csv=[headers,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='feasibility.csv'; a.click();
+});
+document.getElementById('sc_save').addEventListener('click', ()=>{
+  const name=(document.getElementById('sc_name').value||'').trim()||'Scenario'; const inputs=readScenarioInputs(); const results=analyze(); const arr=getScenarios();
+  const i=arr.findIndex(s=>(s.name||'').toLowerCase()name.toLowerCase()); const obj={name,inputs,results}; if(i>=0) arr[i]=obj; else arr.push(obj); setScenarios(arr); renderScenarioList(); alert('Scenario saved.');
+});
+document.getElementById('sc_new').addEventListener('click', ()=>{ document.getElementById('sc_name').value=''; });
+document.getElementById('sc_export').addEventListener('click', ()=>{
+  const data=getScenarios(); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='scenarios.json'; a.click();
+});
+document.getElementById('sc_import').addEventListener('change', (e)=>{
+  const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const data=JSON.parse(r.result); if(Array.isArray(data)){ setScenarios(data); renderScenarioList(); alert('Scenarios imported.'); } else alert('Invalid JSON format.'); }catch(err){ alert('Invalid JSON.'); } }; r.readAsText(f);
+});
+document.getElementById('sc_share').addEventListener('click', async ()=>{
+  const name=(document.getElementById('sc_name')?.value||'Scenario').trim(); const inputs=readScenarioInputs(); const results=analyze(); const payload=[{name,inputs,results}]; const blob=JSON.stringify(payload);
+  try{ if(navigator.clipboard?.writeText){ await navigator.clipboard.writeText(blob); alert('Scenario copied to clipboard! Paste via Import JSON.'); } else { throw new Error('No clipboard'); } } 
+  catch(e){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([blob],{type:'application/json'})); a.download=(name.replace(/\s+/g,'_').toLowerCase()+'_scenario.json'); a.click(); }
+});
+
+function analyzeWithOverrides(overrides){
+  const backup={ far:document.getElementById('far').value, hard:document.getElementById('hard').value };
+  if(overrides.far!==undefined) document.getElementById('far').value=overrides.far;
+  if(overrides.hard!==undefined) document.getElementById('hard').value=overrides.hard;
+  const res=analyze();
+  document.getElementById('far').value=backup.far; document.getElementById('hard').value=backup.hard;
+  return res;
+}
+function runSensitivity(){
+  const metric=document.getElementById('sens_metric').value;
+  const farMin=Number(document.getElementById('sens_far_min').value), farMax=Number(document.getElementById('sens_far_max').value), farStep=Number(document.getElementById('sens_far_step').value);
+  const hardMin=Number(document.getElementById('sens_hard_min').value), hardMax=Number(document.getElementById('sens_hard_max').value), hardStep=Number(document.getElementById('sens_hard_step').value);
+  const fars=[]; for(let f=farMin; f<=farMax+1e-9; f=+(f+farStep).toFixed(4)) fars.push(f);
+  const hards=[]; for(let c=hardMin; c<=hardMax+1e-9; c=+(c+hardStep).toFixed(4)) hards.push(c);
+  const grid=[]; let minV=Infinity, maxV=-Infinity;
+  for(let y=0;y<hards.length;y++){ const row=[]; for(let x=0;x<fars.length;x++){ let v=analyzeWithOverrides({far:fars[x],hard:hards[y]})[metric]; if(metric'DevMargin'||metric'YoC') v=v*100; row.push(v); if(!isNaN(v)){ if(v<minV)minV=v; if(v>maxV)maxV=v; } } grid.push(row); }
+  const canvas=document.getElementById('sens_canvas'); const ctx=canvas.getContext('2d'); ctx.clearRect(0,0,canvas.width,canvas.height);
+  const padL=60,padB=50,padT=20,padR=40; const plotW=canvas.width-padL-padR, plotH=canvas.height-padT-padB;
+  const cols=fars.length, rows=hards.length, cw=plotW/cols, ch=plotH/rows;
+  function colorScale(v){ if(isNaN(v)) return 'rgba(200,200,200,1)'; const t=(v-minV)/Math.max(1e-9,(maxV-minV)); const r=Math.round(240-150*t), g=Math.round(240-80*t), b=Math.round(240-10*t); return `rgb(${r},${g},${b})`; }
+  for(let y=0;y<rows;y++){ for(let x=0;x<cols;x++){ ctx.fillStyle=colorScale(grid[y][x]); ctx.fillRect(padL+x*cw, padT+(rows-1-y)*ch, cw, ch); } }
+  ctx.fillStyle='#111'; ctx.strokeStyle='#999'; ctx.lineWidth=1; ctx.strokeRect(padL,padT,plotW,plotH);
+  ctx.textAlign='center'; ctx.textBaseline='top'; for(let x=0;x<cols;x+=Math.max(1,Math.floor(cols/8))){ ctx.fillText(fars[x].toFixed(2), padL+x*cw+cw/2, padT+plotH+6); }
+  ctx.save(); ctx.translate(14,padT+plotH/2); ctx.rotate(-Math.PI/2); ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('Hard cost ($/gsf)',0,0); ctx.restore();
+  ctx.textAlign='center'; ctx.fillText('FAR', padL+plotW/2, canvas.height-10);
+  ctx.textAlign='right'; ctx.textBaseline='middle'; for(let y=0;y<rows;y+=Math.max(1,Math.floor(rows/8))){ ctx.fillText(hards[y].toFixed(0), padL-6, padT+(rows-1-y)*ch+ch/2); }
+  const lx=canvas.width-padR+8, ly=padT, lh=plotH, steps=40;
+  for(let i=0;i<steps;i++){ const t=i/(steps-1); const r=Math.round(240-150*t), g=Math.round(240-80*t), b=Math.round(240-10*t); ctx.fillStyle=`rgb(${r},${g},${b})`; ctx.fillRect(lx, ly+(1-t)*lh, 10, lh/steps+1); }
+  ctx.fillStyle='#111'; ctx.textAlign='left'; ctx.fillText((isFinite(maxV)?maxV.toFixed(2):'&mdash;'), lx+14, ly+4); ctx.fillText((isFinite(minV)?minV.toFixed(2):'&mdash;'), lx+14, ly+lh-14); ctx.fillText(metric, lx, ly-6);
+}
+document.getElementById('sens_run').addEventListener('click', runSensitivity);
+document.getElementById('sens_export').addEventListener('click', ()=>{ const a=document.createElement('a'); a.href=document.getElementById('sens_canvas').toDataURL('image/png'); a.download='sensitivity.png'; a.click(); });
+
+function highlightComparison(){
+  const rows=document.querySelectorAll('#sc_compare tbody tr'); if(!rows.length) return;
+  rows.forEach(row=>{
+  const cells=Array.from(row.querySelectorAll('td[data-k]')); if(!cells.length) return;
+  const k=cells[0].getAttribute('data-k');
+  const higherBetter=['Value','NOI','EGI','DevMargin','YoC']; const lowerBetter=['totalCost','equity','loan'];
+  const dir=higherBetter.includes(k)?'up':(lowerBetter.includes(k)?'down':'up');
+  const vals=cells.map(c=>{ const t=c.textContent.replace(/[^0-9\.\-]/g,''); return Number(t||NaN); }).filter(v=>!isNaN(v));
+  if(!vals.length) return;
+  const target=(dir'up')? Math.max(...vals): Math.min(...vals);
+  cells.forEach(c=>{ const n=Number(c.textContent.replace(/[^0-9\.\-]/g,'')); const win=(ntarget); c.style.background=win?'rgba(16,185,129,0.15)':''; c.style.fontWeight=win?'700':'400'; });
+  });
+}
+
+// Municipal preset + baseline
+(function(){
+  const qs=new URLSearchParams(location.search); const preset=(qs.get('preset')||'').toLowerCase();
+  const BASE={ acres:2.0, far:2.0, eff:82, resmix:92, stories:5, setbacks:10, parking:0.75, affshare:30, hard:280, soft:22, cont:10, land:1200000, rent_mkt:2.75, rent_aff:1.55, opex:30, vac:5, cap:5.25, ltc:65, rate:6.5, irr:14 };
+  function ensure(){ writeScenarioInputs(BASE); analyze(); const name='Municipal Baseline'; const arr=getScenarios(); if(!arr.some(s=>(s.name||'').toLowerCase()name.toLowerCase())){ const results=analyze(); arr.push({name,inputs:BASE,results}); setScenarios(arr); } const scName=document.getElementById('sc_name'); if(scName) scName.value=name; renderScenarioList(); }
+  if(preset'municipal'){ if(document.readyState'loading'){ document.addEventListener('DOMContentLoaded', ensure, {once:true}); } else { ensure(); } }
+  renderScenarioList();
+})();
+</script>
+</body>
+</html>

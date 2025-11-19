@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="includes/site-shell.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Accessibility Statement</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <style id="site-typography-unify">
+  /* Site-wide typography normalization */
+  :root{
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    --text: var(--text, #111827);
+    --muted: var(--muted, #6b7280);
+  }
+  html{ font-size:16px; }
+  body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+  h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+  h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+  h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+  h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+  h4{ font-size: 1.05rem; font-weight: 600; }
+  p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+  small{ font-size: .875rem; color: var(--muted); }
+  .eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+  a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+  a:hover{ text-decoration: underline; }
+  </style>
+  <style>
+  :root{--text:#111827;--border:#e5e7eb;--accent:#E11D2E;--bg:#ffffff;--taupe:#BCA99A;--surface:#fff}
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); }
+  .container{ max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+  .card{ background: var(--surface); border:1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  ul{ padding-left: 18px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="eyebrow">Accessibility</div>
+    <h1>Accessibility Statement</h1>
+    <p>Compass Communities aims for WCAG AA contrast and keyboard navigation. If you encounter barriers, please contact us and we&rsquo;ll address them promptly.</p>
+    <div class="card">
+      <ul>
+        <li>Keyboard focus styles are enabled sitewide.</li>
+        <li>High-contrast toggle is available in the header on supported builds.</li>
+        <li>Images include alt text where meaningful.</li>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>

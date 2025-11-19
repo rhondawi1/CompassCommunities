@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="includes/site-shell.js" defer></script>
+  <meta charset="utf-8">
+<link rel="canonical" href="apply.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Submit a property for potential development with Compass Communities.">
+<meta property="og:title" content="Apply &ndash; Compass Communities">
+<meta property="og:description" content="Find housing opportunities and learn how to apply at Compass Communities properties.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+    <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+    <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+    <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+    <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+    <a href="login.html" class="login-link" aria-label="Admin login">
+      <span class="login-icon" aria-hidden="true">&#128100;</span>
+      <span class="login-text">Log in</span>
+    </a>
+    <a href="analysis.html">Analysis Tools</a>
+    <a href="admin.html">Admin</a>
+    <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+<main>
+  <section class="section">
+  <div class="container" style="max-width:960px">
+  <div class="eyebrow">Property intake</div>
+  <h1 class="h2">Submit a property for potential development</h1>
+  <p class="p">Use this form to share site information with the Compass Communities team. After you submit, your email program will open so you can review the details and attach any drawings, surveys, or additional documents.</p>
+  
+  <form id="propertyIntakeForm" class="card" method="post" style="margin-top:16px;max-width:880px">
+  <h3 class="h3" style="margin-top:0">Site and contact information</h3>
+  <div class="grid grid-2" style="margin-top:12px;column-gap:18px;row-gap:12px">
+  <label style="grid-column:1/-1">Contact name<br><input name="contact_name" required></label>
+  <label style="grid-column:1/-1">Organization (if applicable)<br><input name="organization"></label>
+  <label>Email<br><input type="email" name="email" required></label>
+  <label>Phone<br><input type="tel" name="phone"></label>
+
+  <label style="grid-column:1/-1">Property address<br>
+  <input name="property_address" placeholder="Street, city, state, ZIP" required>
+  </label>
+
+  <label>County<br><input name="county" required></label>
+  <label>Tax lot / parcel ID<br><input name="tax_lot"></label>
+  <label>Approximate site size<br><input name="site_size" placeholder="Acres or square feet"></label>
+  <label>Current zoning<br><input name="zoning"></label>
+
+  <label style="grid-column:1/-1">Current use<br>
+  <input name="current_use" placeholder="e.g., vacant lot, single-family, commercial">
+  </label>
+
+  <label style="grid-column:1/-1">Brief description &amp; goals<br>
+  <textarea name="description" rows="4" placeholder="What is on the property today, and what would you like to see here in the future?"></textarea>
+  </label>
+
+  <label style="grid-column:1/-1">Timing or constraints (optional)<br>
+  <textarea name="timing" rows="3" placeholder="Key dates, known constraints, or partners already involved."></textarea>
+  </label>
+  </div>
+  <p class="p" style="margin-top:10px;font-size:13px">
+  When you click Submit, your email program will open with this information in the message body so you can review it
+  and attach any supporting documents before sending.
+  </p>
+  <button type="submit" class="btn btn-dark" style="margin-top:10px">Submit property</button>
+  </form>
+
+  </div>
+  </section>
+</main>
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
+  <a href="contact.html">Contact</a>
+  </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function getIntake(){
+  try{
+  return JSON.parse(localStorage.getItem('propertyIntakeRequests')||'[]') || [];
+  }catch(e){
+  return [];
+  }
+  }
+  function setIntake(arr){
+  localStorage.setItem('propertyIntakeRequests', JSON.stringify(arr||[]));
+  }
+  async function sendToCloud(item){
+    try{
+      await fetch(OPS_API, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ table:'propertyIntakeRequests', action:'upsert', item })
+      });
+    }catch(err){
+      console.warn('Unable to sync property intake to cloud', err);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+  var form = document.getElementById('propertyIntakeForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var data = {
+  contact_name: (document.getElementsByName('contact_name')[0]||{}).value || '',
+  organization: (document.getElementsByName('organization')[0]||{}).value || '',
+  email:  (document.getElementsByName('email')[0]||{}).value || '',
+  phone:  (document.getElementsByName('phone')[0]||{}).value || '',
+  property_address: (document.getElementsByName('property_address')[0]||{}).value || '',
+  county:  (document.getElementsByName('county')[0]||{}).value || '',
+  tax_lot:  (document.getElementsByName('tax_lot')[0]||{}).value || '',
+  site_size:  (document.getElementsByName('site_size')[0]||{}).value || '',
+  zoning:  (document.getElementsByName('zoning')[0]||{}).value || '',
+  current_use:  (document.getElementsByName('current_use')[0]||{}).value || '',
+  description:  (document.getElementsByName('description')[0]||{}).value || '',
+  timing:  (document.getElementsByName('timing')[0]||{}).value || '',
+  status: 'Unread',
+  createdAt: new Date().toISOString()
+  };
+  if(!data.property_address){
+  alert('Please include the property address.');
+  return;
+  }
+  var list = getIntake();
+  list.push(data);
+  setIntake(list);
+  sendToCloud(data);
+  var lines = [
+  'New property intake request',
+  '',
+  'Contact name: ' + data.contact_name,
+  'Organization: ' + data.organization,
+  'Email: ' + data.email,
+  'Phone: ' + data.phone,
+  '',
+  'Property address: ' + data.property_address,
+  'County: ' + data.county,
+  'Tax lot / parcel ID: ' + data.tax_lot,
+  'Approximate site size: ' + data.site_size,
+  'Current zoning: ' + data.zoning,
+  'Current use: ' + data.current_use,
+  '',
+  'Brief description & goals:',
+  data.description,
+  '',
+  'Timing or constraints:',
+  data.timing
+  ];
+  var body = encodeURIComponent(lines.join('\n'));
+  var subject = encodeURIComponent('New property intake: ' + data.property_address);
+  window.location.href = 'mailto:info@compass-communities.example?subject='+subject+'&body='+body;
+
+  alert('Thank you. Your property has been recorded for review and an email draft has been opened.');
+  form.reset();
+  });
+  });
+})();
+</script>
+
+</body>
+</html>

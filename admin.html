@@ -1,0 +1,1514 @@
+
+
+<head>
+<script src="includes/site-shell.js" defer></script>
+<link rel="canonical" href="admin.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
+<meta property="og:title" content="Admin &ndash; Compass Communities">
+<meta property="og:description" content="Local admin tools for managing projects, bids, events, partners, and project photo galleries.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+</head><!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin &ndash; Compass Communities</title>
+<style>
+  :root{--brand:#2F2F2F;--taupe:#BCA99A;--accent:#E11D2E;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff}
+  *{box-sizing:border-box} body{margin:0;font-family:'Avenir Next', 'Segoe UI', Inter, system-ui, Roboto, Arial, sans-serif;color:var(--text);background:var(--bg)}
+  a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+  .container{max-width:1120px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border);z-index:10}
+  .header-inner{height:64px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:12px}.logo-badge{height:36px;width:36px;border-radius:10px;background:var(--sand);color:#fff;display:grid;place-content:center;font-weight:700}
+  nav{display:flex;gap:8px;flex-wrap:nowrap;white-space:nowrap} nav a{padding:6px 10px;border-radius:10px;color:#374151} nav a:hover{background:#f3f4f6}
+  .section{padding:40px 0} .eyebrow{color:#78350f;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .h2{font-size:24px;margin:6px 0} .p{color:var(--muted)} .card{border:1px solid var(--border);border-radius:16px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04);padding:18px}
+  input,select,textarea{width:100%;padding:8px;border:1px solid var(--border);border-radius:12px}
+  label{font-size:14px;color:#374151}
+  .tabs{display:flex;gap:6px;margin-top:10px}
+  .tabs button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+  .tabs button.active{background:#111;color:#fff;border-color:#111}
+  .grid{display:grid;gap:12px}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;border:1px solid var(--border)}
+  .btn-dark{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  table{width:100%;border-collapse:collapse} th,td{padding:8px 10px;text-align:left;border-top:1px solid var(--border)} thead{color:#6b7280;font-size:12px;text-transform:uppercase}
+  @media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+
+/*  Accessibility / ADA improvements  */
+:root{
+  /* Darker muted text for >=4.5:1 on white backgrounds */
+  --muted:#374151;
+}
+/* Ensure link visibility not relying on color alone */
+a{text-decoration:underline;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+/* Strong, visible focus rings */
+:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+/* Buttons and controls should not lose outlines */
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{outline:3px solid #1d4ed8;outline-offset:3px}
+/* Logo badge: use dark text on sand background for contrast */
+.logo-badge{color:#111827 !important}
+/* Badges and pills: keep text sufficiently dark */
+.badge,.pill{color:#1f2937}
+/* Optional high-contrast mode */
+:root[data-contrast="high"]{
+  --text:#0b0f19;
+  --muted:#111827;
+  --border:#9ca3af;
+  --bg:#ffffff;
+}
+:root[data-contrast="high"] a{color:var(--accent);}
+:root[data-contrast="high"] .btn{border-color:#111;background:#111;color:#fff}
+@media (prefers-contrast: more){
+  :root{--muted:#111827}
+  a{text-decoration-thickness:2px}
+}
+
+.check{display:flex;align-items:center;gap:8px;justify-content:flex-start}
+</style>
+<header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+    <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+    <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+    <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+    <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+    <a href="login.html" class="login-link" aria-label="Admin login">
+      <span class="login-icon" aria-hidden="true">&#128100;</span>
+      <span class="login-text">Log in</span>
+    </a>
+    <a href="analysis.html">Analysis Tools</a>
+    <a href="admin.html">Admin</a>
+    <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+<main class="section"><div class="container">
+  <div class="eyebrow">Admin</div>
+  <h2 class="h2">Content manager</h2>
+  <p class="p">Add or edit entries. Data is stored in your browser (<b>localStorage</b>) for offline use. Export JSON to share with others.</p>
+  <div id="admin-login-status" class="p" style="margin-top:8px;font-size:13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+  <span id="admin-login-email" style="font-weight:600"></span>
+  <button type="button" id="admin-logout" class="btn" style="padding:2px 10px;font-size:12px">Log out</button>
+  </div>
+
+
+  <div class="tabs">
+  <button class="active" data-tab="projects">Projects</button>
+  <button data-tab="bids">RFPs</button>
+  <button data-tab="subs">Subcontractors</button>
+  <button data-tab="events">Events</button>
+  <button data-tab="partners">Partners</button>
+  <button data-tab="muni">Municipal partners</button>
+  <button data-tab="users">Admin users</button>
+  </div>
+
+  <!-- Projects tab -->
+  <section id="tab-projects" class="card" style="margin-top:12px">
+  <h3>Add project</h3>
+  <div class="grid grid-2">
+  <label>Name<br><input id="p_name"></label>
+  <label>Slug (unique, for URL)<br><input id="p_slug" placeholder="lowercase-with-dashes"></label>
+  <label>City<br><input id="p_city"></label>
+  <label>Status<br><input id="p_status" placeholder="Leasing / Planning / Under Construction"></label>
+  <label>Units<br><input id="p_units" inputmode="numeric"></label>
+  <label>Type<br><input id="p_type" placeholder="Affordable / Mixed-income / Senior / Workforce"></label>
+  <label>Year<br><input id="p_year" inputmode="numeric" placeholder="2026"></label>
+  <label>Bedrooms<br><input id="p_bedrooms" inputmode="numeric" placeholder="1-3"></label>
+  <label>Address<br><input id="p_address"></label>
+  <label>Parking<br>
+  <select id="p_parking"><option value="true">Yes</option><option value="false">No</option></select>
+  </label>
+  <label>Funding (comma separated)<br><input id="p_funding" placeholder="LIHTC, Local"></label>
+  <label>Lat,Lng (optional)<br><input id="p_latlng" placeholder="45.5,-122.6"></label>
+  <label class="grid" style="grid-column:1/-1">Summary<br><textarea id="p_summary" rows="3"></textarea></label>
+  </div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="p_add">Add project</button>
+  <button class="btn" id="p_export">Export JSON</button>
+  <label class="btn"><input type="file" id="p_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="p_clear">Clear added</button>
+  </div>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead><tr><th>Name</th><th>City</th><th>Status</th><th>Units</th><th>Type</th><th>Year</th><th>Slug</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody id="p_list"></tbody>
+  </table>
+  </div>
+  
+  <hr style="margin:18px 0;border:none;border-top:1px solid var(--border)">
+  <h3>Project photos</h3>
+  <div class="grid grid-2">
+  <label>Project slug<br><input id="ph_slug" placeholder="e.g., riverfront-commons"></label>
+  <label>Upload images (JPG/PNG, multiple)<br><input id="ph_files" type="file" accept="image/*" multiple></label>
+  </div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="ph_add">Add to gallery</button>
+  <button class="btn" id="ph_export">Export photos JSON</button>
+  <label class="btn"><input type="file" id="ph_import" accept="application/json" style="display:none">Import photos JSON</label>
+  <button class="btn" id="ph_clear">Clear gallery for slug</button>
+  </div>
+  <div id="ph_preview" style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px"></div>
+
+  </section>
+
+  <!-- Bids tab -->
+  <section id="tab-bids" class="card" style="margin-top:12px;display:none">
+  <h3>Add bid / RFP</h3>
+  <div class="grid grid-2">
+  <label>ID<br><input id="b_id" placeholder="RFP-YYYY-XX"></label>
+  <label>Title<br><input id="b_title"></label>
+  <label>Due (MM/DD/YYYY)<br><input id="b_due" placeholder="01/15/2026"></label>
+  <label>City<br><input id="b_city"></label>
+  <label>Development<br><input id="b_dev"></label>
+  </div>
+  <label>RFP attachment(s)<br>
+  <input type="file" id="b_files" multiple>
+  <small style="display:block;font-size:12px;color:#6b7280">Files will be stored in Azure with this RFP and available as downloads on the public Bids &amp; RFPs page.</small>
+  </label>
+
+  <div id="b_recipients" class="p" style="margin-top:10px"></div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="b_add">Add RFP</button>
+  <button class="btn" id="b_export">Export JSON</button>
+  <label class="btn"><input type="file" id="b_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="b_clear">Clear added</button>
+  </div>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead><tr><th>ID</th><th>Title</th><th>Due</th><th>City</th><th>Development</th><th></th></tr></thead>
+  <tbody id="b_list"></tbody>
+  </table>
+  </div>
+  
+  <hr style="margin:20px 0">
+  <h3>Submitted bids</h3>
+  <p class="p">Bids submitted through the public RFP form will appear here. You can update their status or archive them when no longer active.</p>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead>
+  <tr>
+  <th>Submitted</th>
+  <th>RFP ID</th>
+  <th>Firm</th>
+  <th>Contact</th>
+  <th>Email</th>
+  <th>Status</th>
+  <th>Archived</th>
+  <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody id="bids_submitted_list"></tbody>
+  </table>
+  </div>
+</section>
+  <section id="tab-subs" class="card" style="margin-top:12px;display:none">
+  <h3>Subcontractors</h3>
+  <p class="p">Manage registered subcontractors and their standing with Compass Communities. Subcontractors who opted in will receive notices when new RFPs are posted.</p>
+  <div class="grid grid-2">
+  <label>Firm name<br><input id="s_firm"></label>
+  <label>Contact name<br><input id="s_contact"></label>
+  <label>Email<br><input id="s_email" type="email"></label>
+  <label>Phone<br><input id="s_phone"></label>
+  <label>Trade / discipline<br><input id="s_trade" placeholder="e.g., electrical, drywall, landscaping"></label>
+  <label>City / region<br><input id="s_region" placeholder="City or service area"></label>
+  <label>Standing<br>
+  <select id="s_standing">
+  <option value="Good standing">Good standing</option>
+  <option value="Prospective">Prospective</option>
+  <option value="Probation">Probation</option>
+  <option value="Do not use">Do not use</option>
+  </select>
+  </label>
+  <label>Receive RFP notices?<br>
+  <select id="s_subscribe">
+  <option value="yes">Yes</option>
+  <option value="no">No</option>
+  </select>
+  </label>
+  </div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="s_add">Add subcontractor</button>
+  <button class="btn" id="s_export">Export JSON</button>
+  <label class="btn"><input type="file" id="s_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="s_clear">Clear all</button>
+  </div>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead>
+  <tr>
+  <th>Firm</th>
+  <th>Contact</th>
+  <th>Email</th>
+  <th>Trade</th>
+  <th>Region</th>
+  <th>Standing</th>
+  <th>RFP notices</th>
+  <th>Status</th>
+  <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody id="subs_list"></tbody>
+  </table>
+  </div>
+  </section>
+
+
+  <!-- Events tab -->
+  <section id="tab-events" class="card" style="margin-top:12px;display:none">
+  <h3>Add event</h3>
+  <div class="grid grid-2">
+  <label>ID (unique)<br><input id="e_id" placeholder="event-slug-YYYY-MM-DD"></label>
+  <label>Title<br><input id="e_title"></label>
+  <label>Start (ISO)<br><input id="e_start" placeholder="2026-01-10T18:00:00"></label>
+  <label>End (ISO)<br><input id="e_end" placeholder="2026-01-10T19:30:00"></label>
+  <label>Location<br><input id="e_loc"></label>
+  <label class="grid" style="grid-column:1/-1">Summary<br><textarea id="e_sum" rows="3"></textarea></label>
+  </div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="e_add">Add event</button>
+  <button class="btn" id="e_export">Export JSON</button>
+  <label class="btn"><input type="file" id="e_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="e_clear">Clear added</button>
+  </div>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead><tr><th>Title</th><th>Date</th><th>Location</th><th>ID</th><th></th></tr></thead>
+  <tbody id="e_list"></tbody>
+  </table>
+  </div>
+  </section>
+
+  <!-- Partners tab -->
+  <section id="tab-partners" class="card" style="margin-top:12px;display:none">
+  <h3>Partner profiles</h3>
+  <p class="p">These profiles power the public &ldquo;Our Partners&rdquo; section on the homepage and the Partners detail page.</p>
+  <div class="grid grid-2">
+  <label>Slug (unique)<br><input id="pt_slug" placeholder="affordable-housing-oregon"></label>
+  <label>Category<br><input id="pt_category" placeholder="Affordable Housing"></label>
+  <label>Name<br><input id="pt_name" placeholder="Organization name"></label>
+  <label>Website URL<br><input id="pt_website" placeholder="https://example.org"></label>
+  <label class="grid" style="grid-column:1/-1">Short blurb<br><textarea id="pt_blurb" rows="3" placeholder="One or two sentences describing the partner&apos;s role."></textarea></label>
+  </div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="pt_add">Add partner</button>
+  <button class="btn" id="pt_export">Export JSON</button>
+  <label class="btn"><input type="file" id="pt_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="pt_clear">Clear added</button>
+  </div>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead><tr><th>Category</th><th>Name</th><th>Slug</th><th>Website</th><th>Status</th><th>Actions</th></tr></thead>
+  <tbody id="pt_list"></tbody>
+  </table>
+  </div>
+  </section>
+  <section id="tab-intake" class="card" style="margin-top:12px;display:none">
+  <h3>Property intake requests</h3>
+  <p class="p">Submissions from the public property intake form are listed here. You can track review status for each request.</p>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead>
+  <tr>
+  <th>Submitted</th>
+  <th>Contact</th>
+  <th>Email</th>
+  <th>Property</th>
+  <th>County</th>
+  <th>Status</th>
+  <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody id="intake_list"></tbody>
+  </table>
+  </div>
+  </section>
+
+  <section id="tab-users" class="card" style="margin-top:12px;display:none">
+  <h3>Admin users</h3>
+  <p class="p">Manage which email addresses can log in to update projects, bids, events, and partners.</p>
+  <div class="grid grid-2">
+  <label>Name<br><input id="u_name" placeholder="Full name"></label>
+  <label>Email<br><input id="u_email" type="email" placeholder="admin@example.org"></label>
+  </div>
+  <div class="row" style="margin-top:10px">
+  <button class="btn btn-dark" id="u_add">Add user</button>
+  <button class="btn" id="u_export">Export JSON</button>
+  <label class="btn"><input type="file" id="u_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="u_clear">Clear all</button>
+  </div>
+  <div style="margin-top:12px;overflow:auto">
+  <table>
+  <thead><tr><th>Name</th><th>Email</th><th></th></tr></thead>
+  <tbody id="u_list"></tbody>
+  </table>
+  </div>
+  </section>
+
+</div>
+  <section id="tab-muni" class="card" style="display:none">
+  <h2>Municipalities</h2>
+  <p class="p">Manage cities and counties we partner with. Logos stay in-browser (localStorage) for this demo.</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+  <label>Name<br><input id="m_name" placeholder="City of Salem"></label>
+  <label>Type<br>
+  <select id="m_type"><option>City</option><option>County</option></select>
+  </label>
+  <label>Website<br><input id="m_url" placeholder="https://example.gov"></label>
+  <label>Logo (optional)<br><input id="m_logo" type="file" accept="image/*"></label>
+  <label style="grid-column:1/-1">Blurb<br><textarea id="m_blurb" rows="3" placeholder="Why they partnered with Compass..."></textarea></label>
+  </div>
+  <div class="row" style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="partner.html" target="_blank" rel="noopener">Open Partnerships Page</a>
+  <button class="btn btn-dark" id="m_add">Add</button>
+  <button class="btn" id="m_export">Export JSON</button>
+  <label class="btn"><input type="file" id="m_import" accept="application/json" style="display:none">Import JSON</label>
+  <button class="btn" id="m_clear">Clear All</button>
+  </div>
+  <div id="m_table" style="margin-top:12px"></div>
+  </section>
+
+
+
+<script>
+  (function(){ var y=document.getElementById('footYear'); if(y){ y.textContent=new Date().getFullYear(); }})();
+
+  // --- Municipalities storage helpers ---
+  function getMuni(){ try{ return JSON.parse(localStorage.getItem('municipalities')||'[]'); }catch(e){ return []; } }
+  function setMuni(a){ localStorage.setItem('municipalities', JSON.stringify(a)); }
+  
+  // --- Municipalities: Edit mode support ---
+  function renderMuni(){
+  const arr = getMuni();
+  const box = document.getElementById('m_table'); if(!box) return;
+  box.innerHTML='';
+  if(!arr.length){ box.innerHTML = '<div class="p">No municipalities yet.</div>'; return; }
+  const table = document.createElement('div');
+  table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
+  table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
+  arr.forEach((m,i)=>{
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
+  table.insertAdjacentHTML('beforeend',
+  '<div>'+ (m.name||'') +'</div>' +
+  '<div>'+ (m.type||'') +'</div>' +
+  '<div>'+ w +'</div>' +
+  '<div>'+ (m.blurb||'') +'</div>' +
+  '<div><button class="btn" data-edit="'+i+'">Edit</button></div>' +
+  '<div><button class="btn" data-remove="'+i+'">Remove</button></div>'
+  );
+  });
+  table.addEventListener('click', async (e)=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const i = btn.dataset.remove!==undefined ? +btn.dataset.remove : (btn.dataset.edit!==undefined ? +btn.dataset.edit : -1);
+  if (i<0) return;
+  const arr = getMuni();
+  if (btn.dataset.remove!==undefined){
+  arr.splice(i,1); setMuni(arr); renderMuni(); return;
+  }
+  if (btn.dataset.edit!==undefined){
+  const curr = arr[i];
+  // Simple prompt-based editor for demo/offline use
+  const name = prompt('Name:', curr.name||''); if (name==null) return;
+  const type = prompt('Type (City/County):', curr.type||'City'); if (type==null) return;
+  const url = prompt('Website:', curr.url||''); if (url==null) return;
+  const blurb = prompt('Blurb:', curr.blurb||''); if (blurb==null) return;
+  // Optionally update logo by picking a file
+  let logo = curr.logo||'';
+  if (confirm('Update logo? (OK to choose a file, Cancel to keep current)')){
+  const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+  const pick = await new Promise((resolve)=>{ input.addEventListener('change', ()=> resolve(input.files && input.files[0] ? input.files[0] : null)); input.click(); });
+  if (pick){
+  logo = await new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(pick); });
+  }
+  }
+  arr[i] = {name, type, url, blurb, logo};
+  setMuni(arr); renderMuni();
+  }
+  });
+  box.appendChild(table);
+  }
+)();
+
+
+</script>
+
+
+<script>
+  (function(){ var y=document.getElementById('footYear'); if(y){ y.textContent=new Date().getFullYear(); }})();
+
+  // --- Municipalities storage helpers ---
+  function getMuni(){ try{ return JSON.parse(localStorage.getItem('municipalities')||'[]'); }catch(e){ return []; } }
+  function setMuni(a){ localStorage.setItem('municipalities', JSON.stringify(a)); }
+  
+  // --- Municipalities: Edit mode support ---
+  function renderMuni(){
+  const arr = getMuni();
+  const box = document.getElementById('m_table'); if(!box) return;
+  box.innerHTML='';
+  if(!arr.length){ box.innerHTML = '<div class="p">No municipalities yet.</div>'; return; }
+  const table = document.createElement('div');
+  table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
+  table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
+  arr.forEach((m,i)=>{
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
+  table.insertAdjacentHTML('beforeend',
+  '<div>'+ (m.name||'') +'</div>' +
+  '<div>'+ (m.type||'') +'</div>' +
+  '<div>'+ w +'</div>' +
+  '<div>'+ (m.blurb||'') +'</div>' +
+  '<div><button class="btn" data-edit="'+i+'">Edit</button></div>' +
+  '<div><button class="btn" data-remove="'+i+'">Remove</button></div>'
+  );
+  });
+  table.addEventListener('click', async (e)=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const i = btn.dataset.remove!==undefined ? +btn.dataset.remove : (btn.dataset.edit!==undefined ? +btn.dataset.edit : -1);
+  if (i<0) return;
+  const arr = getMuni();
+  if (btn.dataset.remove!==undefined){
+  arr.splice(i,1); setMuni(arr); renderMuni(); return;
+  }
+  if (btn.dataset.edit!==undefined){
+  const curr = arr[i];
+  // Simple prompt-based editor for demo/offline use
+  const name = prompt('Name:', curr.name||''); if (name==null) return;
+  const type = prompt('Type (City/County):', curr.type||'City'); if (type==null) return;
+  const url = prompt('Website:', curr.url||''); if (url==null) return;
+  const blurb = prompt('Blurb:', curr.blurb||''); if (blurb==null) return;
+  // Optionally update logo by picking a file
+  let logo = curr.logo||'';
+  if (confirm('Update logo? (OK to choose a file, Cancel to keep current)')){
+  const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+  const pick = await new Promise((resolve)=>{ input.addEventListener('change', ()=> resolve(input.files && input.files[0] ? input.files[0] : null)); input.click(); });
+  if (pick){
+  logo = await new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(pick); });
+  }
+  }
+  arr[i] = {name, type, url, blurb, logo};
+  setMuni(arr); renderMuni();
+  }
+  });
+  box.appendChild(table);
+  }
+)();
+
+
+</script>
+
+
+<script>
+  (function(){ var y=document.getElementById('footYear'); if(y){ y.textContent=new Date().getFullYear(); }})();
+
+  // --- Municipalities storage helpers ---
+  function getMuni(){ try{ return JSON.parse(localStorage.getItem('municipalities')||'[]'); }catch(e){ return []; } }
+  function setMuni(a){ localStorage.setItem('municipalities', JSON.stringify(a)); }
+  
+  // --- Municipalities: Edit mode support ---
+  function renderMuni(){
+  const arr = getMuni();
+  const box = document.getElementById('m_table'); if(!box) return;
+  box.innerHTML='';
+  if(!arr.length){ box.innerHTML = '<div class="p">No municipalities yet.</div>'; return; }
+  const table = document.createElement('div');
+  table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
+  table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
+  arr.forEach((m,i)=>{
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
+  table.insertAdjacentHTML('beforeend',
+  '<div>'+ (m.name||'') +'</div>' +
+  '<div>'+ (m.type||'') +'</div>' +
+  '<div>'+ w +'</div>' +
+  '<div>'+ (m.blurb||'') +'</div>' +
+  '<div><button class="btn" data-edit="'+i+'">Edit</button></div>' +
+  '<div><button class="btn" data-remove="'+i+'">Remove</button></div>'
+  );
+  });
+  table.addEventListener('click', async (e)=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const i = btn.dataset.remove!==undefined ? +btn.dataset.remove : (btn.dataset.edit!==undefined ? +btn.dataset.edit : -1);
+  if (i<0) return;
+  const arr = getMuni();
+  if (btn.dataset.remove!==undefined){
+  arr.splice(i,1); setMuni(arr); renderMuni(); return;
+  }
+  if (btn.dataset.edit!==undefined){
+  const curr = arr[i];
+  // Simple prompt-based editor for demo/offline use
+  const name = prompt('Name:', curr.name||''); if (name==null) return;
+  const type = prompt('Type (City/County):', curr.type||'City'); if (type==null) return;
+  const url = prompt('Website:', curr.url||''); if (url==null) return;
+  const blurb = prompt('Blurb:', curr.blurb||''); if (blurb==null) return;
+  // Optionally update logo by picking a file
+  let logo = curr.logo||'';
+  if (confirm('Update logo? (OK to choose a file, Cancel to keep current)')){
+  const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+  const pick = await new Promise((resolve)=>{ input.addEventListener('change', ()=> resolve(input.files && input.files[0] ? input.files[0] : null)); input.click(); });
+  if (pick){
+  logo = await new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(pick); });
+  }
+  }
+  arr[i] = {name, type, url, blurb, logo};
+  setMuni(arr); renderMuni();
+  }
+  });
+  box.appendChild(table);
+  }
+)();
+
+
+</script>
+
+
+<script>
+  (function(){ var y=document.getElementById('footYear'); if(y){ y.textContent=new Date().getFullYear(); }})();
+
+  // --- Municipalities storage helpers ---
+  function getMuni(){ try{ return JSON.parse(localStorage.getItem('municipalities')||'[]'); }catch(e){ return []; } }
+  function setMuni(a){ localStorage.setItem('municipalities', JSON.stringify(a)); }
+  
+  // --- Municipalities: Edit mode support ---
+  function renderMuni(){
+  const arr = getMuni();
+  const box = document.getElementById('m_table'); if(!box) return;
+  box.innerHTML='';
+  if(!arr.length){ box.innerHTML = '<div class="p">No municipalities yet.</div>'; return; }
+  const table = document.createElement('div');
+  table.style.display='grid'; table.style.gridTemplateColumns='1.2fr .6fr 1fr 2fr auto auto'; table.style.gap='8px';
+  table.innerHTML = '<div><b>Name</b></div><div><b>Type</b></div><div><b>Website</b></div><div><b>Blurb</b></div><div></div><div></div>';
+  arr.forEach((m,i)=>{
+  const w = m.url ? ('<a href="'+m.url+'" target="_blank" rel="noopener">Link</a>') : '&mdash;';
+  table.insertAdjacentHTML('beforeend',
+  '<div>'+ (m.name||'') +'</div>' +
+  '<div>'+ (m.type||'') +'</div>' +
+  '<div>'+ w +'</div>' +
+  '<div>'+ (m.blurb||'') +'</div>' +
+  '<div><button class="btn" data-edit="'+i+'">Edit</button></div>' +
+  '<div><button class="btn" data-remove="'+i+'">Remove</button></div>'
+  );
+  });
+  table.addEventListener('click', async (e)=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const i = btn.dataset.remove!==undefined ? +btn.dataset.remove : (btn.dataset.edit!==undefined ? +btn.dataset.edit : -1);
+  if (i<0) return;
+  const arr = getMuni();
+  if (btn.dataset.remove!==undefined){
+  arr.splice(i,1); setMuni(arr); renderMuni(); return;
+  }
+  if (btn.dataset.edit!==undefined){
+  const curr = arr[i];
+  // Simple prompt-based editor for demo/offline use
+  const name = prompt('Name:', curr.name||''); if (name==null) return;
+  const type = prompt('Type (City/County):', curr.type||'City'); if (type==null) return;
+  const url = prompt('Website:', curr.url||''); if (url==null) return;
+  const blurb = prompt('Blurb:', curr.blurb||''); if (blurb==null) return;
+  // Optionally update logo by picking a file
+  let logo = curr.logo||'';
+  if (confirm('Update logo? (OK to choose a file, Cancel to keep current)')){
+  const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+  const pick = await new Promise((resolve)=>{ input.addEventListener('change', ()=> resolve(input.files && input.files[0] ? input.files[0] : null)); input.click(); });
+  if (pick){
+  logo = await new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(r.result); r.onerror=reject; r.readAsDataURL(pick); });
+  }
+  }
+  arr[i] = {name, type, url, blurb, logo};
+  setMuni(arr); renderMuni();
+  }
+  });
+  box.appendChild(table);
+  }
+)();
+
+
+</script>
+
+<script>
+// Robust tab switching for Content Manager tabs
+document.addEventListener('DOMContentLoaded', function(){
+  function showTab(tab){
+    var ids = ['projects','bids','subs','events','partners','muni','users'];
+    ids.forEach(function(id){
+      var btn = document.querySelector('.tabs button[data-tab="'+id+'"]');
+      var panel = document.getElementById('tab-' + id);
+      if(btn){ btn.classList.toggle('active', id===tab); }
+      if(panel){ panel.style.display = (id===tab ? 'block' : 'none'); }
+    });
+  }
+  document.querySelectorAll('.tabs button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      showTab(btn.dataset.tab);
+    });
+  });
+  var active = document.querySelector('.tabs button.active') || document.querySelector('.tabs button');
+  showTab(active ? active.dataset.tab : 'projects');
+});
+
+  if(tab==='muni' && typeof renderMuni === 'function'){ renderMuni(); }
+</script>
+
+
+<script>
+// === Content Manager: Projects tab wiring ===
+(function(){
+  function cmProjGet(){
+    try { return JSON.parse(localStorage.getItem('projectsExtra')||'[]') || []; }
+    catch(e){ return []; }
+  }
+  function cmProjSet(arr){
+    localStorage.setItem('projectsExtra', JSON.stringify(arr||[]));
+  }
+  function cmProjRender(){
+    var tb = document.getElementById('p_list');
+    if(!tb) return;
+    var arr = cmProjGet();
+    tb.innerHTML = '';
+    if(!arr.length){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="8">No projects added yet.</td>';
+      tb.appendChild(tr);
+      return;
+    }
+    arr.forEach(function(p, idx){
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>'+(p.name||'')+'</td>'+
+        '<td>'+(p.city||'')+'</td>'+
+        '<td>'+(p.status||'')+'</td>'+
+        '<td>'+(p.units||'')+'</td>'+
+        '<td>'+(p.type||'')+'</td>'+
+        '<td>'+(p.year||'')+'</td>'+
+        '<td>'+(p.slug||'')+'</td>'+
+        '<td><a href="#" data-edit-proj="'+idx+'">Edit</a> &middot; <a href="#" data-rem-proj="'+idx+'">Remove</a></td>';
+      tb.appendChild(tr);
+    });
+
+    tb.querySelectorAll('a[data-rem-proj]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var idx = +a.dataset.remProj;
+        var arr = cmProjGet();
+        arr.splice(idx, 1);
+        cmProjSet(arr);
+        cmProjRender();
+      });
+    });
+
+    tb.querySelectorAll('a[data-edit-proj]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var idx = +a.dataset.editProj;
+        var arr = cmProjGet();
+        var p = arr[idx] || {};
+        function setVal(id, val){
+          var el = document.getElementById(id);
+          if(el) el.value = val || '';
+        }
+        setVal('p_name', p.name);
+        setVal('p_slug', p.slug);
+        setVal('p_city', p.city);
+        setVal('p_status', p.status);
+        setVal('p_units', p.units);
+        setVal('p_type', p.type);
+        setVal('p_year', p.year);
+        setVal('p_bedrooms', p.bedrooms);
+        setVal('p_address', p.address);
+        setVal('p_funding', p.funding);
+        setVal('p_latlng', p.latlng);
+        setVal('p_summary', p.summary);
+        if (document.getElementById('p_parking')){
+          document.getElementById('p_parking').value = (String(p.parking)==='false'?'false':'true');
+        }
+        document.body.dataset.editProjIndex = String(idx);
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var addBtn   = document.getElementById('p_add');
+    var clearBtn = document.getElementById('p_clear');
+    var expBtn   = document.getElementById('p_export');
+    var impInput = document.getElementById('p_import');
+
+    function val(id){
+      var el = document.getElementById(id);
+      return el ? (el.value || '').trim() : '';
+    }
+
+    if(addBtn){
+      addBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        var name = val('p_name');
+        var slug = val('p_slug');
+        var city = val('p_city');
+        var status = val('p_status');
+        var units = val('p_units');
+        var type = val('p_type');
+        var year = val('p_year');
+        var bedrooms = val('p_bedrooms');
+        var address = val('p_address');
+        var funding = val('p_funding');
+        var latlng = val('p_latlng');
+        var summary = val('p_summary');
+        var parkingEl = document.getElementById('p_parking');
+        var parking = parkingEl ? parkingEl.value !== 'false' : true;
+
+        if(!name){
+          alert('Project name is required.');
+          return;
+        }
+        if(!slug){
+          alert('Please provide a unique slug for this project (for URL use).');
+          return;
+        }
+
+        var arr = cmProjGet();
+        var idxStr = document.body.dataset.editProjIndex;
+        var record = {
+          name: name,
+          slug: slug,
+          city: city,
+          status: status,
+          units: units,
+          type: type,
+          year: year,
+          bedrooms: bedrooms,
+          address: address,
+          funding: funding,
+          latlng: latlng,
+          summary: summary,
+          parking: parking,
+          updatedAt: new Date().toISOString()
+        };
+
+        if(idxStr){
+          var idx = +idxStr;
+          arr[idx] = record;
+        } else {
+          arr.push(record);
+        }
+        document.body.dataset.editProjIndex = '';
+        cmProjSet(arr);
+        cmProjRender();
+        alert('Project saved. This data will be available to the public project pages when wired.');
+      });
+    }
+
+    if(clearBtn){
+      clearBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        if(confirm('Clear all locally-added projects?')){
+          cmProjSet([]);
+          cmProjRender();
+        }
+      });
+    }
+
+    if(expBtn){
+      expBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        var data = JSON.stringify(cmProjGet(), null, 2);
+        var blob = new Blob([data], {type:'application/json'});
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'projectsExtra.json';
+        a.click();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); }, 5000);
+      });
+    }
+
+    if(impInput){
+      impInput.addEventListener('change', function(e){
+        var file = e.target.files[0];
+        if(!file) return;
+        var reader = new FileReader();
+        reader.onload = function(){
+          try {
+            var arr = JSON.parse(reader.result || '[]') || [];
+            if(!Array.isArray(arr)) throw new Error('Not an array');
+            cmProjSet(arr);
+            cmProjRender();
+          } catch(err){
+            alert('Invalid JSON file for projectsExtra.');
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    cmProjRender();
+  });
+})();
+</script>
+
+
+<script>
+// === Content Manager: Events tab wiring ===
+(function(){
+  function evGet(){
+    try { return JSON.parse(localStorage.getItem('eventsExtra')||'[]') || []; }
+    catch(e){ return []; }
+  }
+  function evSet(arr){
+    localStorage.setItem('eventsExtra', JSON.stringify(arr||[]));
+  }
+  function evRender(){
+    var tb = document.getElementById('e_list');
+    if(!tb) return;
+    var arr = evGet();
+    tb.innerHTML = '';
+    if(!arr.length){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="5">No events added yet.</td>';
+      tb.appendChild(tr);
+      return;
+    }
+    arr.slice().sort(function(a,b){
+      var ad = a.datetime ? new Date(a.datetime) : null;
+      var bd = b.datetime ? new Date(b.datetime) : null;
+      if(ad && bd) return ad - bd;
+      if(ad) return -1;
+      if(bd) return 1;
+      return String(a.title||'').localeCompare(String(b.title||''));
+    }).forEach(function(e, idx){
+      var tr = document.createElement('tr');
+      var d = e.datetime ? new Date(e.datetime).toLocaleString() : '';
+      tr.innerHTML =
+        '<td>'+(e.title||'')+'</td>'+
+        '<td>'+(d||'')+'</td>'+
+        '<td>'+(e.location||'')+'</td>'+
+        '<td>'+(e.id||'')+'</td>'+
+        '<td><a href="#" data-edit-evt="'+idx+'">Edit</a> &middot; <a href="#" data-rem-evt="'+idx+'">Remove</a></td>';
+      tb.appendChild(tr);
+    });
+
+    tb.querySelectorAll('a[data-rem-evt]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var idx = +a.dataset.remEvt;
+        var arr = evGet();
+        arr.splice(idx, 1);
+        evSet(arr);
+        evRender();
+      });
+    });
+
+    tb.querySelectorAll('a[data-edit-evt]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var idx = +a.dataset.editEvt;
+        var arr = evGet();
+        var e = arr[idx] || {};
+        function setVal(id, val){
+          var el = document.getElementById(id);
+          if(el) el.value = val || '';
+        }
+        setVal('e_id', e.id);
+        setVal('e_title', e.title);
+        setVal('e_start', e.datetime);
+        setVal('e_end', e.end);
+        setVal('e_loc', e.location);
+        setVal('e_sum', e.summary);
+        document.body.dataset.editEvtIndex = String(idx);
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var addBtn   = document.getElementById('e_add');
+    var clearBtn = document.getElementById('e_clear');
+    var expBtn   = document.getElementById('e_export');
+    var impInput = document.getElementById('e_import');
+
+    function val(id){
+      var el = document.getElementById(id);
+      return el ? (el.value || '').trim() : '';
+    }
+
+    if(addBtn){
+      addBtn.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var id  = val('e_id');
+        var t   = val('e_title');
+        var st  = val('e_start');
+        var en  = val('e_end');
+        var loc = val('e_loc');
+        var sum = val('e_sum');
+        if(!id || !t || !st){
+          alert('Please provide at least an ID, Title, and Start time (ISO).');
+          return;
+        }
+        var arr = evGet();
+        var idxStr = document.body.dataset.editEvtIndex;
+        var record = {
+          id: id,
+          title: t,
+          datetime: st,
+          end: en,
+          location: loc,
+          summary: sum,
+          updatedAt: new Date().toISOString()
+        };
+        if(idxStr){
+          var idx = +idxStr;
+          arr[idx] = record;
+        } else {
+          arr.push(record);
+        }
+        document.body.dataset.editEvtIndex = '';
+        evSet(arr);
+        evRender();
+        alert('Event saved. It will appear on the public Events page in the upcoming/past lists.');
+      });
+    }
+
+    if(clearBtn){
+      clearBtn.addEventListener('click', function(ev){
+        ev.preventDefault();
+        if(confirm('Clear all locally-added events?')){
+          evSet([]);
+          evRender();
+        }
+      });
+    }
+
+    if(expBtn){
+      expBtn.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var data = JSON.stringify(evGet(), null, 2);
+        var blob = new Blob([data], {type:'application/json'});
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'eventsExtra.json';
+        a.click();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); }, 5000);
+      });
+    }
+
+    if(impInput){
+      impInput.addEventListener('change', function(e){
+        var file = e.target.files[0];
+        if(!file) return;
+        var reader = new FileReader();
+        reader.onload = function(){
+          try{
+            var arr = JSON.parse(reader.result || '[]') || [];
+            if(!Array.isArray(arr)) throw new Error('Not an array');
+            evSet(arr);
+            evRender();
+          }catch(err){
+            alert('Invalid JSON file for eventsExtra.');
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    evRender();
+  });
+})();
+</script>
+
+</html>
+<script>
+// === Content Manager: Bids & Subcontractors wiring ===
+
+// Simple helpers reusing same keys as operations dashboard
+function cmGet(key){
+  try { return JSON.parse(localStorage.getItem(key) || '[]') || []; }
+  catch(e){ return []; }
+}
+function cmSet(key, value){
+  localStorage.setItem(key, JSON.stringify(value || []));
+}
+
+
+// Azure Functions API for persisting bidsExtra
+const OPS_API = '/api/store';
+
+async function cmSyncBidsFromCloud(){
+  try{
+    const res = await fetch(OPS_API + '?table=bidsExtra&action=list');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    const rows = Array.isArray(data) ? data : (data.items || data.records || []);
+    cmSet('bidsExtra', rows || []);
+    return rows || [];
+  }catch(err){
+    console.error('cmSyncBidsFromCloud failed, using local bidsExtra', err);
+    return cmGet('bidsExtra');
+  }
+}
+
+async function cmSaveBidToCloud(record){
+  try{
+    await fetch(OPS_API, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ table:'bidsExtra', action:'upsert', item:record })
+    });
+  }catch(err){
+    console.error('cmSaveBidToCloud failed', err);
+  }
+}
+// --- Bids (RFPs) admin ---
+function cmRenderBids(){
+  var list = cmGet('bidsExtra');
+  var tb = document.getElementById('b_list');
+  if(!tb) return;
+  tb.innerHTML = '';
+  if(!list.length){
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td colspan="6">No active RFPs yet.</td>';
+    tb.appendChild(tr);
+    return;
+  }
+  list.forEach(function(b, i){
+    var tr = document.createElement('tr');
+    var subs = (b.subscribers || []).join(', ');
+    var status = (b.status || 'Draft') + (subs ? ' – ' + subs : '');
+    tr.innerHTML =
+      '<td>'+(b.id||'')+'</td>'+
+      '<td>'+(b.title||'')+'</td>'+
+      '<td>'+(b.due||'')+'</td>'+
+      '<td>'+(b.city||'')+'</td>'+
+      '<td>'+(b.development||'')+'</td>'+
+      '<td>'+ status + '<br>' +
+        '<a href="#" data-edit-bid="'+i+'">Edit</a> &middot; '+
+        '<a href="#" data-arch-bid="'+i+'">'+(b.archived?'Unarchive':'Archive')+'</a> &middot; '+
+        '<a href="#" data-rem-bid="'+i+'">Remove</a>'+
+      '</td>';
+    tb.appendChild(tr);
+  });
+
+  // Wire inline actions
+  tb.querySelectorAll('a[data-rem-bid]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var idx = +a.dataset.remBid;
+      var list = cmGet('bidsExtra');
+      list.splice(idx, 1);
+      cmSet('bidsExtra', list);
+      cmRenderBids();
+    });
+  });
+  tb.querySelectorAll('a[data-arch-bid]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var idx = +a.dataset.archBid;
+      var list = cmGet('bidsExtra');
+      list[idx] = list[idx] || {};
+      list[idx].archived = !list[idx].archived;
+      cmSet('bidsExtra', list);
+      cmRenderBids();
+    });
+  });
+  tb.querySelectorAll('a[data-edit-bid]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var idx = +a.dataset.editBid;
+      var list = cmGet('bidsExtra');
+      var b = list[idx] || {};
+      // populate form
+      var id  = document.getElementById('b_id');
+      var t   = document.getElementById('b_title');
+      var due = document.getElementById('b_due');
+      var c   = document.getElementById('b_city');
+      var dev = document.getElementById('b_dev');
+      if(id)  id.value  = b.id || '';
+      if(t)   t.value   = b.title || '';
+      if(due) due.value = b.due || '';
+      if(c)   c.value   = b.city || '';
+      if(dev) dev.value = b.development || '';
+      // remember currently editing index
+      document.body.dataset.editBidIndex = String(idx);
+    });
+  });
+}
+
+function cmInitBidRecipients(){
+  // Optional: build a multi-select of subcontractors that want RFP notices
+  var host = document.getElementById('b_recipients');
+  if(!host) return;
+  var subs = cmGet('subcontractors').filter(function(s){
+    return s && s.subscribeRFP !== false && String(s.standing || '') !== 'Do not use';
+  });
+  if(!subs.length){
+    host.innerHTML = '<p class="p">No subcontractors available yet. Add some in the Subcontractors tab.</p>';
+    return;
+  }
+  var html = '<div class="p" style="margin-bottom:6px">Send notice to:</div>';
+  subs.forEach(function(s, i){
+    var label = (s.firm || 'Untitled firm') + (s.trade ? ' · '+s.trade : '');
+    html += '<label style="display:block;margin-bottom:2px;font-size:13px;">' +
+            '<input type="checkbox" data-sub-id="'+(s.id || i)+'" data-sub-firm="'+(s.firm||'')+'"> '+
+            label +
+            '</label>';
+  });
+  host.innerHTML = html;
+}
+
+function cmSelectedBidRecipients(){
+  var host = document.getElementById('b_recipients');
+  if(!host) return [];
+  var boxes = host.querySelectorAll('input[type="checkbox"][data-sub-firm]');
+  var names = [];
+  boxes.forEach(function(box){
+    if(box.checked){
+      var firm = box.getAttribute('data-sub-firm') || '';
+      if(firm) names.push(firm);
+    }
+  });
+  return names;
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+
+  // Initialize recipients list once and sync bidsExtra from Azure
+  cmInitBidRecipients();
+  cmSyncBidsFromCloud().then(function(){ cmRenderBids(); });
+
+  var addBtn = document.getElementById('b_add');
+  var clearBtn = document.getElementById('b_clear');
+  var expBtn = document.getElementById('b_export');
+  var impInput = document.getElementById('b_import');
+
+  
+if(addBtn){
+    addBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var id  = (document.getElementById('b_id').value || '').trim();
+      var t   = (document.getElementById('b_title').value || '').trim();
+      var due = (document.getElementById('b_due').value || '').trim();
+      var c   = (document.getElementById('b_city').value || '').trim();
+      var dev = (document.getElementById('b_dev').value || '').trim();
+      if(!id || !t){
+        alert('Please enter at least an ID and Title for the RFP.');
+        return;
+      }
+      var list = cmGet('bidsExtra');
+      var idxStr = document.body.dataset.editBidIndex;
+      var recips = cmSelectedBidRecipients();
+      var fileInput = document.getElementById('b_files');
+      var existingDocs = (idxStr !== undefined && idxStr !== null && idxStr !== '' && list[+idxStr] && list[+idxStr].docs) ? (list[+idxStr].docs || []) : [];
+
+      function finalizeSave(docs){
+        var record = {
+          id: id,
+          title: t,
+          due: due,
+          city: c,
+          development: dev,
+          status: 'Open',
+          archived: false,
+          subscribers: recips,
+          docs: docs || existingDocs || [],
+          updatedAt: new Date().toISOString()
+        };
+
+        if(idxStr !== undefined && idxStr !== null && idxStr !== ''){
+          var idx = +idxStr;
+          list[idx] = record;
+        } else {
+          list.push(record);
+        }
+
+        document.body.dataset.editBidIndex = '';
+        cmSet('bidsExtra', list);
+        cmRenderBids();
+        cmSaveBidToCloud(record);
+        if(fileInput) fileInput.value = '';
+        alert('RFP saved and synced to Azure. It will appear on the public Bids & RFPs page.');
+      }
+
+      if(fileInput && fileInput.files && fileInput.files.length){
+        var docs = [];
+        var remaining = fileInput.files.length;
+        for(var i=0;i<fileInput.files.length;i++){
+          (function(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+              docs.push({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                dataUrl: reader.result
+              });
+              remaining--;
+              if(remaining === 0){
+                finalizeSave(docs);
+              }
+            };
+            reader.readAsDataURL(file);
+          })(fileInput.files[i]);
+        }
+      } else {
+        finalizeSave(existingDocs);
+      }
+    });
+  }
+  }
+
+  if(clearBtn){
+    clearBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      if(confirm('Clear all locally-added bids / RFPs?')){
+        cmSet('bidsExtra', []);
+        cmRenderBids();
+      }
+    });
+  }
+
+  if(expBtn){
+    expBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var data = JSON.stringify(cmGet('bidsExtra'), null, 2);
+      var blob = new Blob([data], {type:'application/json'});
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'bidsExtra.json';
+      a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 5000);
+    });
+  }
+
+  if(impInput){
+    impInput.addEventListener('change', function(e){
+      var file = e.target.files[0];
+      if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(){
+        try{
+          var arr = JSON.parse(reader.result || '[]') || [];
+          if(!Array.isArray(arr)) throw new Error('Not an array');
+          cmSet('bidsExtra', arr);
+          cmRenderBids();
+        }catch(err){
+          alert('Invalid JSON file for bidsExtra.');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  // --- Subcontractors tab basic wiring (for completeness) ---
+  var sAdd = document.getElementById('s_add');
+  var sClear = document.getElementById('s_clear');
+  var sExport = document.getElementById('s_export');
+  var sImport = document.getElementById('s_import');
+  var sTable = document.getElementById('s_list');
+
+  function cmRenderSubs(){
+    if(!sTable) return;
+    var list = cmGet('subcontractors');
+    sTable.innerHTML = '';
+    if(!list.length){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td colspan="9">No subcontractors yet.</td>';
+      sTable.appendChild(tr);
+      return;
+    }
+    list.forEach(function(s, idx){
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>'+(s.firm||'')+'</td>'+
+        '<td>'+(s.contact||'')+'</td>'+
+        '<td>'+(s.email||'')+'</td>'+
+        '<td>'+(s.trade||'')+'</td>'+
+        '<td>'+(s.region||'')+'</td>'+
+        '<td>'+(s.standing||'')+'</td>'+
+        '<td>'+(s.subscribeRFP ? 'Yes' : 'No')+'</td>'+
+        '<td>'+(s.archived ? 'Archived' : 'Active')+'</td>'+
+        '<td><a href="#" data-edit-sub="'+idx+'">Edit</a> &middot; <a href="#" data-rem-sub="'+idx+'">Remove</a></td>';
+      sTable.appendChild(tr);
+    });
+
+    sTable.querySelectorAll('a[data-rem-sub]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var idx = +a.dataset.remSub;
+        var list = cmGet('subcontractors');
+        list.splice(idx, 1);
+        cmSet('subcontractors', list);
+        cmRenderSubs();
+        cmInitBidRecipients();
+      });
+    });
+
+    sTable.querySelectorAll('a[data-edit-sub]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        var idx = +a.dataset.editSub;
+        var list = cmGet('subcontractors');
+        var s = list[idx] || {};
+        function setVal(id, val){ var el = document.getElementById(id); if(el) el.value = val || ''; }
+        setVal('s_firm', s.firm);
+        setVal('s_contact', s.contact);
+        setVal('s_email', s.email);
+        setVal('s_phone', s.phone);
+        setVal('s_trade', s.trade);
+        setVal('s_region', s.region);
+        if(document.getElementById('s_standing')) document.getElementById('s_standing').value = s.standing || 'Good standing';
+        if(document.getElementById('s_subscribe')) document.getElementById('s_subscribe').value = s.subscribeRFP ? 'yes' : 'no';
+        document.body.dataset.editSubIndex = String(idx);
+      });
+    });
+  }
+
+  if(sAdd){
+    sAdd.addEventListener('click', function(e){
+      e.preventDefault();
+      function val(id){ var el = document.getElementById(id); return el ? (el.value||'').trim() : ''; }
+      var firm = val('s_firm');
+      var contact = val('s_contact');
+      var email = val('s_email');
+      var phone = val('s_phone');
+      var trade = val('s_trade');
+      var region = val('s_region');
+      var standingEl = document.getElementById('s_standing');
+      var subEl = document.getElementById('s_subscribe');
+      var standing = standingEl ? standingEl.value : 'Good standing';
+      var subscribe = subEl ? subEl.value === 'yes' : true;
+      if(!firm){
+        alert('Firm name is required.');
+        return;
+      }
+      var list = cmGet('subcontractors');
+      var idxStr = document.body.dataset.editSubIndex;
+      var record = {
+        firm: firm,
+        contact: contact,
+        email: email,
+        phone: phone,
+        trade: trade,
+        region: region,
+        standing: standing,
+        subscribeRFP: subscribe,
+        archived: false,
+        createdAt: new Date().toISOString()
+      };
+      if(idxStr){
+        var idx = +idxStr;
+        list[idx] = record;
+      } else {
+        list.push(record);
+      }
+      document.body.dataset.editSubIndex = '';
+      cmSet('subcontractors', list);
+      cmRenderSubs();
+      cmInitBidRecipients();
+    });
+  }
+
+  if(sClear){
+    sClear.addEventListener('click', function(e){
+      e.preventDefault();
+      if(confirm('Clear all subcontractors?')){
+        cmSet('subcontractors', []);
+        cmRenderSubs();
+        cmInitBidRecipients();
+      }
+    });
+  }
+
+  if(sExport){
+    sExport.addEventListener('click', function(e){
+      e.preventDefault();
+      var data = JSON.stringify(cmGet('subcontractors'), null, 2);
+      var blob = new Blob([data], {type:'application/json'});
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'subcontractors.json';
+      a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 5000);
+    });
+  }
+
+  if(sImport){
+    sImport.addEventListener('change', function(e){
+      var file = e.target.files[0];
+      if(!file) return;
+      var reader = new FileReader();
+      reader.onload = function(){
+        try{
+          var arr = JSON.parse(reader.result || '[]') || [];
+          if(!Array.isArray(arr)) throw new Error('Not an array');
+          cmSet('subcontractors', arr);
+          cmRenderSubs();
+          cmInitBidRecipients();
+        }catch(err){
+          alert('Invalid JSON file for subcontractors.');
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  cmRenderSubs();
+});
+</script>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="includes/site-shell.js" defer></script>
+  <meta charset="utf-8">
+<link rel="canonical" href="index.html">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<meta name="description" content="Log in to manage projects, bids, events, and partners for Compass Communities.">
+<meta property="og:title" content="Compass Communities">
+<meta property="og:description" content="Compass Communities builds people-centered places across Oregon&mdash;projects, affordable housing, construction, and planning partnerships.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="cc-mark.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<style id="site-normalize">
+:root { --lead-width: 70ch; }
+html { font-size: 16px; }
+body { color: var(--text, #111827); background: var(--bg, #ffffff); line-height: 1.6; }
+h1,h2,h3,h4,h5,h6{ color: var(--text, #111827); line-height: 1.25; margin: .55rem 0 .45rem; }
+h1 { font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); }
+h3 { font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+p, li, td, th, label, input, select, button, textarea { color: var(--text, #111827); font-size: 1rem; }
+.eyebrow{ color: var(--muted, #6b7280); letter-spacing:.08em; text-transform:uppercase; font-size:12px; }
+.section{ padding: 28px 0; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.card{ background: var(--surface, #fff); border:1px solid var(--border, #e5e7eb); border-radius: 10px; padding: 14px 16px; }
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+thead th{ position: sticky; top: 0; background: var(--bg, #ffffff); z-index: 1; box-shadow: inset 0 -1px 0 var(--border, #e5e7eb); }
+tbody tr:hover td{ background: color-mix(in srgb, var(--taupe, #BCA99A) 8%, white); }
+@supports not (background: color-mix(in srgb, black 1%, white)){
+  tbody tr:hover td{ background: rgba(188,169,154,0.08); }
+}
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+header nav, footer nav{
+  display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+header .nav-wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+@media (max-width: 880px){ header nav{ gap:12px; } }
+</style>
+
+<style id="site-typography-unify">
+/* Site-wide typography normalization */
+:root{
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --text: var(--text, #111827);
+  --muted: var(--muted, #6b7280);
+}
+html{ font-size:16px; }
+body{ font-family: var(--font) !important; color: var(--text); line-height:1.6; }
+h1,h2,h3,h4,h5,h6{ font-family: var(--font) !important; color: var(--text); line-height:1.25; margin: .55rem 0 .45rem; }
+h1{ font-size: clamp(1.9rem, 1.2rem + 1.6vw, 2.6rem); font-weight: 700; }
+h2{ font-size: clamp(1.5rem, 1.0rem + 1.0vw, 2.0rem); font-weight: 700; }
+h3{ font-size: clamp(1.2rem, 1.0rem + 0.5vw, 1.4rem); font-weight: 600; }
+h4{ font-size: 1.05rem; font-weight: 600; }
+p, li, td, th, label, input, select, textarea, button{ font-family: var(--font) !important; font-size: 1rem; color: var(--text); }
+small{ font-size: .875rem; color: var(--muted); }
+.eyebrow{ font-size: 12px; letter-spacing:.08em; text-transform:uppercase; color: var(--muted); }
+a{ color: inherit; text-decoration-color: currentColor; text-underline-offset: 2px; }
+a:hover{ text-decoration: underline; }
+/* Ensure tables read consistently */
+table{ width:100%; border-collapse: separate; border-spacing:0; }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--border, #e5e7eb); vertical-align: top; }
+/* Keep headers/footers from wrapping nav to second line */
+header nav, footer nav{ display:flex; gap:16px; flex-wrap: nowrap; white-space: nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+header nav::-webkit-scrollbar, footer nav::-webkit-scrollbar{ display:none; }
+header nav a, footer nav a{ flex: 0 0 auto; white-space: nowrap; }
+</style>
+</head>
+<body>
+<header>
+  <div class="container header-inner">
+  <a class="logo" href="index.html"><img src="cc-mark.png" alt="Compass Communities" style="height:36px;width:auto;display:block"></a>
+    <nav>
+    <a href="projects.html"><span data-i18n="nav_projects">Projects</span></a>
+    <a href="apply.html"><span data-i18n="nav_apply">Apply</span></a>
+    <a href="bids.html"><span data-i18n="nav_bids">Bids &amp; RFPs</span></a>
+    <a href="partner.html"><span data-i18n="nav_partners">Municipal Partnerships</span></a>
+    <a href="login.html" class="login-link" aria-label="Admin login">
+      <span class="login-icon" aria-hidden="true">&#128100;</span>
+      <span class="login-text">Log in</span>
+    </a>
+    <a href="analysis.html">Analysis Tools</a>
+    <a href="admin.html">Admin</a>
+    <a href="operations.html">Operations</a>
+  </nav>
+  </div>
+</header>
+<main>
+  <section class="section">
+  <div class="container" style="max-width:720px">
+  <div class="eyebrow">Admin</div>
+  <h1 class="h2">Admin login</h1>
+  <p class="p">Sign in with an email address that has been added as an admin user in the Admin tools. This login is for managing projects, partners, bids, and events.</p>
+  
+  
+  <form id="loginForm" class="card" style="margin-top:16px;max-width:480px;padding:20px 24px">
+  <div class="grid grid-1" style="row-gap:10px">
+  <label style="font-size:14px;font-weight:500">
+  Email
+  <br>
+  <input id="login_email" type="email" required placeholder="you@example.org" style="margin-top:4px;width:100%;max-width:100%">
+  </label>
+  <label style="font-size:14px;font-weight:500">
+  Password
+  <br>
+  <input id="login_password" type="password" required placeholder="Enter your password" style="margin-top:4px;width:100%;max-width:100%">
+  </label>
+  </div>
+  <p class="p" style="margin-top:10px;font-size:13px;line-height:1.5">
+  For this prototype, access is limited to approved admin emails with a shared password.
+  Do not use a real production password here.
+  </p>
+  <button type="submit" class="btn btn-dark" style="margin-top:14px;width:auto">Log in</button>
+  </form>
+
+
+  </div>
+  </section>
+</main>
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;white-space:nowrap">
+  <div>&copy; <span id="footYear"></span> Compass Communities LLC</div>
+  <div style="text-align:right">
+  <a href="projects.html">Projects</a> &middot;
+  <a href="apply.html">Apply</a> &middot;
+  <a href="bids.html">Bids & RFPs</a> &middot;
+  <a href="partner.html">Municipal Partnerships</a> &middot;
+  <a href="privacy.html">Privacy</a> &middot;
+  <a href="terms.html">Terms</a> &middot;
+  <a href="accessibility.html">Accessibility</a> &middot;
+  <a href="contact.html">Contact</a>
+  </div>
+  </div>
+</footer>
+<script>
+(function(){
+  function getAdminUsers(){
+  try{
+  return JSON.parse(localStorage.getItem('adminUsers')||'[]') || [];
+  }catch(e){
+  return [];
+  }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+  // Seed a default admin user if none exist yet
+  var users = getAdminUsers();
+  if(!users.length){
+  users = [
+  { name: 'Site Administrator', email: 'admin@compass-communities.example' },
+  { name: 'Rhonda', email: 'rhonda@permitfinderpro.com' },
+  { name: 'Rhonda', email: 'rhonda@tactical-strategies.com' }
+  ];
+  localStorage.setItem('adminUsers', JSON.stringify(users));
+  }
+  var form = document.getElementById('loginForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+  e.preventDefault();
+  var email = document.getElementById('login_email').value.trim();
+  var password = document.getElementById('login_password').value;
+  if(!email){
+  alert('Enter your email.');
+  return;
+  }
+  if(!password){
+  alert('Enter your password.');
+  return;
+  }
+  var list = getAdminUsers();
+  if(!list.some(function(u){ return u.emailemail; })){
+  alert('That email is not set up as an admin. Ask the site owner to add you in the Admin users tab.');
+  return;
+  }
+  if(password !== 'admin123!'){
+  alert('Incorrect password.');
+  return;
+  }
+  localStorage.setItem('currentAdminUser', email);
+  window.location.href = 'admin.html';
+  });
+  });
+})();
+</script>
+</body>
+</html>
